@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\usepackage{syntax}
+
+\title{Nix simplified grammar}
+\date{}
+
+\renewcommand{\grammarlabel}[2]{#1 #2}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{grammar}
+<e> ::=
+    x | c
+  \alt e.a | e.a or e
+  \alt p:e | e e
+  \alt [ e ... e ] | \{ e = e; ...; e = e; \}
+  \alt with e; e | assert e; e
+  \alt if e then e else e
+  \alt let x = e; ...; x = e; in e
+  \textcolor{blue}{\alt e :: e | nil}
+
+<a> ::= b. ... .b
+
+<b> ::= \$\{e\} | l
+
+<c> ::= s | i | ...
+
+<p> ::= q | q@x | x
+
+<q> ::= \{ f, ..., f \} | \{ f, ..., f, … \}
+
+<f> ::= x | x ? e
+
+\end{grammar}
+\end{document}
