@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{ amssymb }
+
+%The \leftsquigarrow command
+\makeatletter
+\providecommand{\leftsquigarrow}{%
+  \mathrel{\mathpalette\reflect@squig\relax}%
+}
+\newcommand{\reflect@squig}[2]{%
+  \reflectbox{$\m@th#1\rightsquigarrow$}%
+}
+\makeatother
+
+\usepackage{syntax}
+
+\title{Nix simplified semantics}
+\author{Théophane Hufschmitt}
+\date{}
+
+\newcommand{\assign}[2]{#1 := #2}
+\newcommand{\subst} [3] {#3 [\assign{#1}{#2}]}
+\newcommand{\substp} [3] {#3 [#1 \ensuremath{\leftsquigarrow} #2]}
+\newcommand{\dstep} [2] {#1 \ensuremath{\rightarrow} #2}
+\newcommand{\ndstep} [2] {#1 \ensuremath{\nrightarrow} #2}
+\newcommand{\ndsteps} [2] {#1 \ensuremath{\nrightarrow^*} #2}
+\newcommand{\dstepa} [3] {\dstep{#1}{&#2}~\emph{#3} \\}
+
+\newcommand{\sone}{\ensuremath{s_1}}
+\newcommand{\sn}{\ensuremath{s_n}}
+\newcommand{\eone}{\ensuremath{e_1}}
+\newcommand{\etwo}{\ensuremath{e_2}}
+\newcommand{\en}{\ensuremath{e_n}}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{tabular}{rl}
+  \dstepa{\{ "s" = e; ... \}."s"}{e}{}
+  \dstepa{\{ "s" = e; ... \}."s" or e}{e}{}
+  \dstepa{e.a or e'}{e'}{if \ndsteps{e}{\{ "s" = e; ... \}}}
+  % TODO: complete
+  \dstepa{(p:e1) e2}{\substp{p}{e2}{e1}}{} % TODO: define the substitution
+  \dstepa{with \{ "\sone" = \eone; ...; "\sn"= \en; e \}}{%
+    e[\assign{\sone}{\eone}; ...; \assign{\sn}{\en}]
+  }{}
+  \dstepa{raise e}{$\bot$}{}
+  \dstepa{if true then \eone else \etwo}{\eone}{}
+  \dstepa{if false then \eone else \etwo}{\etwo}{}
+  \dstepa{let \sone = \eone; ...; \sn = \en; in e}{%
+    \parbox[t]{10cm}{e [ \\
+      \assign{\sone}{\subst{\sone}{let \sone = \eone; ...; \sn = \en; in \sone}{\eone}}; \\
+      ...; \\
+      \assign{\sn}{\subst{\sn}{let \sone = \eone; ...; \sn = \en; in \sn}{\en}} \\
+    ]}
+  }{}
+\end{tabular}
+\end{document}
+
