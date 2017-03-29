@@ -32,8 +32,8 @@
 \newcommand{\eqdef}[2]{#1 \ensuremath{=^{def}} #2}
 \newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} \emph{#3} \\}
 
-\newcommand{\sone}{\ensuremath{s_1}}
-\newcommand{\sn}{\ensuremath{s_n}}
+\newcommand{\xone}{\ensuremath{x_1}}
+\newcommand{\xn}{\ensuremath{x_n}}
 \newcommand{\eone}{\ensuremath{e_1}}
 \newcommand{\etwo}{\ensuremath{e_2}}
 \newcommand{\en}{\ensuremath{e_n}}
@@ -43,22 +43,22 @@
 \maketitle{}
 
 \begin{tabular}{rl}
-  \dstepa{\{ "s" = e; ... \}."s"}{e}{}
-  \dstepa{\{ "s" = e; ... \}."s" or e}{e}{}
-  \dstepa{e.a or e'}{e'}{if \ndsteps{e}{\{ "s" = e; ... \}}}
+  \dstepa{\{ x = e; ... \}.x}{e}{}
+  \dstepa{\{ x = e; ... \}.x or e}{e}{}
+  \dstepa{e.a or e'}{e'}{if \ndsteps{e}{\{ x = e; ... \}}}
   % TODO: complete
   \dstepa{(p:e1) e2}{\substp{p}{e2}{e1}}{}
-  \dstepa{with \{ "\sone" = \eone; ...; "\sn"= \en; e \}}{%
-    e[\assign{\sone}{\eone}; ...; \assign{\sn}{\en}]
+  \dstepa{with \{ \xone = \eone; ...; \xn= \en; e \}}{%
+    e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
   }{}
   \dstepa{raise e}{$\bot$}{}
   \dstepa{if true then \eone else \etwo}{\eone}{}
   \dstepa{if false then \eone else \etwo}{\etwo}{}
-  \dstepa{let \sone = \eone; ...; \sn = \en; in e}{%
+  \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
     \parbox[t]{10cm}{e [ \\
-      \assign{\sone}{\subst{\sone}{let \sone = \eone; ...; \sn = \en; in \sone}{\eone}}; \\
+      \assign{\xone}{\subst{\xone}{let \xone = \eone; ...; \xn = \en; in \xone}{\eone}}; \\
       ...; \\
-      \assign{\sn}{\subst{\sn}{let \sone = \eone; ...; \sn = \en; in \sn}{\en}} \\
+      \assign{\xn}{\subst{\xn}{let \xone = \eone; ...; \xn = \en; in \xn}{\en}} \\
     ]}
   }{}
 \end{tabular}
