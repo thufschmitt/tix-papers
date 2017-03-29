@@ -11,8 +11,8 @@
 \renewcommand{\grammarlabel}[2]{#1 #2}
 \usepackage{xspace}
 
-\newcommand{\stx}[1]{\texttt{#1}} % For concrete syntax
-\newcommand{\meta}[1]{\emph{#1}} % For concrete syntax
+\newcommand{\meta}[1]{\emph{\textsl{#1}}} % For meta syntax
+\renewcommand{\|}{\textrm{|}}
 
 \def\e/{\meta{e}}
 \def\a/{\meta{a}}
@@ -22,42 +22,46 @@
 \def\q/{\meta{q}}
 \def\f/{\meta{f}}
 \def\x/{\meta{x}}
+\def\o/{\meta{o}}
 
 \begin{document}
 
 \maketitle{}
 
 \begin{grammar}
+  \tt
 <e> ::=
-    \x/ | \c/
-  \alt \e/\stx{.}\a/ | \e/\stx{.}\a/ \stx{or} \e/
-  \alt \p/\stx{:}\e/ | \e/ \e/
-  \alt \stx{[} \e/ \ldots{} \e/ \stx{]} | \stx{\{} \e/ \stx{=} \e/\stx{;} ...\stx{;} \e/ \stx{=} \e/\stx{; \}}
-  \alt \stx{with} \e/\stx{;} \e/
-  \alt \stx{if} \e/ \stx{then} \e/ \stx{else} \e/
-  \alt \stx{let} \x/ \stx{=} \e/\stx{; \ldots{};} \x/ \stx{=} \e/\stx{; in} \e/
-  \textcolor{blue}{\alt \e/ \stx{::} \e/ | \stx{nil}}
-  \alt \stx{attrNames} \e/ | \stx{listToAttrs} \e/
-  \alt \stx{addAttr} \e/ \e/ \e/ | \stx{removeAttr} \e/ \e/
+    \x/ \| \c/
+  \alt \e/.\a/ \| \e/.\a/ or \e/
+  \alt \p/:\e/ \| \e/ \e/
+  \alt [ \e/ \ldots{} \e/ ] \| \{ \e/ = \e/; ...; \e/ = \e/; \}
+  \alt with \e/; \e/
+  \alt if \e/ then \e/ else \e/
+  \alt let \x/ = \e/; \ldots{;} \x/ = \e/; in \e/
+  \alt \e/ :: \e/ \| nil
+  \alt \o/
+
+<o> ::= attrNames \e/ \| listToAttrs \e/
+  \alt addAttr \e/ \e/ \e/ \| removeAttr \e/ \e/
   % Not as-if in nix, but simpler than the actual builtins ("//" or
   % removeAttrs), and yet sufficient thanks to attrNames and listToAttrs
-  \alt \stx{deepSeq} \e/ \e/
-  \alt \stx{functionArgs} \e/
+  \alt deepSeq \e/ \e/
+  \alt functionArgs \e/
   % Maybe this can be typed as a function, but it is rather unlikely
 
-<a> ::= \b/\stx{.} \ldots{} \stx{.}\b/
+<a> ::= \b/. \ldots{} .\b/
 
-<b> ::= \stx{\$\{}\e/\stx{\}} | \meta{l}
+<b> ::= \$\{\e/\} \| \meta{l}
 
-<c> ::= \meta{s} | \meta{i} | \ldots{}
-  \alt \stx{typeOf}
+<c> ::= \meta{s} \| \meta{i} \| \ldots{}
+  \alt typeOf
   \alt \ldots{}
 
-<p> ::= \q/ | \q/\stx{@}\x/ | \x/
+<p> ::= \q/ \| \q/@\x/ \| \x/
 
-<q> ::= \stx{\{} \f/\stx{, \ldots{},} \f/ \stx{\}} | \stx{\{} \f/\stx{, \ldots{},} \f/ \stx{, ...\}}
+<q> ::= \{ \f/, \ldots{,} \f/ \} \| \{ \f/, \ldots{,} \f/ , ...\}
 
-<f> ::= \x/ | \x/ \stx{?} \e/
+<f> ::= \x/ \| \x/ ? \e/
 
 \end{grammar}
 \end{document}
