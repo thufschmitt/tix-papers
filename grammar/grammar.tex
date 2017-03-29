@@ -24,6 +24,13 @@
   \alt if e then e else e
   \alt let x = e; ...; x = e; in e
   \textcolor{blue}{\alt e :: e | nil}
+  \alt attrNames e | listToAttrs e
+  \alt addAttr e e e | removeAttr e e
+  % Not as-if in nix, but simpler than the actual builtins ("//" or
+  % removeAttrs), and yet sufficient thanks to attrNames and listToAttrs
+  \alt deepSeq e e
+  \alt functionArgs e
+  % Maybe this can be typed as a function, but it is rather unlikely
 
 <a> ::= b. ... .b
 
