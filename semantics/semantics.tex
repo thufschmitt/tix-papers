@@ -68,13 +68,13 @@ Where
 \begin{tabular}{rl}
   \eqdefa{\assignp{x}{e}}{\assign{x}{e}}{}
   \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
-  \eqdefa{\assignp{\{ x, $pfs$ \}}{\{ x = e; $fs$ \}}}{%
-    \assign{x}{e}; \assignp{\{$pfs$\}}{\{$fs$\}}}{}
-  \eqdefa{\assignp{\{ x ? e', $pfs$ \}}{\{ x = e; $fs$ \}}}{%
-    \assign{x}{e}; \assignp{\{$pfs$\}}{\{$fs$\}}}{}
-  \eqdefa{\assignp{\{ x ? e', $pfs$ \}}{\{ $fs$ \}}}{%
-    \assign{x}{e'}; \assignp{\{$pfs$\}}{\{$fs$\}}}{if \ndsteps{\{fs\}}{\{ x = e; ...\}}}
-  \eqdefa{\assignp{\{ ... \}}{\{$fs$\}}}{ø}{}
+  \eqdefa{\assignp{\{ x, f_1, \ldots{}, f_n \}}{\{ x = e; g_1; \ldots{}; g_n; \}}}{%
+    \assign{x}{e}; \assignp{f_1, \ldots{}, f_n}{g_1; \ldots{}; g_n;}}{}
+  \eqdefa{\assignp{\{ x ? e', f_1, \ldots{}, f_n \}}{\{ x = e; g_1; \ldots{}; g_n; \}}}{%
+    \assign{x}{e}; \assignp{\{f_1, \ldots{}, f_n\}}{\{g_1; \ldots{}; g_n;\}}}{}
+  \eqdefa{\assignp{\{ x ? e', f_1, \ldots{}, f_n \}}{\{ g_1; \ldots{}; g_n; \}}}{%
+    \assign{x}{e'}; \assignp{\{f_1, \ldots{}, f_n\}}{\{g_1; \ldots{}; g_n;\}}}{if \ndsteps{\{g_1; \ldots{}; g_n;\}}{\{ x = e; ...\}}}
+  \eqdefa{\assignp{\{ ... \}}{\{g_1; \ldots{}; g_n;\}}}{ø}{}
   \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
 \end{tabular}
 \end{document}
