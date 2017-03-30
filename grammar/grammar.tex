@@ -23,10 +23,13 @@
 \def\f/{\meta{f}}
 \def\x/{\meta{x}}
 \def\o/{\meta{o}}
+\def\v/{\meta{v}}
 
 \begin{document}
 
 \maketitle{}
+
+\par{expressions}
 
 \begin{grammar}
   \bfseries
@@ -65,5 +68,17 @@
 
   <f> ::= \x/ \| \x/ ? \e/
 
+\end{grammar}
+
+\par{values}
+
+\begin{grammar}
+  \bfseries
+
+  <v> ::=
+    \c/
+    \alt \p/:\e/
+    \alt \{ \v/ = \e/; \ldots{}; \v/ = \e/; \}
+    \alt Cons(\e/, \e/) \| nil
 \end{grammar}
 \end{document}
