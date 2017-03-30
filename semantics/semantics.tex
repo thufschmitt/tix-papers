@@ -40,7 +40,8 @@
   \dstepa{\{ x = e; ... \}.x or e}{e}{}
   \dstepa{e.a or e'}{e'}{if \ndsteps{e}{\{ x = e; ... \}}}
   % TODO: complete
-  \dstepa{(p:e1) e2}{\substp{p}{e2}{e1}}{}
+  \dstepa{(x:e1) e2}{\substp{x}{e2}{e1}}{}
+  \dstepa{(p:e1) v} {\substp{p}{v} {e1}}{}
   \dstepa{with \{ \xone = \eone; ...; \xn= \en; e \}}{%
     e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
   }{}
