@@ -4,9 +4,24 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{ amssymb }
 
-\usepackage{syntax}
-\usepackage{xfrac}
 \usepackage{mathtools}
+\usepackage{xfrac}
+
+\usepackage{syntax}
+\renewcommand{\grammarlabel}[2]{\meta{#1 #2}}
+\newcommand{\meta}[1]{{\it{#1}}} % For meta syntax
+\renewcommand{\|}{\textrm{|}}
+\def\e/{\meta{e}}
+\def\E/{\meta{E}}
+\def\a/{\meta{a}}
+\def\b/{\meta{b}}
+\def\c/{\meta{c}}
+\def\p/{\meta{p}}
+\def\q/{\meta{q}}
+\def\f/{\meta{f}}
+\def\x/{\meta{x}}
+\def\o/{\meta{o}}
+\def\v/{\meta{v}}
 
 \title{Nix simplified semantics}
 \author{Théophane Hufschmitt}
@@ -34,6 +49,8 @@
 \begin{document}
 
 \maketitle{}
+
+\par{Reduction rules}
 
 \begin{tabular}{rl}
   \dstepa{\{ x = e; ... \}.x}{e}{}
@@ -70,5 +87,18 @@ Where
   \eqdefa{\assignp{\{ ... \}}{\{g_1; \ldots{}; g_n;\}}}{ø}{}
   \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
 \end{tabular}
+
+\par{Reduction contexts}
+
+\begin{grammar}
+  \bfseries
+  <E> ::= [] \| \meta{E e}
+  \alt \meta{E.w} \| \meta{E.w} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
+  \alt \{ \x/ = \e/; \ldots{}; \x/ = \e/; \E/ = \e/; \ldots{}; \e/ = \e/ \}
+  \alt with \E/; \e/ | if \E/ then \e/ else \e/
+
+  <F> ::= \E/.\a/ \| \v/.\meta{F}
+\end{grammar}
+
 \end{document}
 
