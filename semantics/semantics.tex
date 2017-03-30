@@ -4,24 +4,17 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{ amssymb }
 
-%The \leftsquigarrow command
-\makeatletter
-\providecommand{\leftsquigarrow}{%
-  \mathrel{\mathpalette\reflect@squig\relax}%
-}
-\newcommand{\reflect@squig}[2]{%
-  \reflectbox{$\m@th#1\rightsquigarrow$}%
-}
-\makeatother
-
 \usepackage{syntax}
+\usepackage{xfrac}
+\usepackage{mathtools}
 
 \title{Nix simplified semantics}
 \author{Théophane Hufschmitt}
 \date{}
 
-\newcommand{\assign}[2]{#1 := #2}
-\newcommand{\assignp} [2] {#1 \ensuremath{\leftsquigarrow} #2}
+\newcommand{\assign}[2]{\ensuremath{\sfrac{#2}{#1}}}
+% \newcommand{\assign}[2]{\ensuremath{#2{#1}}}
+\newcommand{\assignp} [2] {\assign{#1}{#2}}
 \newcommand{\subst} [3] {#3 [\assign{#1}{#2}]}
 \newcommand{\substp} [3] {#3 [\assignp{#1}{#2}]}
 \newcommand{\dstep} [2] {#1 \ensuremath{\rightarrow} #2}
@@ -29,7 +22,7 @@
 \newcommand{\ndsteps} [2] {#1 \ensuremath{\nrightarrow^*} #2}
 \newcommand{\dstepa} [3] {\dstep{#1}{&#2}~\emph{#3} \\}
 
-\newcommand{\eqdef}[2]{#1 \ensuremath{=^{def}} #2}
+\newcommand{\eqdef}[2]{#1 \ensuremath{\overset{\text{def}}{=}} #2}
 \newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} \emph{#3} \\}
 
 \newcommand{\xone}{\ensuremath{x_1}}
@@ -66,7 +59,6 @@
 Where
 
 \begin{tabular}{rl}
-  \eqdefa{\assignp{x}{e}}{\assign{x}{e}}{}
   \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
   \eqdefa{\assignp{\{ x, f_1, \ldots{}, f_n \}}{\{ x = e; g_1; \ldots{}; g_n; \}}}{%
     \assign{x}{e}; \assignp{f_1, \ldots{}, f_n}{g_1; \ldots{}; g_n;}}{}
