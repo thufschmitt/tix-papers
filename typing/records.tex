@@ -1,0 +1,71 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{amssymb}
+
+\usepackage{mathtools}
+\usepackage{xfrac}
+
+\newcommand{\ty}[1]{\texttt{#1}}
+\newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\undef}{\oslash}
+\newcommand{\quasiconst}{\twoheadrightarrow}
+\DeclareMathOperator\dom{dom}
+
+\title{Typing of records in nix}
+\author{Théophane Hufschmitt}
+\date{}
+
+\begin{document}
+
+\maketitle{}
+
+\section{Static labels}
+\subsection{Typing in a CBV setting}
+The typing of records in a CBV language is already given (in absence of
+polymorphism) by the formalism given in part 4.5 of~\cite{Cas15} (which itself
+is the reformulation of the formalism presented by Alain Frisch in its Phd
+Thesis − see~\cite{Fri04}).
+
+In the original formalism, records (resp.\ record types) are interpreted as
+\emph{quasi-constant} functions from \ty{string} to $\textbf{Values} \cup
+\undef$ (resp.\ from \ty{string} to $\textbf{Types} \cup \undef$), where
+\begin{itemize}
+  \item A \emph{quasi-constant} function from \set{L} to \set{Z} is a
+    function $r: \set{L} \rightarrow \set{Z}$ which is constant to an element
+    $z \in \set{Z}$, except for a finite set $\dom(r)$. We note $\set{L}
+    \quasiconst \set{Z}$ for the set of quasi-constant functions from \set{L}
+    to \set{Z}.
+  \item \textbf{Values} denotes the set of values in the language.
+  \item \textbf{Types} denotes the set of values in the language.
+  \item $\undef$ is a distinguished constant that represents an undefined
+    field.
+\end{itemize}
+
+(in this formalism, the constant $\undef$ was called $\bot$, we renamed it here
+in order to avoid confusion with the type $\bot$ representing an undefined
+computation).
+
+\subsection{Adaptation to a call-by-name semantic}
+
+As long as we do not allow anything but constant strings as labels, this
+formalism requires only a few modifications in order to be useful in a CBN
+setting. In fact it is sufficient (I think) to interpret a record as an element
+of $\ty{string} \quasiconst \textbf{Expressions} \cup \undef$ (instead of
+$\ty{string} \quasiconst \textbf{Values} \cup \undef$).
+
+\section{Dynamic labels}
+
+In nix, the labels can be not only static strings, but also arbitrary
+expressions (whose value can't by consequence be statically known in the
+general case), which makes the typing more complicated and way less accurate.
+
+One problem raised by this is the semantic of labels evaluation. When the
+labels were static, there was no question about their evaluation.
+
+\bibliographystyle{alpha}
+\bibliography{../references}
+\end{document}
+
+
