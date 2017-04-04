@@ -9,6 +9,7 @@
   }
 
 \usepackage{mathtools}
+\usepackage{mathpartir}
 \usepackage{xfrac}
 
 \newcommand{\ty}[1]{\texttt{#1}}
@@ -17,6 +18,9 @@
 \newcommand{\quasiconst}{\twoheadrightarrow}
 \DeclareMathOperator\dom{dom}
 \newcommand{\orthsum}{\oplus^\bot}
+
+\newcommand{\Γ}{\Gamma}
+\newcommand{\τ}{\tau}
 
 \title{Typing of records in nix}
 \author{Théophane Hufschmitt}
@@ -136,8 +140,23 @@ is syntactic sugar for
 { x1 = e1; } (*$\orthsum_\undef$*) ... (*$\orthsum_\undef$*) { xn = en; }
 \end{lstlisting}
 
+\section{Typing}
+\subsection{Static labels}
+
+\begin{mathpar}
+  \inferrule{%
+      \Γ \vdash e : \τ
+  }{%
+    \Γ \vdash \{ l = e \} : \{ l: \τ \}
+  }
+  \and
+  \inferrule{%
+    \Γ \vdash e_1 : \τ_1 \\ \Γ \vdash e_2 : \τ_2 \\ \τ_1 \orthsum_\undef \τ_2
+  }{%
+    \Γ \vdash e_1 \orthsum_\undef e_2 : \τ_1 \orthsum_\undef \τ_2
+  }
+\end{mathpar}
+
 \bibliographystyle{alpha}
 \bibliography{../references}
 \end{document}
-
-
