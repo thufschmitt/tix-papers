@@ -24,6 +24,7 @@
 \newcommand{\Γ}{\Gamma}
 \newcommand{\τ}{\tau}
 \newcommand{\σ}{\sigma}
+\newcommand{\recleq}{\sqsubsetleq}
 
 \title{Typing of records in nix}
 \author{Théophane Hufschmitt}
@@ -146,6 +147,22 @@ is syntactic sugar for
 
 \section{Typing}
 \subsection{Static labels}
+
+We first extend the $\subtype$ relation to a relation on $\ty{string}
+\rightarrow \textbf{Types}$ (defined as the pointwise relation : $\forall r_1,
+r_2 \in \ty{string} \rightarrow \textbf{Types}, r_1 \subtype r_2
+\Leftrightarrow \left( \forall s \in \ty{string}, r_1(s) \subtype r_2(s)
+\right)$
+
+This relation defines the subtyping for record types. For example, for two
+closed record types:
+
+if $r_1 = \{ l_1 = v_1; \ldots{}; l_n = v_n; \}$
+and $r_2 = \{ k_1 = w_1; \ldots{}; k_m = w_m; \}$
+then
+$r_1 \subtype r_2$ if and only if $n = m$ and there exists a permutation $\σ$
+of $\left\{1, \ldots{}, n\right\}$ such that for all $i \in \left\{1, \ldots{},
+n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
 
 \begin{mathpar}
   \inferrule{%
