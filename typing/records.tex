@@ -3,6 +3,7 @@
 \usepackage{fontspec}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{listings}
 \lstset{%
   escapeinside={(*}{*)}
@@ -15,7 +16,7 @@
 \newcommand{\ty}[1]{\texttt{#1}}
 \newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\undef}{\oslash}
-\newcommand{\quasiconst}{\twoheadrightarrow}
+\newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
 \DeclareMathOperator\dom{dom}
 \newcommand{\orthsum}{\oplus^\bot}
 \newcommand{\subtype}{\leq}
@@ -46,8 +47,8 @@ In the original formalism, records (resp.\ record types) are interpreted as
   \item A \emph{quasi-constant} function from \set{L} to \set{Z} is a
     function $r: \set{L} \rightarrow \set{Z}$ which is constant to an element
     $z \in \set{Z}$, except for a finite set $\dom(r)$. We note $\set{L}
-    \quasiconst \set{Z}$ for the set of quasi-constant functions from \set{L}
-    to \set{Z}.
+    \quasiconst{z} \set{Z}$ for the set of functions from \set{L} to \set{Z}
+    quasi-constant to $z$.
   \item \textbf{Values} denotes the set of values in the language.
   \item \textbf{Types} denotes the set of values in the language.
   \item $\undef$ is a distinguished constant that represents an undefined
@@ -63,8 +64,9 @@ computation).
 As long as we do not allow anything but constant strings as labels, this
 formalism requires only a few modifications in order to be useful in a CBN
 setting. In fact it is sufficient (I think) to interpret a record as an element
-of $\ty{string} \quasiconst \textbf{Expressions} \cup \undef$ (instead of
-$\ty{string} \quasiconst \textbf{Values} \cup \undef$).
+of $\ty{string} \quasiconst{\undef} \left(\textbf{Expressions} \cup
+\undef\right)$ (instead of $\ty{string} \quasiconst{\undef}
+\left(\textbf{Values} \cup \undef\right)$).
 
 \section{Dynamic labels}
 
