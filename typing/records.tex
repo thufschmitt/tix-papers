@@ -18,9 +18,11 @@
 \newcommand{\quasiconst}{\twoheadrightarrow}
 \DeclareMathOperator\dom{dom}
 \newcommand{\orthsum}{\oplus^\bot}
+\newcommand{\subtype}{\leq}
 
 \newcommand{\Γ}{\Gamma}
 \newcommand{\τ}{\tau}
+\newcommand{\σ}{\sigma}
 
 \title{Typing of records in nix}
 \author{Théophane Hufschmitt}
@@ -151,9 +153,11 @@ is syntactic sugar for
   }
   \and
   \inferrule{%
-    \Γ \vdash e_1 : \τ_1 \\ \Γ \vdash e_2 : \τ_2 \\ \τ_1 \orthsum_\undef \τ_2
+    \Γ \vdash e_1 : \τ_1 \\ \Γ \vdash e_2 : \τ_2 \\%
+    \τ_1 \subtype \σ_1 \\ \τ_2 \subtype \σ_2 \\
+    \\ \σ_1 \orthsum_\undef \σ_2
   }{%
-    \Γ \vdash e_1 \orthsum_\undef e_2 : \τ_1 \orthsum_\undef \τ_2
+    \Γ \vdash e_1 \orthsum_\undef e_2 : \σ_1 \orthsum_\undef \σ_2
   }
 \end{mathpar}
 
