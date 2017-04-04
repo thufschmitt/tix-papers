@@ -3,6 +3,10 @@
 \usepackage{fontspec}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{amssymb}
+\usepackage{listings}
+\lstset{%
+  escapeinside={(*}{*)}
+  }
 
 \usepackage{mathtools}
 \usepackage{xfrac}
@@ -12,6 +16,7 @@
 \newcommand{\undef}{\oslash}
 \newcommand{\quasiconst}{\twoheadrightarrow}
 \DeclareMathOperator\dom{dom}
+\newcommand{\orthsum}{\oplus^\bot}
 
 \title{Typing of records in nix}
 \author{Théophane Hufschmitt}
@@ -61,8 +66,75 @@ In nix, the labels can be not only static strings, but also arbitrary
 expressions (whose value can't by consequence be statically known in the
 general case), which makes the typing more complicated and way less accurate.
 
-One problem raised by this is the semantic of labels evaluation. When the
-labels were static, there was no question about their evaluation.
+One problem raised by this is the semantic of labels evaluation (ie: when do we
+evaluate the labels ?). When the labels were static, this wasn't a problem at
+all as evaluation of labels was a no-op
+
+The most logical choice seems to evaluate every label eagerly as soon as we
+need the value of one of them. This entails that record values will have the
+form \texttt{\bfseries \{ $l$ = $e$; \ldots{}; $l$ = $e$; \}} where $l$ designs
+an evaluated label (a string value). The semantic is then the one given in the
+related \texttt{semantics} paper.
+
+The consequence is that, for example, an ill-formed record (with a field
+defined twice) won't be detected until it is used (one try to access or test
+the existence of one of the fields), while with static fields the bad formation
+of the record can be detected at the time of the definition, even in a lazy
+setting.
+
+Nix mixes both approaches by detecting a collision between static fields at
+definition place and between dynamic fields (or between a static and a dynamic
+one) at use-time. This approach is rather inconsistent (even more if we decide
+to consider a static label $l$ as syntactic sugar for the dynamic label whose
+expression is the constant string ``$l$''), so probably won't be reflected in
+the type system\footnote{It could nonethless be implemented as a pre-treatment
+of the AST in order to match nix's behaviour}.
+
+\section{Orthogonal merge}
+
+In CDuce, as in perl6 (the contexts into which respectivly~\cite{Fri04}
+and~\cite{Cas15} have been written), a record can be defined with the same field
+appearing twice, in which case the second appearance takes precedence over the
+first. This led to the definition of the $\oplus_t$ (\emph{merge} with
+respect to the value $t$) operator between two records.
+
+In nix, such a definition would be invalid − the language require all
+fields to be distinct − so we can't use this $\oplus_t$ operator to
+define records and their typing.
+We thus define a $\orthsum_t$ (orthogonal merge) operator defined as~:
+
+if $r_1 = \{ l_1 = v_1; \ldots{}; l_n = v_n; \_ = v; \}$ \\
+and $r_2 = \{ k_1 = w_1; \ldots{}; k_m = w_m; \_ = w; \}$
+then
+\[
+  r_1 \orthsum_z r_2 =
+  \begin{cases}
+    r_1 \oplus_z r_2
+      & \quad \text{if } v = w = z \text{\ and }
+      \forall_{(i,j) \in \{1, \ldots{}, n \} x \{1, \ldots{}, m \}},
+        l_i \neq k_j \\
+    \bot & \quad \text{otherwise}
+  \end{cases}
+\].
+
+We allow us to write $x \orthsum_z y$ as a shorthand for ``$x \orthsum_z y$ is
+well-defined''.
+
+In this case, the litteral expression
+
+\begin{lstlisting}
+{
+    x1 = e1;
+    ...;
+    xn = en;
+}
+\end{lstlisting}
+
+is syntactic sugar for
+
+\begin{lstlisting}
+{ x1 = e1; } (*$\orthsum_\undef$*) ... (*$\orthsum_\undef$*) { xn = en; }
+\end{lstlisting}
 
 \bibliographystyle{alpha}
 \bibliography{../references}
