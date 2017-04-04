@@ -25,6 +25,7 @@
 \newcommand{\τ}{\tau}
 \newcommand{\σ}{\sigma}
 \newcommand{\recleq}{\sqsubsetleq}
+\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}
 
 \title{Typing of records in nix}
 \author{Théophane Hufschmitt}
@@ -179,6 +180,36 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
     \\ \σ_1 \orthsum_\undef \σ_2
   }{%
     \Γ \vdash e_1 \orthsum_\undef e_2 : \σ_1 \orthsum_\undef \σ_2
+  }
+\end{mathpar}
+
+\subsubsection{Dynamic labels}
+\begin{mathpar}
+  \inferrule{%
+    \Γ \vdash e : \τ \\
+    \Γ \vdash l : \bigvee\limits_{i=1}^n s_i \\
+    \forall i, s_i \in \textbf{Values} \land s_i: \ty{string}
+  }{%
+    \Γ \vdash \left\{ l = e; \right\} :
+    \bigvee\limits_{i=1}^n \left\{ s_i: \τ \right\}
+  }
+  \and
+  \inferrule{%
+    \Γ \vdash e : \τ \\
+    \Γ \vdash l : \σ \\
+    \σ \subtype \ty{string}
+  }{%
+    \Γ \vdash \left\{ l = e; \right\} :
+    \left\{ \_: \τ \vee \undef \right\}
+  }
+  \and
+  \inferrule{%
+    \Γ \vdash e_1 : \bigvee\limits_{i=1}^n \τ_i \\ \Γ \vdash e_2 : \bigvee\limits_{i=1}^m \σ_i \\%
+    \forall i \in \discrete{1}{n}, \τ_i \subtype \τ'_i \\
+    \forall i \in \discrete{1}{m}, \σ_i \subtype \σ'_i \\
+    \forall (i,j) \in \discrete{1}{n} \times \discrete{1}{m}, \τ'_i \orthsum_\undef \σ'j
+  }{%
+    \Γ \vdash e_1 \orthsum_\undef e_2 : \bigvee\limits_{(i,j) \in \discrete{1}{n} \times \discrete{1}{m}} \τ'_i \orthsum_\undef \σ'_j
   }
 \end{mathpar}
 
