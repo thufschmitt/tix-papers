@@ -146,7 +146,7 @@ is syntactic sugar for
 \end{lstlisting}
 
 \section{Typing}
-\subsection{Static labels}
+\subsection{Subtyping relation}
 
 We first extend the $\subtype$ relation to a relation on $\ty{string}
 \rightarrow \textbf{Types}$ (defined as the pointwise relation : $\forall r_1,
@@ -164,6 +164,8 @@ $r_1 \subtype r_2$ if and only if $n = m$ and there exists a permutation $\σ$
 of $\left\{1, \ldots{}, n\right\}$ such that for all $i \in \left\{1, \ldots{},
 n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
 
+\subsection{Typing rules}
+\subsubsection{Static labels}
 \begin{mathpar}
   \inferrule{%
       \Γ \vdash e : \τ
