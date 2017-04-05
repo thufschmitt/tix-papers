@@ -65,12 +65,14 @@
   \dstepa{raise e}{$\bot$}{}
   \dstepa{if true then \eone else \etwo}{\eone}{}
   \dstepa{if false then \eone else \etwo}{\etwo}{}
+  \dstepa{let $x$ = $e$; in $e'$}{%
+    \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
+  }{}
   \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
-    \parbox[t]{10cm}{e [ \\
-      \assign{\xone}{\subst{\xone}{let \xone = \eone; ...; \xn = \en; in \xone}{\eone}}; \\
-      ...; \\
-      \assign{\xn}{\subst{\xn}{let \xone = \eone; ...; \xn = \en; in \xn}{\en}} \\
-    ]}
+    \parbox[t]{10cm}{%
+      (let $r$ = \{ $x'_1$ = \eone; ...; $x'_n$ = \en \}; in e)
+      [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]
+      }
   }{}
 \end{tabular}
 
