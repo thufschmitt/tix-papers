@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\lstset{%
+  escapeinside={(*}{*)}
+  }
+
+\usepackage{mathtools}
+\usepackage{mathpartir}
+\usepackage{xfrac}
+
+\newcommand{\ty}[1]{\texttt{#1}}
+\newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\undef}{\oslash}
+\newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
+\DeclareMathOperator\dom{dom}
+\newcommand{\orthsum}{\oplus^\bot}
+\newcommand{\subtype}{\tilde{\leq}}
+
+\newcommand{\Γ}{\Gamma}
+\newcommand{\τ}{\tau}
+\newcommand{\σ}{\sigma}
+\newcommand{\recleq}{\sqsubsetleq}
+\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}
+
+% TODO: redefine to get the 0 and 1 of types
+% (with double bar)
+\newcommand{\zero}{0}
+\newcommand{\one}{1}
+
+\title{A type system for nix}
+\author{Théophane Hufschmitt}
+\date{}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{mathpar}
+  \inferrule{ }{\Gamma; x:\tau \vdash x:\tau}(Var)
+
+  \and
+  \inferrule{ }{\Gamma \vdash c:{B}(c)}(Const) %TODO: change B's font
+
+  \and
+  \inferrule{%
+    \Gamma \vdash e_1 : \tau_1 \\ \Gamma \vdash e_2 : \tau_2 \\
+    \tau_1 \subtype \zero \rightarrow \one \\
+    \tau_2 \subtype \dom(\tau_1)
+  }{%
+    \Gamma \vdash e_1 e_2 : \tau_1 \tau_2
+  }
+  (App)
+
+  \and
+  \inferrule{%
+    \forall (\sigma \rightarrow \tau) \in \mathbb{I}, \\
+      \Gamma; p // \sigma \vdash e: \tau' \\ % TODO: rewrite the "//"
+      \tau' \subtype \tau
+  }{%
+    \lambda^\mathbb{I}p.e : \text{TypeOf}(\mathbb{I})
+  }
+  (Abs)
+
+  \and
+  \inferrule{%
+    \Gamma \vdash e : \tau \\
+    % TODO: fix display of cases here
+    \begin{cases}
+      \tau \not\subtype \lnot t \Rightarrow \Gamma \vdash e_1 : \sigma_1 &
+      \tau \not\subtype t \Rightarrow \Gamma \vdash e_2 : \sigma_2
+    \end{cases}
+  }{%
+    \Gamma \vdash ((e \in t) ? e_1 : e_2) : \sigma_1 \vee \sigma_2
+  }
+  (Tcase)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{0}{n},
+      \Gamma; x_i : \tau_{(1,i)}; \ldots; x_n: \tau_{(n,i)} \vdash e_i : \sigma_i \\
+    \forall (i,j) \in \discrete{0}{n} \times \discrete{1}{n},
+      \sigma_j \subtype \tau_{(i,j)}
+  }{%
+    \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n \text{ in } e_0 : \sigma_0
+  }
+  (Let)
+
+  \and
+   -- Operators --
+
+   \and
+   -- Records --
+\end{mathpar}
+
+\end{document}

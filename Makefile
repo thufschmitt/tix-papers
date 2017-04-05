@@ -3,7 +3,8 @@
 
 .PHONY: all clean
 
-all: grammar/grammar.pdf semantics/semantics.pdf typing/records.pdf
+all: grammar/grammar.pdf semantics/semantics.pdf typing/records.pdf \
+  typing/type-system.pdf
 
 %.pdf: %.tex FORCE
 	latexmk -cd -pdf -xelatex -pv -use-make $<
