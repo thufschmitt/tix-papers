@@ -11,6 +11,7 @@
 
 \usepackage{mathtools}
 \usepackage{mathpartir}
+\newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
 \usepackage{xfrac}
 
 \usepackage{syntax}
@@ -213,6 +214,7 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
     \Γ \vdash \left\{ l = e; \right\} :
     \bigvee\limits_{i=1}^n \left\{ s_i: \τ \right\}
   }
+  \irlabel{RFinite}
   \and
   \inferrule{%
     \Γ \vdash e : \τ \\
@@ -222,6 +224,7 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
     \Γ \vdash \left\{ l = e; \right\} :
     \left\{ \_: \τ \vee \undef \right\}
   }
+  \irlabel{RInfinite}
   \and
   \inferrule{%
     \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
@@ -231,6 +234,7 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }{%
     \Γ \vdash e_1 \orthplus e_2 : \tau \orthplus \sigma
   }
+  \irlabel{ROrthMerge}
   \and
   \inferrule{%
     \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
@@ -239,6 +243,7 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }{%
     \Γ \vdash e_1 + e_2 : \tau + \sigma
   }
+  \irlabel{RMerge}
 \end{mathpar}
 
 \bibliographystyle{alpha}
