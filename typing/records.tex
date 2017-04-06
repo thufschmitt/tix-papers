@@ -13,12 +13,29 @@
 \usepackage{mathpartir}
 \usepackage{xfrac}
 
+\usepackage{syntax}
+\renewcommand{\grammarlabel}[2]{\meta{#1 #2}}
+\newcommand{\meta}[1]{\ensuremath{#1}}
+\renewcommand{\|}{\textrm{|}}
+\newcommand{\gdots}{\ensuremath{\cdots{}}}
+\def\e/{\meta{e}}
+\def\a/{\meta{a}}
+\def\b/{\meta{b}}
+\def\c/{\meta{c}}
+\def\p/{\meta{p}}
+\def\q/{\meta{q}}
+\def\f/{\meta{f}}
+\def\x/{\meta{x}}
+\def\o/{\meta{o}}
+\def\v/{\meta{v}}
+
 \newcommand{\ty}[1]{\texttt{#1}}
 \newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\undef}{\nabla}
 \newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
 \DeclareMathOperator\dom{dom}
 \newcommand{\orthsum}{\oplus^\bot}
+\newcommand{\orthplus}{\overset{\bot}{+}}
 \newcommand{\subtype}{\leq}
 
 \newcommand{\Γ}{\Gamma}
@@ -34,6 +51,31 @@
 \begin{document}
 
 \maketitle{}
+
+We assume a record language, whose grammar is defined as follows:
+
+\begin{grammar}
+  <e> ::= \{ \e/ = \e/ ; \} \| \{\}
+    \| \e/ + \e/
+    \| \e/ $\orthplus{}$ \e/
+    \| \e/ \textbackslash{} \e/
+    \| \e/.\e/
+    \| l
+\end{grammar}
+
+Where:
+\begin{itemize}
+  \item $+$ denotes the merge of two records (with precedence on the right if
+    the same field exists in both records),
+  \item $\orthplus{}$ denotes the merge of two records, assuming no field is
+    defined in both,
+  \item \textbackslash{} denotes the removal of a field (\emph{ie} $e_1
+    \backslash e_2$ is the record $e_1$ whose field $l$ is undefined, where $l$
+    is the value of $e_2$).
+  \item $e_1 . e_2$ denots the access to the field $l$ of the record $e_2$,
+    where $l$ is the value of $e_2$.
+  \item $l$ range over the set of allowed value labels (which here will be \ty{string})
+\end{itemize}
 
 \section{Static labels}
 \subsection{Typing in a CBV setting}
