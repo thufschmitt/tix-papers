@@ -111,21 +111,16 @@ respect to the value $t$) operator between two records.
 In nix, such a definition would be invalid − the language requires all
 fields to be distinct − so we cannot use this $\oplus_t$ operator to
 define records and their typing.
-We thus define a $\orthsum_t$ (orthogonal merge) operator defined as:
+We thus define a $\orthsum_t$ (orthogonal merge) operator between record type
+atoms defined as:
 
-if $r_1 = \{ l_1 = v_1; \ldots{}; l_n = v_n; \_ = v; \}$ \\
-and $r_2 = \{ k_1 = w_1; \ldots{}; k_m = w_m; \_ = w; \}$
-then
 \[
-  r_1 \orthsum_z r_2 =
-  \begin{cases}
-    r_1 \oplus_z r_2
-      & \quad \text{if } v = w = z \text{\ and }
-      \forall_{(i,j) \in \{1, \ldots{}, n \} x \{1, \ldots{}, m \}},
-        l_i \neq k_j \\
-    \bot & \quad \text{otherwise}
-  \end{cases}
-\].
+  T_1 \orthsum_t T_2 = T_1 \oplus_t T_2
+  \text{ if } \dom_t(T_1) \wedge \dom_t(T_2) = \varnothing
+\]
+
+where for a record type atom $T$, $\dom_t(T)$ is defined as the set
+of all elements of \ty{string} whose image by $T$ is different from $t$.
 
 We allow us to write $x \orthsum_z y$ as a shorthand for ``$x \orthsum_z y$ is
 well-defined''.
