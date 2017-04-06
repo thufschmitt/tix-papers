@@ -4,6 +4,7 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{stmaryrd}
 \usepackage{listings}
 \lstset{%
   escapeinside={(*}{*)}
@@ -12,6 +13,11 @@
 \usepackage{mathtools}
 \usepackage{mathpartir}
 \usepackage{xfrac}
+\DeclareCollectionInstance{plainmath}{xfrac}{mathdefault}{math}
+{
+  slash-symbol = \sslash
+}
+\newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
 
 \newcommand{\ty}[1]{\texttt{#1}}
 \newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
@@ -59,7 +65,7 @@
   \and
   \inferrule{%
     \forall (\sigma \rightarrow \tau) \in \mathbb{I}, \\
-      \Gamma; p // \sigma \vdash e: \tau' \\ % TODO: rewrite the "//"
+      \Gamma; \ofTypeP{p}{\sigma} \vdash e: \tau' \\
       \tau' \subtype \tau
   }{%
     \lambda^\mathbb{I}p.e : \text{TypeOf}(\mathbb{I})
