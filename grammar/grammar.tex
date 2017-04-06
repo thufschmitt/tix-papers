@@ -37,10 +37,10 @@
     \x/ \| \c/
     \alt \e/.\a/ \| \e/.\a/ or \e/
     \alt \p/:\e/ \| \e/ \e/
-    \alt \{ \e/ = \e/; ...; \e/ = \e/; \}
+    \alt \{ \e/ = \e/ ; $\cdots{}$; \e/ = \e/; \}
     \alt with \e/; \e/
     \alt if \e/ then \e/ else \e/
-    \alt let \x/ = \e/; \ldots{;} \x/ = \e/; in \e/
+    \alt let \x/ = \e/; $\cdots{}$; \x/ = \e/; in \e/
     \alt Cons(\e/, \e/) \| nil
     \alt \o/
 
@@ -52,17 +52,17 @@
     \alt functionArgs(\e/)
     % Maybe this can be typed as a function, but it is rather unlikely
 
-  <a> ::= \b/. \ldots{} .\b/
+  <a> ::= \b/. $\cdots{}$ .\b/
 
   <b> ::= \$\{\e/\} \| \meta{l}
 
-  <c> ::= \meta{s} \| \meta{i} \| \ldots{}
+  <c> ::= \meta{s} \| \meta{i} \| $\cdots{}$
     \alt typeOf
-    \alt \ldots{}
+    \alt $\cdots{}$
 
   <p> ::= \q/ \| \q/@\x/ \| \x/
 
-  <q> ::= \{ \f/, \ldots{,} \f/ \} \| \{ \f/, \ldots{,} \f/ , ...\}
+  <q> ::= \{ \f/, $\cdots{}$, \f/ \} \| \{ \f/, $\cdots{}$, \f/ , \ldots{}\}
     \alt Cons(\x/, \x/) \| nil
     \alt \c/
 
@@ -78,7 +78,7 @@
   <v> ::=
     \c/
     \alt \p/:\e/
-    \alt \{ \v/ = \e/; \ldots{}; \v/ = \e/; \}
+    \alt \{ \v/ = \e/; $\cdots{}$; \v/ = \e/; \}
     \alt Cons(\e/, \e/) \| nil
 \end{grammar}
 \end{document}
