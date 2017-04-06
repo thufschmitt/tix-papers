@@ -170,11 +170,10 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }
   \and
   \inferrule{%
-    \Γ \vdash e_1 : \τ_1 \\ \Γ \vdash e_2 : \τ_2 \\%
-    \τ_1 \subtype \σ_1 \\ \τ_2 \subtype \σ_2 \\
-    \\ \σ_1 \orthsum_\undef \σ_2
+    \Γ \vdash e_1 : \τ \\ \Γ \vdash e_2 : \sigma \\%
+    \dom_\undef(\tau) \wedge \dom_\undef(\sigma) = \varnothing
   }{%
-    \Γ \vdash e_1 \orthsum_\undef e_2 : \σ_1 \orthsum_\undef \σ_2
+    \Γ \vdash e_1 \orthsum_\undef e_2 : \tau \orthsum_\undef \sigma
   }
 \end{mathpar}
 
@@ -199,12 +198,10 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }
   \and
   \inferrule{%
-    \Γ \vdash e_1 : \bigvee\limits_{i=1}^n \τ_i \\ \Γ \vdash e_2 : \bigvee\limits_{i=1}^m \σ_i \\%
-    \forall i \in \discrete{1}{n}, \τ_i \subtype \τ'_i \\
-    \forall i \in \discrete{1}{m}, \σ_i \subtype \σ'_i \\
-    \forall (i,j) \in \discrete{1}{n} \times \discrete{1}{m}, \τ'_i \orthsum_\undef \σ'j
+    \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\%
+    \dom_\undef(\tau) \wedge \dom_\undef(\sigma) = \varnothing
   }{%
-    \Γ \vdash e_1 \orthsum_\undef e_2 : \bigvee\limits_{(i,j) \in \discrete{1}{n} \times \discrete{1}{m}} \τ'_i \orthsum_\undef \σ'_j
+    \Γ \vdash e_1 \orthsum_\undef e_2 : \tau \orthsum_\undef \sigma
   }
 \end{mathpar}
 
