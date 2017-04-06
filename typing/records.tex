@@ -35,6 +35,7 @@
 \newcommand{\undef}{\nabla}
 \newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
 \DeclareMathOperator\dom{dom}
+\DeclareMathOperator\deff{def}
 \newcommand{\orthsum}{\oplus^\bot}
 \newcommand{\orthplus}{\overset{\bot}{+}}
 \newcommand{\subtype}{\leq}
@@ -208,8 +209,7 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
 \begin{mathpar}
   \inferrule{%
     \Γ \vdash e : \τ \\
-    \Γ \vdash l : \bigvee\limits_{i=1}^n s_i \\
-    \forall i, s_i \in \textbf{Values} \land s_i: \ty{string}
+    \Γ \vdash l : \bigvee\limits_{i=1}^n s_i
   }{%
     \Γ \vdash \left\{ l = e; \right\} :
     \bigvee\limits_{i=1}^n \left\{ s_i: \τ \right\}
@@ -244,6 +244,20 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
     \Γ \vdash e_1 + e_2 : \tau + \sigma
   }
   \irlabel{RMerge}
+  \and
+  \inferrule{%
+    \Γ \vdash e_1 : \τ \\ \Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i
+  }{%
+    \Γ \vdash e_1 . e_2 : \left( \bigvee\limits_{i=1}^n \τ(s_i) \right) \backslash \undef
+  }
+  \irlabel{RAccessFinite}
+  \and
+  \inferrule{%
+    \Γ \vdash e_1 : \τ \\ \Γ \vdash e_2 : \σ \\ \σ \subtype \ty{string}
+  }{%
+    \Γ \vdash e_1 . e_2 : \left( \deff(\τ) \vee \bigvee\limits_{s \in \dom(\τ)} \τ(s) \right) \backslash \undef
+  }
+  \irlabel{RAccessInfinite}
 \end{mathpar}
 
 \bibliographystyle{alpha}
