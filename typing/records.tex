@@ -231,6 +231,14 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }{%
     \Γ \vdash e_1 \orthplus e_2 : \tau \orthplus \sigma
   }
+  \and
+  \inferrule{%
+    \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
+    \tau \subtype \onerec{} \\
+    \sigma \subtype \onerec{}
+  }{%
+    \Γ \vdash e_1 + e_2 : \tau + \sigma
+  }
 \end{mathpar}
 
 \bibliographystyle{alpha}
