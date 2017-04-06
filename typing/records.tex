@@ -1,55 +1,6 @@
-\documentclass{article}
-
-\usepackage{fontspec}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{listings}
-\lstset{%
-  escapeinside={(*}{*)}
-  }
-
-\usepackage{mathtools}
-\usepackage{mathpartir}
-\newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
-\usepackage{xfrac}
-
-\usepackage{syntax}
-\renewcommand{\grammarlabel}[2]{\meta{#1 #2}}
-\newcommand{\meta}[1]{\ensuremath{#1}}
-\renewcommand{\|}{\textrm{|}}
-\newcommand{\gdots}{\ensuremath{\cdots{}}}
-\def\e/{\meta{e}}
-\def\a/{\meta{a}}
-\def\b/{\meta{b}}
-\def\c/{\meta{c}}
-\def\p/{\meta{p}}
-\def\q/{\meta{q}}
-\def\f/{\meta{f}}
-\def\x/{\meta{x}}
-\def\o/{\meta{o}}
-\def\v/{\meta{v}}
-
-\newcommand{\ty}[1]{\texttt{#1}}
-\newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
-\newcommand{\undef}{\nabla}
-\newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
-\DeclareMathOperator\dom{dom}
-\DeclareMathOperator\deff{def}
-\newcommand{\orthsum}{\oplus^\bot}
-\newcommand{\orthplus}{\overset{\bot}{+}}
-\newcommand{\subtype}{\leq}
-\newcommand{\onerec}{\{ \textbf{..} \}}
-
-\newcommand{\Γ}{\Gamma}
-\newcommand{\τ}{\tau}
-\newcommand{\σ}{\sigma}
-\newcommand{\recleq}{\sqsubsetleq}
-\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}
+\input{../common/header}
 
 \title{Typing of records in nix}
-\author{Théophane Hufschmitt}
-\date{}
 
 \begin{document}
 

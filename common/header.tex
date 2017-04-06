@@ -1,0 +1,82 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+
+\usepackage{mathtools}
+\usepackage{mathpartir}
+\newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
+
+\usepackage{xfrac}
+
+\usepackage{listings}
+\lstset{%
+  escapeinside={(*}{*)}
+  }
+
+
+\date{}
+
+\usepackage{syntax}
+\renewcommand{\grammarlabel}[2]{\meta{#1 #2}}
+\newcommand{\meta}[1]{\ensuremath{#1}} % For meta syntax
+\renewcommand{\|}{\textrm{|}}
+\def\e/{\meta{e}}
+\def\E/{\meta{E}}
+\def\a/{\meta{a}}
+\def\b/{\meta{b}}
+\def\c/{\meta{c}}
+\def\p/{\meta{p}}
+\def\q/{\meta{q}}
+\def\f/{\meta{f}}
+\def\x/{\meta{x}}
+\def\o/{\meta{o}}
+\def\v/{\meta{v}}
+
+\newcommand{\assign}[2]{\ensuremath{\sfrac{#2}{#1}}}
+\newcommand{\assignp} [2] {\assign{#1}{#2}}
+\newcommand{\subst} [3] {#3 [\assign{#1}{#2}]}
+\newcommand{\substp} [3] {#3 [\assignp{#1}{#2}]}
+\newcommand{\dstep} [2] {#1 \ensuremath{\rightarrow} #2}
+\newcommand{\ndstep} [2] {#1 \ensuremath{\nrightarrow} #2}
+\newcommand{\ndsteps} [2] {#1 \ensuremath{\nrightarrow^*} #2}
+\newcommand{\dstepa} [3] {\dstep{#1}{&#2}~\emph{#3} \\}
+
+\newcommand{\eqdef}[2]{#1 \ensuremath{\overset{\text{def}}{=}} #2}
+\newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} \emph{#3} \\}
+
+\newcommand{\xone}{\ensuremath{x_1}}
+\newcommand{\xn}{\ensuremath{x_n}}
+\newcommand{\eone}{\ensuremath{e_1}}
+\newcommand{\etwo}{\ensuremath{e_2}}
+\newcommand{\en}{\ensuremath{e_n}}
+% TODO: redefine to get the 0 and 1 of types
+% (with double bar)
+\newcommand{\zero}{0}
+\newcommand{\one}{1}
+
+
+\newcommand{\ty}[1]{\texttt{#1}}
+\newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\undef}{\nabla}
+\newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
+\DeclareMathOperator\dom{dom}
+\DeclareMathOperator\deff{def}
+\newcommand{\orthsum}{\oplus^\bot}
+\newcommand{\orthplus}{\overset{\bot}{+}}
+\newcommand{\subtype}{\leq}
+\newcommand{\onerec}{\{ \textbf{..} \}}
+\DeclareCollectionInstance{plainmath}{xfrac}{mathdefault}{math}
+{
+  slash-symbol = \sslash
+}
+\newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
+
+\newcommand{\Γ}{\Gamma}
+\newcommand{\τ}{\tau}
+\newcommand{\σ}{\sigma}
+\newcommand{\recleq}{\sqsubsetleq}
+\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}

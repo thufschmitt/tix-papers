@@ -6,7 +6,7 @@
 all: grammar/grammar.pdf semantics/semantics.pdf typing/records.pdf \
   typing/type-system.pdf
 
-%.pdf: %.tex FORCE
+%.pdf: %.tex common/header.tex FORCE
 	latexmk -cd -pdf -xelatex -pv -use-make $<
 
 clean:

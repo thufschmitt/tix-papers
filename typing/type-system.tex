@@ -1,46 +1,6 @@
-\documentclass{article}
-
-\usepackage{fontspec}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{stmaryrd}
-\usepackage{listings}
-\lstset{%
-  escapeinside={(*}{*)}
-  }
-
-\usepackage{mathtools}
-\usepackage{mathpartir}
-\usepackage{xfrac}
-\DeclareCollectionInstance{plainmath}{xfrac}{mathdefault}{math}
-{
-  slash-symbol = \sslash
-}
-\newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
-
-\newcommand{\ty}[1]{\texttt{#1}}
-\newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
-\newcommand{\undef}{\oslash}
-\newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
-\DeclareMathOperator\dom{dom}
-\newcommand{\orthsum}{\oplus^\bot}
-\newcommand{\subtype}{\tilde{\leq}}
-
-\newcommand{\Γ}{\Gamma}
-\newcommand{\τ}{\tau}
-\newcommand{\σ}{\sigma}
-\newcommand{\recleq}{\sqsubsetleq}
-\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}
-
-% TODO: redefine to get the 0 and 1 of types
-% (with double bar)
-\newcommand{\zero}{0}
-\newcommand{\one}{1}
+\input{../common/header}
 
 \title{A type system for nix}
-\author{Théophane Hufschmitt}
-\date{}
 
 \begin{document}
 
