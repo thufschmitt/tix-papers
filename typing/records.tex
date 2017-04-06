@@ -38,7 +38,7 @@
 \section{Static labels}
 \subsection{Typing in a CBV setting}
 The typing of records in a CBV language is already given (in absence of
-polymorphism) by the formalism given in part 4.5 of~\cite{Cas15} (which itself
+polymorphism) by the formalism given in Section 4.5 of~\cite{Cas15} (which itself
 is the reformulation of the formalism presented by Alain Frisch in its Phd
 Thesis − see~\cite{Fri04}).
 
@@ -73,11 +73,11 @@ of $\ty{string} \quasiconst{\undef} \left(\textbf{Expressions} \cup
 \section{Dynamic labels}
 
 In nix, the labels can be not only static strings, but also arbitrary
-expressions (whose value can't by consequence be statically known in the
+expressions (whose value cannott by consequence be statically known in the
 general case), which makes the typing more complicated and way less accurate.
 
 One problem raised by this is the semantic of labels evaluation (ie: when do we
-evaluate the labels ?). When the labels were static, this wasn't a problem at
+evaluate the labels?). When the labels were static, this was not a problem at
 all as evaluation of labels was a no-op
 
 The most logical choice seems to evaluate every label eagerly as soon as we
@@ -87,7 +87,7 @@ an evaluated label (a string value). The semantic is then the one given in the
 related \texttt{semantics} paper.
 
 The consequence is that, for example, an ill-formed record (with a field
-defined twice) won't be detected until it is used (one try to access or test
+defined twice) will not be detected until it is used (one try to access or test
 the existence of one of the fields), while with static fields the bad formation
 of the record can be detected at the time of the definition, even in a lazy
 setting.
@@ -96,7 +96,7 @@ Nix mixes both approaches by detecting a collision between static fields at
 definition place and between dynamic fields (or between a static and a dynamic
 one) at use-time. This approach is rather inconsistent (even more if we decide
 to consider a static label $l$ as syntactic sugar for the dynamic label whose
-expression is the constant string ``$l$''), so probably won't be reflected in
+expression is the constant string ``$l$''), so probably will not be reflected in
 the type system\footnote{It could nonethless be implemented as a pre-treatment
 of the AST in order to match nix's behaviour}.
 
@@ -108,10 +108,10 @@ appearing twice, in which case the second appearance takes precedence over the
 first. This led to the definition of the $\oplus_t$ (\emph{merge} with
 respect to the value $t$) operator between two records.
 
-In nix, such a definition would be invalid − the language require all
-fields to be distinct − so we can't use this $\oplus_t$ operator to
+In nix, such a definition would be invalid − the language requires all
+fields to be distinct − so we cannot use this $\oplus_t$ operator to
 define records and their typing.
-We thus define a $\orthsum_t$ (orthogonal merge) operator defined as~:
+We thus define a $\orthsum_t$ (orthogonal merge) operator defined as:
 
 if $r_1 = \{ l_1 = v_1; \ldots{}; l_n = v_n; \_ = v; \}$ \\
 and $r_2 = \{ k_1 = w_1; \ldots{}; k_m = w_m; \_ = w; \}$
