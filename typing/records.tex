@@ -37,6 +37,7 @@
 \newcommand{\orthsum}{\oplus^\bot}
 \newcommand{\orthplus}{\overset{\bot}{+}}
 \newcommand{\subtype}{\leq}
+\newcommand{\onerec}{\{ \textbf{..} \}}
 
 \newcommand{\Γ}{\Gamma}
 \newcommand{\τ}{\tau}
@@ -223,7 +224,9 @@ n\right\}$, $l_i = k_{\σ(i)}$ and $v_i \subtype w_{\σ(i)}$.
   }
   \and
   \inferrule{%
-    \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\%
+    \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
+    \tau \subtype \onerec{} \\
+    \sigma \subtype \onerec{} \\
     \dom_\undef(\tau) \wedge \dom_\undef(\sigma) = \varnothing
   }{%
     \Γ \vdash e_1 \orthplus e_2 : \tau \orthplus \sigma
