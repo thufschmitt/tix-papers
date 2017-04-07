@@ -8,6 +8,7 @@
 
 \section{Types}
 \begin{grammar}
+  \bfseries
   <t> ::= \c/ \| \t/ $\bm{\rightarrow}$ \t/
     \alt \t/ $\bm{\vee}$ \t/ \| \t/ $\bm{\wedge}$ \t/ \| \t/ $\bm{\backslash}$ \t/
     \alt [\meta{R}]
@@ -20,6 +21,11 @@
 
   <\τ> ::= \t/ % No polymorphism for now
 \end{grammar}
+
+\textbf{\{ \s/ = \u/; \ldots{}; \s/ = \u/; \}} (\emph{resp}. \textbf{\{ \s/ =
+\u/; \ldots{}; \s/ = \u/; .. \}}) is syntactic sugar for \textbf{\{ \s/ = \u/;
+\ldots{}; \s/ = \u/; _ = $\undef$ \}} (\emph{resp}. \textbf{\{ \s/ = \u/;
+\ldots{}; \s/ = \u/; _ = \textmd{\emph{Any}} \}})
 
 \section{Typing rules}
 \subsection{$\lambda\&$-calculus}
