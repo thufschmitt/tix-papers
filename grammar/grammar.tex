@@ -13,27 +13,25 @@
     \x/ \| \c/
     \alt \e/.\a/ \| \e/.\a/ or \e/
     \alt \p/:\e/ \| \e/ \e/
-    \alt \{ \e/ = \e/ ; $\cdots{}$; \e/ = \e/; \}
+    \alt \{ \e/ = \e/ \}
     \alt with \e/; \e/
-    \alt if \e/ then \e/ else \e/
+    \alt (\e/ $\bm{\in}$ \t/) ? \e/ : \e/
     \alt let \x/ = \e/; $\cdots{}$; \x/ = \e/; in \e/
-    \alt Cons(\e/, \e/) \| nil
     \alt \o/
 
     <o> ::= attrNames(\e/) \| listToAttrs(\e/)
-    \alt addAttr(\e/, \e/, \e/) \| removeAttr(\e/, \e/)
-    % Not as-if in nix, but simpler than the actual builtins ("//" or
-    % removeAttrs), and yet sufficient thanks to attrNames and listToAttrs
+    \alt \e/ + \e/ \| \e/ $\orthplus$ \e/ \| \e/ \textbackslash \e/
     \alt deepSeq(\e/, \e/) \| seq(\e/, \e/)
     \alt functionArgs(\e/)
     % Maybe this can be typed as a function, but it is rather unlikely
+    \alt Cons(\e/, \e/)
 
   <a> ::= \b/. $\cdots{}$ .\b/
 
   <b> ::= \$\{\e/\} \| \meta{l}
 
   <c> ::= \meta{s} \| \meta{i} \| $\cdots{}$
-    \alt typeOf
+    \alt nil
     \alt $\cdots{}$
 
   <p> ::= \q/ \| \q/@\x/ \| \x/
@@ -45,6 +43,9 @@
   <f> ::= \x/ \| \x/ ? \e/
 
 \end{grammar}
+
+The grammar for types (\t/) is given in the \texttt{type-system} document.
+
 
 \par{values}
 
