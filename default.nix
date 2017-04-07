@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   version = "0.0";
   buildInputs = [
       (texlive.combine {
-        inherit (texlive) scheme-medium syntax;
+        inherit (texlive) scheme-medium syntax todo;
       })
       biber fontconfig pdfpc rubber
   ];

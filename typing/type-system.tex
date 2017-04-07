@@ -22,6 +22,7 @@
 \end{grammar}
 
 \section{Typing rules}
+\subsection{$\lambda\&$-calculus}
 \begin{mathpar}
   \inferrule{ }{\Gamma; x:\tau \vdash x:\tau}(Var)
 
@@ -71,12 +72,15 @@
     \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n \text{ in } e_0 : \sigma_0
   }
   (Let)
-
-   \and
-   \input{recordTypingRules}
-
-  \and
-   -- Operators --
 \end{mathpar}
+\subsection{Records}
+\begin{mathpar}
+   \input{recordTypingRules}
+\end{mathpar}
+
+\subsection{Other builtin operators}
+\todo{add rules for operators}
+
+\todos
 
 \end{document}
