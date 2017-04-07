@@ -1,0 +1,51 @@
+\inferrule{%
+  \Γ \vdash e : \τ \\
+  \Γ \vdash l : \bigvee\limits_{i=1}^n s_i
+}{%
+  \Γ \vdash \left\{ l = e; \right\} :
+  \bigvee\limits_{i=1}^n \left\{ s_i: \τ \right\}
+}
+\irlabel{RFinite}
+\and
+\inferrule{%
+  \Γ \vdash e : \τ \\
+  \Γ \vdash l : \σ \\
+  \σ \subtype \ty{string}
+}{%
+  \Γ \vdash \left\{ l = e; \right\} :
+  \left\{ \_: \τ \vee \undef \right\}
+}
+\irlabel{RInfinite}
+\and
+\inferrule{%
+  \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
+  \tau \subtype \onerec{} \\
+  \sigma \subtype \onerec{} \\
+  \dom_\undef(\tau) \wedge \dom_\undef(\sigma) = \varnothing
+}{%
+  \Γ \vdash e_1 \orthplus e_2 : \tau \orthplus \sigma
+}
+\irlabel{ROrthMerge}
+\and
+\inferrule{%
+  \Γ \vdash e_1 : \tau \\ \Γ \vdash e_2 : \σ \\
+  \tau \subtype \onerec{} \\
+  \sigma \subtype \onerec{}
+}{%
+  \Γ \vdash e_1 + e_2 : \tau + \sigma
+}
+\irlabel{RMerge}
+\and
+\inferrule{%
+  \Γ \vdash e_1 : \τ \\ \Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i
+}{%
+  \Γ \vdash e_1 . e_2 : \left( \bigvee\limits_{i=1}^n \τ(s_i) \right) \backslash \undef
+}
+\irlabel{RAccessFinite}
+\and
+\inferrule{%
+  \Γ \vdash e_1 : \τ \\ \Γ \vdash e_2 : \σ \\ \σ \subtype \ty{string}
+}{%
+  \Γ \vdash e_1 . e_2 : \left( \deff(\τ) \vee \bigvee\limits_{s \in \dom(\τ)} \τ(s) \right) \backslash \undef
+}
+\irlabel{RAccessInfinite}
