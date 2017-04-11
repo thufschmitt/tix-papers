@@ -15,7 +15,7 @@
 
 \usepackage{listings}
 \lstset{%
-  escapeinside={(*}{*)}
+  escapeinside={//*}{*//}
   }
 
 \usepackage{hyperref}
@@ -76,8 +76,8 @@
 \newcommand{\subtype}{\leq}
 \newcommand{\onerec}{\{ \textbf{..} \}}
 \DeclareCollectionInstance{plainmath}{xfrac}{mathdefault}{math}
-{
-  slash-symbol = \sslash
+{%
+  slash-symbol = \sslash{}
 }
 \newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
 
