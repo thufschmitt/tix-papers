@@ -6,47 +6,51 @@
 
 \maketitle{}
 
-\par{Reduction rules}
+\section{Reduction rules}
 
 \begin{tabular}{rl}
-  \dstepa{\{ x = e; ... \}.x}{e}{}
-  \dstepa{\{ x = e; ... \}.x or e}{e}{}
-  \dstepa{e.a or e'}{e'}{if \ndsteps{e}{\{ x = e; ... \}}}
-  % TODO: complete
+  \dstepa{v.s}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+  \dstepa{v.s or e'}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+  \dstepa{v.s or e'}{e'}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
   \dstepa{(x:e1) e2}{\substp{x}{e2}{e1}}{}
   \dstepa{(p:e1) v} {\substp{p}{v} {e1}}{}
-  \dstepa{with \{ \xone = \eone; ...; \xn= \en; e \}}{%
+  \dstepa{with v; e}{
     e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
-  }{}
+  }{
+    \parbox[t]{10cm}{
+      if $\vdash v : \{ \xone : \lnot\undef; .. ; \xn : \not\undef; \}$ \\
+      and $\forall i \in \discrete{1}{n}, v(x_i) = e_i$
+    }
+  }
   \dstepa{raise e}{$\bot$}{}
-  \dstepa{if true then \eone else \etwo}{\eone}{}
-  \dstepa{if false then \eone else \etwo}{\etwo}{}
+  \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
+  \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
   \dstepa{let $x$ = $e$; in $e'$}{%
     \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
   }{}
   \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
     \parbox[t]{10cm}{%
-      (let $r$ = \{ $x'_1$ = \eone; ...; $x'_n$ = \en \}; in e)
+      (let $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
       [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]
       }
   }{}
 \end{tabular}
 
-Where
+\section{Pattern matching}
+% TODO Rewrite in a clear way. Exlpain the fact that we can reordonate stuff because we got a
+% commutative monoid.
 
 \begin{tabular}{rl}
   \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
-  \eqdefa{\assignp{\{ x, f_1, \ldots{}, f_n \}}{\{ x = e; g_1; \ldots{}; g_n; \}}}{%
-    \assign{x}{e}; \assignp{f_1, \ldots{}, f_n}{g_1; \ldots{}; g_n;}}{}
-  \eqdefa{\assignp{\{ x ? e', f_1, \ldots{}, f_n \}}{\{ x = e; g_1; \ldots{}; g_n; \}}}{%
-    \assign{x}{e}; \assignp{\{f_1, \ldots{}, f_n\}}{\{g_1; \ldots{}; g_n;\}}}{}
-  \eqdefa{\assignp{\{ x ? e', f_1, \ldots{}, f_n \}}{\{ g_1; \ldots{}; g_n; \}}}{%
-    \assign{x}{e'}; \assignp{\{f_1, \ldots{}, f_n\}}{\{g_1; \ldots{}; g_n;\}}}{if \ndsteps{\{g_1; \ldots{}; g_n;\}}{\{ x = e; ...\}}}
-  \eqdefa{\assignp{\{ ... \}}{\{g_1; \ldots{}; g_n;\}}}{ø}{}
+  \eqdefa{\assignp{(\{ x \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
+  \eqdefa{\assignp{(\{ x ? e' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
+  \eqdefa{\assignp{(\{ x ? e \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{e}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
+  \eqdefa{\assignp{\{\}}{\{ \}}}{ø}{}
+  \eqdefa{\assignp{\{ .. \}}{v}}{ø}{}
   \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
 \end{tabular}
 
-\par{Reduction contexts}
+\section{Reduction contexts}
 
 \begin{grammar}
   \bfseries
