@@ -7,7 +7,7 @@ all: grammar/grammar.pdf semantics/semantics.pdf typing/records.pdf \
   typing/type-system.pdf
 
 %.pdf: %.tex common/header.tex FORCE
-	latexmk -cd -pdf -xelatex -pv -use-make $<
+	latexmk -output-directory=out -pdf -xelatex -pv -use-make $<
 
 clean:
 	latexmk -CA
