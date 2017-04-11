@@ -1,1 +1,1 @@
-$pdf_previewer = evince
+$pdf_previewer = "evince"
