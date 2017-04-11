@@ -6,21 +6,51 @@
 \subsection{nix-light}
 \label{sec:nix-light-grammar}
 
+The grammar of nix-light is based of the grammar of nix and brings several
+modifications:
+\begin{itemize}
+  \item The main difference concerns records, whose representation is simplified as
+    much as possible:
+
+    \begin{itemize}
+      \item Litteral records are always atomic (\emph{ie} only have one field). An
+        \emph{orthogonal merge} operator ($\orthplus$) allows building complex
+        records~\footnote{We still often write \{ $x_1$ = $y_1$; $\cdots{}$;
+        $x_n$ = $y_n$ \} as a shorthand for \{ $x_1$ = $y_1$; \} $\orthplus
+        \cdots{} \orthplus$ \{ $x_n$ = $y_n$; \}},
+
+      \item The syntax in nix for a recursive definition of records (\texttt{\{ x.y
+        = 1; x.z = 2; \}}) doesn't exist anymore,
+
+      \item The labels can only be nix expressions (so litteral labels must be
+        written as constant strings).
+    \end{itemize}
+
+  \item Another huge change is the removal of the \emph{if} construct which is
+    replaced by a more general \emph{typecase} which is easier to reason on.
+
+  \item The third notable change is that the opaque list construct of nix is
+    replaced by the classical \texttt{nil} and \texttt{cons}.
+    This avoids having over-complicated typing and evaluation rules for lists.
+
+    For consistency, a pattern for lists has also been added.
+\end{itemize}
+
 The grammar of nix-light is given in the
 figures~\pref{grammar::expressions},~\pref{grammar::values}
 and~\pref{grammar::types}.
 
-\begin{figure}[h]
+\begin{figure}
   \input{grammar/expressions}
   \caption{\label{grammar::expressions}The nix-light grammar for expressions}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
   \input{grammar/values}
   \caption{\label{grammar::values}The nix-light grammar for values}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
   \input{grammar/types}
   \caption{\label{grammar::types}The nix-light grammar for types}
 \end{figure}
