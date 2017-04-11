@@ -1,0 +1,33 @@
+\input{common/header.tex}
+
+\title{A type system for nix}
+
+\begin{document}
+\maketitle
+
+In order to lighten the type system, we will not work on the full nix language
+(presented in section~\ref{sec:nix-grammar}), but on a simplified version
+called nix-light (roughly a subset of the original one) that we also presents
+in this document.
+
+We also present a compilation from nix to nix-light.
+
+\section{grammar}
+\input{grammar/grammar}
+
+\section{semantics}
+
+\subsection{nix-light semantics}
+\input{semantics/semantics}
+
+\subsection{From nix to nix-light}
+
+\todo{Write the semantic of the compilation}
+
+\section{typing}
+
+\todo{Finish and include the typing rules}
+
+\todos{}
+
+\end{document}

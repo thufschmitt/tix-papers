@@ -1,61 +1,26 @@
-\input{common/header}
+\subsection{Nix grammar}
+\label{sec:nix-grammar}
 
-\title{Nix simplified grammar}
-\begin{document}
+\todo{Write the nix grammar}
 
-\maketitle{}
+\subsection{nix-light}
+\label{sec:nix-light-grammar}
 
-\section{expressions}
+The grammar of nix-light is given in the
+figures~\pref{grammar::expressions},~\pref{grammar::values}
+and~\pref{grammar::types}.
 
-\begin{grammar}
-  \bfseries
-  <e> ::=
-    \x/ \| \c/
-    \alt \e/.\a/ \| \e/.\a/ or \e/
-    \alt \p/:\e/ \| \e/ \e/
-    \alt \{ \e/ = \e/; \}
-    \alt with \e/; \e/
-    \alt (\e/ $\bm{\in}$ \t/) ? \e/ : \e/
-    \alt let \x/ = \e/; $\cdots{}$; \x/ = \e/; in \e/
-    \alt \o/
+\begin{figure}[h]
+  \input{grammar/expressions}
+  \caption{\label{grammar::expressions}The nix-light grammar for expressions}
+\end{figure}
 
-    <o> ::= attrNames(\e/) \| listToAttrs(\e/)
-    \alt \e/ + \e/ \| \e/ $\orthplus$ \e/ \| \e/ \textbackslash \e/
-    \alt deepSeq(\e/, \e/) \| seq(\e/, \e/)
-    \alt functionArgs(\e/)
-    % Maybe this can be typed as a function, but it is rather unlikely
-    \alt Cons(\e/, \e/)
+\begin{figure}[h]
+  \input{grammar/values}
+  \caption{\label{grammar::values}The nix-light grammar for values}
+\end{figure}
 
-  <a> ::= \b/. $\cdots{}$ .\b/
-
-  <b> ::= \$\{\e/\} \| \meta{l}
-
-  <c> ::= \meta{s} \| \meta{i} \| $\cdots{}$
-    \alt nil
-    \alt $\cdots{}$
-
-  <p> ::= \q/ \| \q/@\x/ \| \x/
-
-  <q> ::= \{ \f/, $\cdots{}$, \f/ \} \| \{ \f/, $\cdots{}$, \f/ , \ldots{}\}
-    \alt Cons(\x/, \x/) \| nil
-    \alt \c/
-
-  <f> ::= \x/ \| \x/ ? \e/
-
-\end{grammar}
-
-The grammar for types (\t/) is given in the \texttt{type-system} document.
-
-
-\section{values}
-
-\begin{grammar}
-  \bfseries
-
-  <v> ::=
-    \c/
-    \alt \p/:\e/
-    \alt \{ \v/ = \e/; \} $\orthplus \cdots{} \orthplus$ \{ \v/ = \e/; \}
-    \alt Cons(\e/, \e/) \| nil
-\end{grammar}
-\end{document}
+\begin{figure}[h]
+  \input{grammar/types}
+  \caption{\label{grammar::types}The nix-light grammar for types}
+\end{figure}

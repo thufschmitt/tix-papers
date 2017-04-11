@@ -1,66 +1,66 @@
-\input{common/header}
+The reduction rules are presented in figure~\pref{fig:semantics:nix-light} and
+the evaluation contexts in
+figure~\pref{fig:semantics:nix-light:reduction-contexts}.
 
-\title{Nix simplified semantics}
+The rules for the pattern-matching are in
+figure~\pref{fig:semantics:nix-light:patterns}
 
-\begin{document}
-
-\maketitle{}
-
-\section{Reduction rules}
-
-\begin{tabular}{rl}
-  \dstepa{v.s}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-  \dstepa{v.s or e'}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-  \dstepa{v.s or e'}{e'}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
-  \dstepa{(x:e1) e2}{\substp{x}{e2}{e1}}{}
-  \dstepa{(p:e1) v} {\substp{p}{v} {e1}}{}
-  \dstepa{with v; e}{
-    e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
-  }{
-    \parbox[t]{10cm}{
-      if $\vdash v : \{ \xone : \lnot\undef; .. ; \xn : \not\undef; \}$ \\
+\begin{figure}
+  \begin{tabular}{rl}
+    \dstepa{v.s}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+    \dstepa{v.s or e'}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+    \dstepa{v.s or e'}{e'}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
+    \dstepa{(x:e1) e2}{\substp{x}{e2}{e1}}{}
+    \dstepa{(p:e1) v} {\substp{p}{v} {e1}}{}
+    \dstepa{with v; e}{
+      e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
+    }{
+      \parbox[t]{10cm}{
+        if $\vdash v : \{ \xone : \lnot\undef; .. ; \xn : \not\undef; \}$ \\
       and $\forall i \in \discrete{1}{n}, v(x_i) = e_i$
     }
   }
-  \dstepa{raise e}{$\bot$}{}
-  \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
-  \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
-  \dstepa{let $x$ = $e$; in $e'$}{%
-    \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
-  }{}
-  \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
-    \parbox[t]{10cm}{%
-      (let $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
+    \dstepa{raise e}{$\bot$}{}
+    \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
+    \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
+    \dstepa{let $x$ = $e$; in $e'$}{%
+      \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
+    }{}
+    \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
+      \parbox[t]{10cm}{%
+        (let $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
       [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]
       }
-  }{}
-\end{tabular}
+    }{}
+  \end{tabular}
+  \caption{Nix-light reduction rules\label{fig:semantics:nix-light}}
+\end{figure}
 
-\section{Pattern matching}
+\begin{figure}
 % TODO Rewrite in a clear way. Exlpain the fact that we can reordonate stuff because we got a
 % commutative monoid.
 
-\begin{tabular}{rl}
-  \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
-  \eqdefa{\assignp{(\{ x \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-  \eqdefa{\assignp{(\{ x ? e' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-  \eqdefa{\assignp{(\{ x ? e \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{e}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
-  \eqdefa{\assignp{\{\}}{\{ \}}}{ø}{}
-  \eqdefa{\assignp{\{ .. \}}{v}}{ø}{}
-  \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
-\end{tabular}
+  \begin{tabular}{rl}
+    \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
+    \eqdefa{\assignp{(\{ x \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
+    \eqdefa{\assignp{(\{ x ? e' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
+    \eqdefa{\assignp{(\{ x ? e \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{e}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
+    \eqdefa{\assignp{\{\}}{\{ \}}}{ø}{}
+    \eqdefa{\assignp{\{ .. \}}{v}}{ø}{}
+    \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
+  \end{tabular}
+  \caption{Semantic of the pattern-matching in nix-light\label{fig:semantics:nix-light:patterns}}
+\end{figure}
 
-\section{Reduction contexts}
+\begin{figure}
+  \begin{grammar}
+    \bfseries
+    <E> ::= [] \| \meta{E e}
+    \alt \meta{E.w} \| \meta{E.w} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
+    \alt \{ \x/ = \e/; \ldots{}; \x/ = \e/; \E/ = \e/; \ldots{}; \e/ = \e/ \}
+    \alt with \E/; \e/ | if \E/ then \e/ else \e/
 
-\begin{grammar}
-  \bfseries
-  <E> ::= [] \| \meta{E e}
-  \alt \meta{E.w} \| \meta{E.w} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
-  \alt \{ \x/ = \e/; \ldots{}; \x/ = \e/; \E/ = \e/; \ldots{}; \e/ = \e/ \}
-  \alt with \E/; \e/ | if \E/ then \e/ else \e/
-
-  <F> ::= \E/.\a/ \| \v/.\meta{F}
-\end{grammar}
-
-\end{document}
-
+    <F> ::= \E/.\a/ \| \v/.\meta{F}
+  \end{grammar}
+  \caption{Reduction contexts for nix-light\label{fig:semantics:nix-light:reduction-contexts}}
+\end{figure}

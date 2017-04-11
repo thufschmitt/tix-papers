@@ -7,25 +7,8 @@
 \maketitle{}
 
 \section{Types}
-\begin{grammar}
-  \bfseries
-  <t> ::= \c/ \| \t/ $\bm{\rightarrow}$ \t/
-    \alt \t/ $\bm{\vee}$ \t/ \| \t/ $\bm{\wedge}$ \t/ \| \t/ $\bm{\backslash}$ \t/
-    \alt [\meta{R}]
-    \alt \{ \s/ = \u/; \ldots{}; \s/ = \u/; _ = \u/ \}
 
-  <u> ::= \t/ \| ?\t/
-
-  <R> ::= \t/ \| \meta{R^{\bm{+}}} \| \meta{R}?
-    \| \meta{R} $\bm{\vee}$ \meta{R} \| \meta{R} $\bm{\wedge}$ \meta{R}
-
-  <\τ> ::= \t/ % No polymorphism for now
-\end{grammar}
-
-\textbf{\{ \s/ = \u/; \ldots{}; \s/ = \u/; \}} (\emph{resp}. \textbf{\{ \s/ =
-\u/; \ldots{}; \s/ = \u/; .. \}}) is syntactic sugar for \textbf{\{ \s/ = \u/;
-\ldots{}; \s/ = \u/; _ = $\undef$ \}} (\emph{resp}. \textbf{\{ \s/ = \u/;
-\ldots{}; \s/ = \u/; _ = \textmd{\emph{Any}} \}})
+\include{grammar/types}
 
 \section{Typing rules}
 \subsection{$\lambda\&$-calculus}
