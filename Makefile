@@ -3,8 +3,7 @@
 
 .PHONY: all clean
 
-all: grammar/grammar.pdf semantics/semantics.pdf typing/records.pdf \
-  typing/type-system.pdf
+all: combined/main.pdf
 
 %.pdf: %.tex common/header.tex FORCE
 	latexmk -output-directory=out -pdf -xelatex -pv -use-make $<
