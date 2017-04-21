@@ -41,11 +41,10 @@
   \and
   \inferrule{%
     \forall i \in \discrete{0}{n},
-      \Gamma; x_i : \tau_{(1,i)}; \ldots; x_n: \tau_{(n,i)} \vdash e_i : \sigma_i \\
-    \forall (i,j) \in \discrete{0}{n} \times \discrete{1}{n},
-      \sigma_j \subtype \tau_{(i,j)}
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e_i : \τ_i
   }{%
-    \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n \text{ in } e_0 : \sigma_0
+    \Gamma \vdash \text{let } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+    \text{ in } e_0 : \τ_0
   }
   (Let)
 \end{mathpar}
