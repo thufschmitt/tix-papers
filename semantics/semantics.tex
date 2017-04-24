@@ -16,8 +16,8 @@ figure~\pref{fig:semantics:nix-light:patterns}
       \e/[\assign{l_1}{\eone}; ...; \assign{l_n}{\en}]
     }{}
     \dstepa{raise \e/}{$\bot$}{}
-    \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
-    \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
+    \dstepa{($x := v \in \τ$ ? \eone : $e_2$)}{\subst{x}{v}{\eone}}{if $\vdash v : \τ$}
+    \dstepa{($x := v \in \τ$ ? \eone : $e_2$)}{\subst{x}{v}{$e_2$}}{if $\vdash v : \lnot\τ$}
     \dstepa{let \xone = \eone; $\cdots{}$; \xn = \en; in \e/}{%
       \e/[\assign{x_1}{\eone}; ...; \assign{x_n}{\en}]
     }{}

@@ -28,13 +28,10 @@
   \and
   \inferrule{%
     \Gamma \vdash e : \tau \\
-    % TODO: fix display of cases here
-    \begin{cases}
-      \tau \not\subtype \lnot t \Rightarrow \Gamma \vdash e_1 : \sigma_1 &
-      \tau \not\subtype t \Rightarrow \Gamma \vdash e_2 : \sigma_2
-    \end{cases}
+      \Γ; x : \τ \wedge t \vdash e_1 : \sigma_1 \\
+      \Γ; x : \τ \wedge \lnot t \vdash e_2 : \sigma_2
   }{%
-    \Gamma \vdash ((e \in t) ? e_1 : e_2) : \sigma_1 \vee \sigma_2
+    \Gamma \vdash ((x := e \in t) ? e_1 : e_2) : \sigma_1 \vee \sigma_2
   }
   (Tcase)
 
