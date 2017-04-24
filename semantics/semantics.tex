@@ -7,19 +7,14 @@ figure~\pref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
   \begin{tabular}{rl}
-    \dstepa{$v.s$}{$e$}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-    \dstepa{$v.s \text{ or } e'$}{$e$}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-    \dstepa{$v.s \text{ or } e'$}{$e'$}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
+    \dstepa{\{ \s/ = \e/; $\ldots{}$\}.\s/}{$e$}{}
+    \dstepa{\{ \s/ = \e/; $\ldots{}$\}.\s/ or $e'$}{$e$}{}
+    \dstepa{$v.s \text{ or } e'$}{$e'$}{if $\v/ \neq$ \{ \s/ = \e/; $\ldots{}$ \}}
     \dstepa{$(x:e_1) e_2$}{$\substp{x}{e_2}{e_1}$}{}
-    \dstepa{$(p:e_1) v$} {$\substp{p}{v}{e_1}$}{}
-    \dstepa{with \v/ ; \e/}{
-      \e/[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
-    }{
-      \parbox[t]{10cm}{
-        if $\vdash v : \{ \xone : \lnot\undef; .. ; \xn : \not\undef; \}$ \\
-      and $\forall i \in \discrete{1}{n}, v(x_i) = e_i$
-    }
-  }
+    \dstepa{$(p:e_1) v$} {$\substp{p}{v}{e_1}$}{if $p \neq x$}
+    \dstepa{with \{ $l_1$ = $e_1$; $\cdots{}$; $l_n$ = $e_n$; \} ; \e/}{
+      \e/[\assign{l_1}{\eone}; ...; \assign{l_n}{\en}]
+    }{}
     \dstepa{raise \e/}{$\bot$}{}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
