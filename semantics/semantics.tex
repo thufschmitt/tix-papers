@@ -18,10 +18,13 @@ figure~\pref{fig:semantics:nix-light:patterns}
     \dstepa{raise \e/}{$\bot$}{}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
-    \dstepa{let $x$ = $e$; in $e'$}{%
+    \dstepa{let \xone = \eone; $\cdots{}$; \xn = \en; in \e/}{%
+      \e/[\assign{x_1}{\eone}; ...; \assign{x_n}{\en}]
+    }{}
+    \dstepa{let rec $x$ = $e$; in $e'$}{%
       \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
     }{}
-    \dstepa{let \xone = \eone; ...; \xn = \en; in e}{%
+    \dstepa{let rec \xone = \eone; $\cdots{}$; \xn = \en; in \e/}{%
       \parbox[t]{10cm}{%
         (let $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
       [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]

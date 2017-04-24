@@ -40,13 +40,23 @@
 
   \and
   \inferrule{%
+    \forall i \in \discrete{1}{n}, \Γ \vdash e_i : \τ_i \\
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e : \τ
+  }{%
+    \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n
+    \text{ in } e : \τ
+  }
+  (Let)
+
+  \and
+  \inferrule{%
     \forall i \in \discrete{0}{n},
       \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e_i : \τ_i
   }{%
-    \Gamma \vdash \text{let } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+    \Gamma \vdash \text{let rec } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
     \text{ in } e_0 : \τ_0
   }
-  (Let)
+  (LetRec)
 \end{mathpar}
 \subsection{Records}
 \begin{mathpar}
