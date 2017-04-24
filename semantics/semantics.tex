@@ -7,20 +7,20 @@ figure~\pref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
   \begin{tabular}{rl}
-    \dstepa{v.s}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-    \dstepa{v.s or e'}{e}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
-    \dstepa{v.s or e'}{e'}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
-    \dstepa{(x:e1) e2}{\substp{x}{e2}{e1}}{}
-    \dstepa{(p:e1) v} {\substp{p}{v} {e1}}{}
-    \dstepa{with v; e}{
-      e[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
+    \dstepa{$v.s$}{$e$}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+    \dstepa{$v.s \text{ or } e'$}{$e$}{if $\vdash v : \{ e : \lnot\undef; .. \}$ and v(s) = e}
+    \dstepa{$v.s \text{ or } e'$}{$e'$}{if $\vdash v : \lnot\{ e : \lnot\undef; .. \}$}
+    \dstepa{$(x:e_1) e_2$}{$\substp{x}{e_2}{e_1}$}{}
+    \dstepa{$(p:e_1) v$} {$\substp{p}{v}{e_1}$}{}
+    \dstepa{with \v/ ; \e/}{
+      \e/[\assign{\xone}{\eone}; ...; \assign{\xn}{\en}]
     }{
       \parbox[t]{10cm}{
         if $\vdash v : \{ \xone : \lnot\undef; .. ; \xn : \not\undef; \}$ \\
       and $\forall i \in \discrete{1}{n}, v(x_i) = e_i$
     }
   }
-    \dstepa{raise e}{$\bot$}{}
+    \dstepa{raise \e/}{$\bot$}{}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{\eone}{if $\vdash v : \τ$}
     \dstepa{($v \in \τ$ ? \eone : $e_2$)}{$e_2$}{if $\vdash v : \lnot\τ$}
     \dstepa{let $x$ = $e$; in $e'$}{%
@@ -56,7 +56,7 @@ figure~\pref{fig:semantics:nix-light:patterns}
   \begin{grammar}
     \bfseries
     <E> ::= [] \| \meta{E e}
-    \alt \meta{E.w} \| \meta{E.w} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
+    \alt \meta{E.a} \| \meta{E.a} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
     \alt \{ \x/ = \e/; \ldots{}; \x/ = \e/; \E/ = \e/; \ldots{}; \e/ = \e/ \}
     \alt with \E/; \e/ | if \E/ then \e/ else \e/
 

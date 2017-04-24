@@ -3,12 +3,13 @@
   <t> ::= \c/ \| \t/ $\bm{\rightarrow}$ \t/
     \alt \t/ $\bm{\vee}$ \t/ \| \t/ $\bm{\wedge}$ \t/ \| \t/ $\bm{\backslash}$ \t/
     \alt [\meta{R}]
-    \alt \{ \s/ = \u/; \ldots{}; \s/ = \u/; _ = \u/ \}
+    \alt \{ \s/ = \u/; $\cdots{}$; \s/ = \u/; _ = \u/ \}
+    \alt bool \| int \| str
 
   <u> ::= \t/ \| ?\t/
 
-  <R> ::= \t/ \| \meta{R^{\bm{+}}} \| \meta{R}?
-    \| \meta{R} $\bm{\vee}$ \meta{R} \| \meta{R} $\bm{\wedge}$ \meta{R}
+  <R> ::= \t/ \| \meta{R^{\bm{+}}} \| \meta{R}* \| \meta{R}?
+    \| \meta{R} \meta{R} \| \meta{R}\texttt{|}\meta{R}
 
   <\τ> ::= \t/ % No polymorphism for now
 \end{grammar}
