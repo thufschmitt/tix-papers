@@ -14,7 +14,7 @@ We assume a record language, whose grammar is defined as follows:
     \| \e/ $\orthplus{}$ \e/
     \| \e/ \textbackslash{} \e/
     \| \e/.\e/
-    \| l
+    \| s
 \end{grammar}
 
 Where:
@@ -24,11 +24,11 @@ Where:
   \item $\orthplus{}$ denotes the merge of two records, assuming no field is
     defined in both,
   \item \textbackslash{} denotes the removal of a field (\emph{ie} $e_1
-    \backslash e_2$ is the record $e_1$ whose field $l$ is undefined, where $l$
+    \backslash e_2$ is the record $e_1$ whose field $s$ is undefined, where $s$
     is the value of $e_2$).
-  \item $e_1 . e_2$ denots the access to the field $l$ of the record $e_2$,
-    where $l$ is the value of $e_2$.
-  \item $l$ range over the set of allowed value labels (which here will be \ty{string})
+  \item $e_1 . e_2$ denots the access to the field $s$ of the record $e_2$,
+    where $s$ is the value of $e_2$.
+  \item $s$ range over the set of allowed value labels (which here will be \ty{string})
 \end{itemize}
 
 \section{Static labels}
@@ -78,7 +78,7 @@ all as evaluation of labels was a no-op
 
 The most logical choice seems to evaluate every label eagerly as soon as we
 need the value of one of them. This entails that record values will have the
-form \texttt{\bfseries \{ $l$ = $e$; \ldots{}; $l$ = $e$; \}} where $l$ designs
+form \texttt{\bfseries \{ $s$ = $e$; \ldots{}; $s$ = $e$; \}} where $s$ designs
 an evaluated label (a string value). The semantic is then the one given in the
 related \texttt{semantics} paper.
 
@@ -91,8 +91,8 @@ setting.
 Nix mixes both approaches by detecting a collision between static fields at
 definition place and between dynamic fields (or between a static and a dynamic
 one) at use-time. This approach is rather inconsistent (even more if we decide
-to consider a static label $l$ as syntactic sugar for the dynamic label whose
-expression is the constant string ``$l$''), so probably will not be reflected in
+to consider a static label $s$ as syntactic sugar for the dynamic label whose
+expression is the constant string ``$s$''), so probably will not be reflected in
 the type system\footnote{It could nonethless be implemented as a pre-treatment
 of the AST in order to match nix's behaviour}.
 

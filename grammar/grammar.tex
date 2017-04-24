@@ -15,9 +15,9 @@ modifications:
     \begin{itemize}
       \item Litteral records are always atomic (\emph{ie} only have one field). An
         \emph{orthogonal merge} operator ($\orthplus$) allows building complex
-        records~\footnote{We still often write \{ $x_1$ = $y_1$; $\cdots{}$;
-        $x_n$ = $y_n$ \} as a shorthand for \{ $x_1$ = $y_1$; \} $\orthplus
-        \cdots{} \orthplus$ \{ $x_n$ = $y_n$; \}},
+        records~\footnote{We still often write \{ $s_1$ = $y_1$; $\cdots{}$;
+        $s_n$ = $y_n$ \} as a shorthand for \{ $s_1$ = $y_1$; \} $\orthplus
+        \cdots{} \orthplus$ \{ $s_n$ = $y_n$; \}},
 
       \item The syntax in nix for a recursive definition of records (\texttt{\{ x.y
         = 1; x.z = 2; \}}) doesn't exist anymore,

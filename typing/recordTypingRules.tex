@@ -1,18 +1,18 @@
 \inferrule{%
-  \Γ \vdash e : \τ \\
-  \Γ \vdash l : \bigvee\limits_{i=1}^n s_i
+  \Γ \vdash e' : \τ \\
+  \Γ \vdash e : \bigvee\limits_{i=1}^n s_i
 }{%
-  \Γ \vdash \left\{ l = e; \right\} :
+  \Γ \vdash \left\{ e = e'; \right\} :
   \bigvee\limits_{i=1}^n \left\{ s_i: \τ \right\}
 }
 \irlabel{RFinite}
 \and
 \inferrule{%
-  \Γ \vdash e : \τ \\
-  \Γ \vdash l : \σ \\
+  \Γ \vdash e' : \τ \\
+  \Γ \vdash e : \σ \\
   \σ \subtype \ty{string}
 }{%
-  \Γ \vdash \left\{ l = e; \right\} :
+  \Γ \vdash \left\{ e = e'; \right\} :
   \left\{ \_: \τ \vee \undef \right\}
 }
 \irlabel{RInfinite}
