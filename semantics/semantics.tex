@@ -53,9 +53,9 @@ figure~\pref{fig:semantics:nix-light:patterns}
 \begin{figure}
   \begin{grammar}
     \bfseries
-    <E> ::= [] \| \meta{E e}
+    <E> ::= [] \| \meta{E} \meta{e}
     \alt \meta{E.a} \| \meta{E.a} or \meta{e} \| \meta{v.F} \| \meta{v.F} or \meta{e}
-    \alt \{ \v/ = \e/; \ldots{}; \v/ = \e/; \E/ = \e/; \ldots{}; \e/ = \e/ \}
+    \alt \{ \v/ = \e/; $\cdots{}$; \v/ = \e/; \E/ = \e/; $\cdots{}$; \e/ = \e/ \}
     \alt with \E/; \e/ | if \E/ then \e/ else \e/
 
     <F> ::= \E/.\a/ \| \v/.\meta{F}
