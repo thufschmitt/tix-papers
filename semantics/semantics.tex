@@ -26,7 +26,7 @@ figure~\pref{fig:semantics:nix-light:patterns}
     }{}
     \dstepa{let rec \xone = \eone; $\cdots{}$; \xn = \en; in \e/}{%
       \parbox[t]{10cm}{%
-        (let $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
+        (let rec $r$ = \{ $x'_1$ = \eone; \} $\orthplus \cdots \orthplus$ \{ $x'_n$ = \en \}; in e)
       [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]
       }
     }{}
