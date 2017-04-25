@@ -1,0 +1,56 @@
+\begin{mathpar}
+  \inferrule{ }{\Gamma; x:\tau \vdash x:\tau}(Var)
+
+  \and
+  \inferrule{ }{\Gamma \vdash c:\mathcal{B}(c)}(Const)
+
+  \and
+  \inferrule{%
+    \Gamma \vdash e_1 : \tau_1 \\ \Gamma \vdash e_2 : \tau_2 \\
+    \tau_1 \subtype \zero \rightarrow \one \\
+    \tau_2 \subtype \dom(\tau_1)
+  }{%
+    \Gamma \vdash e_1 e_2 : \tau_1 \tau_2
+  }
+  (App)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{1}{n}, \\
+      \Gamma; \ofTypeP{p}{\sigma_i} \vdash e: \tau_i \\
+  }{%
+    \lambda \left(p:{\bigvee\limits_{i=1}^n\σ}\right).e :
+      \bigwedge\limits_{i=1}^n \left(\σ \rightarrow \τ\right)
+  }
+  (Abs)
+
+  \and
+  \inferrule{%
+    \Gamma \vdash e : \tau \\
+      \Γ; x : \τ \wedge t \vdash e_1 : \sigma_1 \\
+      \Γ; x : \τ \wedge \lnot t \vdash e_2 : \sigma_2
+  }{%
+    \Gamma \vdash ((x := e \in t) ? e_1 : e_2) : \sigma_1 \vee \sigma_2
+  }
+  (Tcase)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{1}{n}, \Γ \vdash e_i : \τ_i \\
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e : \τ
+  }{%
+    \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n
+      \text{ in } e : \τ
+  }
+  (Let)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{0}{n},
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e_i : \τ_i
+  }{%
+    \Gamma \vdash \text{let rec } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+      \text{ in } e_0 : \τ_0
+  }
+  (LetRec)
+\end{mathpar}
