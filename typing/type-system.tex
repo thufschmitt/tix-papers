@@ -17,11 +17,11 @@
 
   \and
   \inferrule{%
-    \forall (\sigma \rightarrow \tau) \in \mathbb{I}, \\
-      \Gamma; \ofTypeP{p}{\sigma} \vdash e: \tau' \\
-      \tau' \subtype \tau
+    \forall i \in \discrete{1}{n}, \\
+      \Gamma; \ofTypeP{p}{\sigma_i} \vdash e: \tau_i \\
   }{%
-    \lambda^\mathbb{I}p.e : \text{TypeOf}(\mathbb{I})
+    \lambda \left(p:{\bigvee\limits_{i=1}^n\σ}\right).e :
+      \bigwedge\limits_{i=1}^n \left(\σ \rightarrow \τ\right)
   }
   (Abs)
 
