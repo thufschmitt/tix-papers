@@ -81,12 +81,14 @@
   slash-symbol = \sslash{}
 }
 \newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
+\newcommand{\matchType}[1]{\Lbag #1 \Rbag}
 
 \newcommand{\Γ}{\Gamma}
 \newcommand{\τ}{\ensuremath{\tau}}
 \newcommand{\σ}{\sigma}
+\DeclareMathOperator\any{\textsc{Any}}
 \newcommand{\λ}{\lambda}
 \newcommand{\recleq}{\sqsubsetleq}
-\newcommand{\discrete}[2]{\left\{ #1, \ldots{}, #2 \right\}}
+\newcommand{\discrete}[2]{\left\{ #1, .., #2 \right\}}
 
 \newcommand{\pref}[1]{\ref{#1} at page~\pageref{#1}}
