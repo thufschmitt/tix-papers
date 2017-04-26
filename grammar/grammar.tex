@@ -32,6 +32,9 @@ modifications:
   \item Let bindings are not recursive by default anymore; a special \emph{let
     rec} construct is introduced equivalent to the recursive \emph{let} of Nix.
 
+  \item Default values in patterns may only be constants. This makes typing of
+    patterns easier, without impact on the expressivity.
+
   \item The last notable change is that the opaque list construct of nix is
     replaced by the classical \texttt{nil} and \texttt{cons}.
     This avoids having over-complicated typing and evaluation rules for lists.

@@ -42,8 +42,8 @@ figure~\pref{fig:semantics:nix-light:patterns}
   \begin{tabular}{rl}
     \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
     \eqdefa{\assignp{(\{ x \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-    \eqdefa{\assignp{(\{ x ? e' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-    \eqdefa{\assignp{(\{ x ? e \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{e}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
+    \eqdefa{\assignp{(\{ x ? c' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
+    \eqdefa{\assignp{(\{ x ? c \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{c}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
     \eqdefa{\assignp{\{\}}{\{ \}}}{ø}{}
     \eqdefa{\assignp{\{ .. \}}{v}}{ø}{}
     \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
