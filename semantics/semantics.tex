@@ -40,13 +40,42 @@ figure~\pref{fig:semantics:nix-light:patterns}
 % commutative monoid.
 
   \begin{tabular}{rl}
-    \eqdefa{\assignp{q@x}{e}}{\assign{x}{e}; \assignp{q}{e}}{}
-    \eqdefa{\assignp{(\{ x \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-    \eqdefa{\assignp{(\{ x ? c' \} \orthplus q)}{(\{ x = e; \} \orthplus v)}}{\assignp{x}{e}; \assignp{q}{v}}{}
-    \eqdefa{\assignp{(\{ x ? c \} \orthplus q)}{(v_1 \orthplus v_2)}}{\assignp{x}{c}; \assignp{q}{\left( v_1 \orthplus v_2\right)}}{if $v_1 \neq \{ x = e'; \}$}
-    \eqdefa{\assignp{\{\}}{\{ \}}}{ø}{}
-    \eqdefa{\assignp{\{ .. \}}{v}}{ø}{}
-    \eqdefa{\assignp{Cons(x, x')}{Cons(e, e')}}{\assign{x}{e}; \assign{x'}{e'}}{}
+    \eqdefa{$\sfrac{x}{e}$}{$\sfrac{x}{e}$}{}
+    \eqdefa{$\sfrac{q@x}{e}$}{$\sfrac{x}{e}; \sfrac{q}{x}$}{}
+    \eqdefa{$\sfrac{\{\}}{\{ x_1 ? c_1, \cdots, x_n ? c_n \}}$}{%
+      $\sfrac{x_1}{c_1}; \cdots; \sfrac{x_n}{c_n}$}{}
+    \eqdefa{%
+      $\sfrac{%
+        \{ s_1 = e_1; \cdots; s_m = e_m; \}%
+      }{%
+        \{x_1 ? c_1, \cdots, x_n ? c_n, \textbf{\ldots}\}%
+      }$%
+    }{%
+      $\sfrac{x_1}{c_1}; \cdots; \sfrac{x_n}{c_n}$%
+    }{%
+      if %
+      $\forall (i,j) \in \discrete{1}{m} \times \discrete{1}{n}, s_i \neq s_j$%
+    }
+    \eqdefa{$\sfrac{\{ s = e;\}}{\{ x \}}$}{$\sfrac{x}{e}$}{if $s = x$}
+    \eqdefa{$\sfrac{\{ s = e;\}}{\{ x ? c \}}$}{$\sfrac{x}{e}$}{if $s = x$}
+    \eqdefa{$%
+      \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}{\{ x, f_1, \cdots, f_m \}}%
+    $}{$%
+      \sfrac{x}{e};%
+      \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{\{ f_1, \cdots, f_m \}}%
+    $}{if $s_1 = x$}
+    \eqdefa{
+      $\sfrac{%
+        \{ s_1 = e_1; \cdots; s_n = e_n \}}%
+        {\{ x ? c, f_1 \cdots, f_m \}}$%
+      }{%
+        $\sfrac{x}{e};%
+        \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}%
+          {\{ f_1, \cdots, f_m \}}$%
+      }{if $s_1 = x$}
+    \eqdefa{%
+      $\sfrac{\text{Cons}(e_1, e_2)}{\text{Cons}(x_1, x_2)}$%
+    }{$\sfrac{x_1}{e_1}; \sfrac{x_2}{e_2}$}{}
   \end{tabular}
   \caption{Semantic of the pattern-matching in nix-light\label{fig:semantics:nix-light:patterns}}
 \end{figure}
