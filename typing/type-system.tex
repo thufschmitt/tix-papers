@@ -2,15 +2,27 @@
 
 \subsubsection{Patterns}
 
-The typing of patterns is inspired by~\cite{Fri04}: To every pattern $p$,
-we associate a type $\Lbag p \Rbag$ which represents the type of all the
-values accepted by the pattern. The exact definition of $\Lbag \_ \Rbag$ is
+The typing of patterns is inspired by~\cite{Fri04}: To every pattern $p$, we
+associate a type $\Lbag p \Rbag$. The exact definition of $\Lbag \_ \Rbag$ is
 given in figure~\pref{typing::pattern-accept}.
+
+The intuition behind this operator is that $\matchType{p}$ represents the type
+of the values that will be accepted by the pattern. So for example,
+$\matchType{x}$ is equal to $\any$ as the pattern $x$ matches any value.
+Likewise, $\matchType{\{ x, y ? 1 \}}$ is $\{ x = \any; y = \any \vee \undef
+\}$.
 
 We also define the matching $\ofTypeP{p}{\τ}$ of a type $\τ$ against a pattern
 $p$ (in figure~\pref{typing::pattern-ty-match}).
+This represents the typing constraints that we can deduce from the applications
+of a type $\τ$ to the pattern $p$. It is used to convert type annotations into
+concrete typing environments. So for example, $\ofTypeP{\{ x, y \}}{\{ x = \τ;
+y = \σ \}}$ is equal to the typing constraints $x : \τ$ and $y : \σ$, which may
+be used to type the body of the corresponding function.
 
-The typing rules are given by the figures~\pref{typing::lambda-calculus},~\pref{typing::records} and~\pref{typing::operators}.
+The typing rules are given by the
+figures~\pref{typing::lambda-calculus},~\pref{typing::records}
+and~\pref{typing::operators}.
 
 \begin{figure}
   \begin{center}
@@ -27,7 +39,7 @@ The typing rules are given by the figures~\pref{typing::lambda-calculus},~\pref{
   \caption{Semantics of the $\matchType{\_}$ operator%
   \label{typing::pattern-accept}}
 \end{figure}
-ii\begin{figure}
+\begin{figure}
   \begin{tabular}{rl}
     \eqdefa{$\ofTypeP{x}{\τ}$}{$\sfrac{x}{\τ}$}{}
     \eqdefa{$\ofTypeP{q@x}{\τ}$}{$\sfrac{x}{\τ}; \ofTypeP{q}{x}$}{}
