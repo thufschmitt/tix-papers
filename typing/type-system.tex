@@ -20,6 +20,25 @@ concrete typing environments. So for example, $\ofTypeP{\{ x, y \}}{\{ x = \τ;
 y = \σ \}}$ is equal to the typing constraints $x : \τ$ and $y : \σ$, which may
 be used to type the body of the corresponding function.
 
+\subsubsection{Typecase}
+
+The typecase $(x := e \in t) ? e_1 : e_2$ can be typed in a simple way, by
+saying that if $e$ has a type $τ$, $e_1$ has type $\τ_1$ and $e_2$ has type
+$\τ_2$ (under the current typing environment $\Γ$), then $(x := e \in t) ? e_1
+: e_2$ has type $\τ_1 \vee \τ_2$.
+However, doing so means that we do not use the extra type information given by
+"$e \in t$", which loosens a lot the interest of this construct. For example,
+an expression such as $(x := e \in \bm{{Int}}) ? x + 1 : x$, with $\vdash e :
+\any$ wouldn't typecheck, as $x+1$ isn't well typed without any further
+constraint on the type of $x$.
+
+A more interesting typing rule would state that if $\Γ; x:\τ \wedge t \vdash e_1:
+\τ_1$ and $\Γ; x:\τ \wedge \lnot t \vdash e_2: \τ_2$ (where $\τ$ is a type of
+$e$ under the hypothesis $\Γ$), then the whole expression has type $\τ_1 \vee
+\τ_2$.
+With this rule, the expression $(x := e \in \bm{{Int}}) ? x + 1 : x$ is
+well-typed (provided that $e$ is).
+
 The typing rules are given by the
 figures~\pref{typing::lambda-calculus},~\pref{typing::records}
 and~\pref{typing::operators}.
