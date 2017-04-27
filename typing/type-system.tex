@@ -13,34 +13,59 @@ $p$ (in figure~\pref{typing::pattern-ty-match}).
 The typing rules are given by the figures~\pref{typing::lambda-calculus},~\pref{typing::records} and~\pref{typing::operators}.
 
 \begin{figure}
-  \begin{align*}
-    \matchType{x} &= \any \\
-    \matchType{q@x} &= \matchType{q} \\
-    \matchType{\{ f_1, \cdots, f_n \}} &= \{ \matchType{f_1}; \cdots \matchType{f_n}; \} \\
-    \matchType{l} &= l : \any \\
-    \matchType{l ? e} &= l : \any \vee \undef \\
-    \matchType{\text{Cons}(x_1, x_2)} &= \text{Cons}(\any, \any)
-  \end{align*}
+  \begin{center}
+    \begin{tabular}{rl}
+      \eqdefa{$\matchType{x}$}{$\any$}{}
+      \eqdefa{$\matchType{q@x}$}{$\matchType{q}$}{}
+      \eqdefa{$\matchType{\{ f_1, \cdots, f_n \}}$}%
+        {$\{ \matchType{f_1}; \cdots \matchType{f_n}; \}$}{}
+      \eqdefa{$\matchType{l}$}{$l = \any$}{}
+      \eqdefa{$\matchType{l ? e}$}{$l = \any \vee \undef$}{}
+      \eqdefa{$\matchType{\text{Cons}(x_1, x_2)}$}{$\text{Cons}(\any, \any)$}{}
+    \end{tabular}
+  \end{center}
   \caption{Semantics of the $\matchType{\_}$ operator%
   \label{typing::pattern-accept}}
 \end{figure}
 ii\begin{figure}
-  \begin{align*}
-    \ofTypeP{x}{\τ} &= \sfrac{x}{\τ} &\\
-    \ofTypeP{q@x}{\τ} &= \sfrac{x}{\τ}; \ofTypeP{q}{x} &\\
-    \ofTypeP{\{\}}{\{ x_1 ? c_1, \cdots, x_n ? c_n \}} &=%
-      \sfrac{x_1}{\mathcal{B}(c_1)}; \cdots; \sfrac{x_n}{\mathcal{B}(c_n)} &\\
-    \ofTypeP{\{ s_1 = \τ_1; \cdots; s_m = \τ_m; \}}{\{x_1 ? c_1, \cdots, x_n ? c_n, \textbf{\ldots}\}} &=%
-      \sfrac{x_1}{\mathcal{B}(c_1)}; \cdots; \sfrac{x_n}{\mathcal{B}(c_n)} &%
-        \text{ if } \forall (i,j) \in \discrete{1}{m} \times \discrete{1}{n}, s_i \neq s_j\\
-    \ofTypeP{\{ s = \τ;\}}{\{ x \}} &= \sfrac{x}{\τ}; &\text{ if $s$ = $x$} \\
-    \ofTypeP{\{ s = \τ;\}}{\{ x ? c \}} &= \sfrac{x}{\τ}; &\text{ if $s$ = $x$} \\
-    \ofTypeP{\{ s_1 = \τ_1; \cdots; s_n = \τ_n \}}{\{ x, f_1, \cdots, f_m \}} &=%
-      \sfrac{x}{\τ}; \ofTypeP{\{ s_2 = \τ_2; \cdots; s_n = \τ_n \}}{\{ f_1, \cdots, f_m \}} &\text{ if $s_1$ = $x$} \\
-    \ofTypeP{\{ s_1 = \τ_1; \cdots; s_n = \τ_n \}}{\{ x ? c, f_1 \cdots, f_m \}} &=%
-      \sfrac{x}{\τ}; \ofTypeP{\{ s_2 = \τ_2; \cdots; s_n = \τ_n \}}{\{ f_1, \cdots, f_m \}} &\text{ if $s_1$ = $x$} \\
-    \ofTypeP{\text{Cons}(\τ_1, \τ_2)}{\text{Cons}(x_1, x_2)} &= \sfrac{x_1}{\τ_1}; \sfrac{x_2}{\τ_2} &\\
-  \end{align*}
+  \begin{tabular}{rl}
+    \eqdefa{$\ofTypeP{x}{\τ}$}{$\sfrac{x}{\τ}$}{}
+    \eqdefa{$\ofTypeP{q@x}{\τ}$}{$\sfrac{x}{\τ}; \ofTypeP{q}{x}$}{}
+    \eqdefa{$\ofTypeP{\{\}}{\{ x_1 ? c_1, \cdots, x_n ? c_n \}}$}{%
+      $\sfrac{x_1}{\mathcal{B}(c_1)}; \cdots; \sfrac{x_n}{\mathcal{B}(c_n)}$}{}
+    \eqdefa{%
+      $\ofTypeP{%
+        \{ s_1 = \τ_1; \cdots; s_m = \τ_m; \}%
+      }{%
+        \{x_1 ? c_1, \cdots, x_n ? c_n, \textbf{\ldots}\}%
+      }$%
+    }{%
+      $\sfrac{x_1}{\mathcal{B}(c_1)}; \cdots; \sfrac{x_n}{\mathcal{B}(c_n)}$%
+    }{%
+      if %
+      $\forall (i,j) \in \discrete{1}{m} \times \discrete{1}{n}, s_i \neq s_j$%
+    }
+    \eqdefa{$\ofTypeP{\{ s = \τ;\}}{\{ x \}}$}{$\sfrac{x}{\τ}$}{if $s = x$}
+    \eqdefa{$\ofTypeP{\{ s = \τ;\}}{\{ x ? c \}}$}{$\sfrac{x}{\τ}$}{if $s = x$}
+    \eqdefa{$%
+      \ofTypeP{\{ s_1 = \τ_1; \cdots; s_n = \τ_n \}}{\{ x, f_1, \cdots, f_m \}}%
+    $}{$%
+      \sfrac{x}{\τ};%
+      \ofTypeP{\{ s_2 = \τ_2; \cdots; s_n = \τ_n \}}{\{ f_1, \cdots, f_m \}}%
+    $}{if $s_1 = x$}
+    \eqdefa{
+      $\ofTypeP{%
+        \{ s_1 = \τ_1; \cdots; s_n = \τ_n \}}%
+        {\{ x ? c, f_1 \cdots, f_m \}}$%
+      }{%
+        $\sfrac{x}{\τ};%
+        \ofTypeP{\{ s_2 = \τ_2; \cdots; s_n = \τ_n \}}%
+          {\{ f_1, \cdots, f_m \}}$%
+      }{if $s_1 = x$}
+    \eqdefa{%
+      $\ofTypeP{\text{Cons}(\τ_1, \τ_2)}{\text{Cons}(x_1, x_2)}$%
+    }{$\sfrac{x_1}{\τ_1}; \sfrac{x_2}{\τ_2}$}{}
+  \end{tabular}
   \caption{Semantics of $\ofTypeP{p}{\τ}$%
   \label{typing::pattern-ty-match}}
 \end{figure}
