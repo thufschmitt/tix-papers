@@ -1,37 +1,37 @@
 \begin{grammar}
   \bfseries
   <e> ::=
-    \x/ \| \c/
-    \alt \e/.\a/ \| \e/.\a/ or \e/
-    \alt $\λ$\p/.\e/ \| \e/ \e/
-    \alt \{ \e/ = \e/ \}
-    \alt with \e/; \e/
-    \alt (\x/ := \e/ $\bm{\in}$ \t/) ? \e/ : \e/
-    \alt let \x/ = \e/; $\cdots{}$; \x/ = \e/; in \e/
-    \alt let rec \r/ = \e/; $\cdots{}$; \r/ = \e/; in \e/
-    \alt \o/
+    $x$ \| $c$
+    \alt $e$.$a$ \| $e$.$a$ or $e$
+    \alt $\λ$$p$.$e$ \| $e$ $e$
+    \alt \{ $e$ = $e$ \}
+    \alt with $e$; $e$
+    \alt ($x$ := $e$ $\bm{\in}$ $t$) ? $e$ : $e$
+    \alt let $x$ = $e$; $\cdots{}$; $x$ = $e$; in $e$
+    \alt let rec $r$ = $e$; $\cdots{}$; $r$ = $e$; in $e$
+    \alt $o$
 
-    <o> ::= attrNames(\e/) \| listToAttrs(\e/)
-    \alt \e/ + \e/ \| \e/ $\orthplus$ \e/ \| \e/ \textbackslash \e/
-    \alt deepSeq(\e/, \e/)
-    \alt functionArgs(\e/)
+    <o> ::= attrNames($e$) \| listToAttrs($e$)
+    \alt $e$ + $e$ \| $e$ $\orthplus$ $e$ \| $e$ \textbackslash $e$
+    \alt deepSeq($e$, $e$)
+    \alt functionArgs($e$)
     % Maybe this can be typed as a function, but it is rather unlikely
-    \alt Cons(\e/, \e/)
+    \alt Cons($e$, $e$)
 
-  <a> ::= \e/. $\cdots{}$ .\e/
+  <a> ::= $e$. $\cdots{}$ .$e$
 
   <c> ::= \meta{s} \| \meta{i} \| $\cdots{}$
     \alt nil
     \alt $\cdots{}$
 
-  <p> ::= \q/ \| \q/@\x/ \| \r/
+  <p> ::= $q$ \| $q$@$x$ \| $r$
 
-  <q> ::= \{ \f/, $\cdots{}$, \f/ \} \| \{ \f/, $\cdots{}$, \f/ , \ldots{}\}
-    \alt Cons(\r/, \r/) \| nil
-    \alt \q/:\τ
+  <q> ::= \{ $f$, $\cdots{}$, $f$ \} \| \{ $f$, $\cdots{}$, $f$ , \ldots{}\}
+    \alt Cons($r$, $r$) \| nil
+    \alt $q$:\τ
 
-  <r> ::= \x/ | \x/:\τ
+  <r> ::= $x$ | $x$:\τ
 
-  <f> ::= \r/ \| \r/ ? \c/
+  <f> ::= $r$ \| $r$ ? $c$
 
 \end{grammar}
