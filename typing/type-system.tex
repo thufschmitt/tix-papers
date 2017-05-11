@@ -2,23 +2,31 @@
 
 \subsubsection{Patterns}
 
-The typing of patterns is inspired by~\cite{Fri04}: To every pattern $p$, we
-associate a type $\Lbag p \Rbag$. The exact definition of $\Lbag \_ \Rbag$ is
-given in figure~\pref{typing::pattern-accept}.
+In order to type patterns, we need to introduce a new form of typing judgement.
+The judgement $\Γ \dashv p:\τ$ means that when applied against a type $\τ$, the
+pattern $p$ will enrich the environment with the constraints $\Γ$.
 
-The intuition behind this operator is that $\matchType{p}$ represents the type
-of the values that will be accepted by the pattern. So for example,
-$\matchType{x}$ is equal to $\any$ as the pattern $x$ matches any value.
-Likewise, $\matchType{\{ x, y ? 1 \}}$ is $\{ x = \any; y = \any \vee \undef
-\}$.
+For example, we got $x:\Int \dashv x:\Int$, which reads ``If we apply a term
+of type $\Int$ to the pattern $x$, then the environment on the
+right of the pattern will be enriched with the constraint $x:\Int$''
 
-We also define the matching $\ofTypeP{p}{\τ}$ of a type $\τ$ against a pattern
-$p$ (in figure~\pref{typing::pattern-ty-match}).
-This represents the typing constraints that we can deduce from the applications
-of a type $\τ$ to the pattern $p$. It is used to convert type annotations into
-concrete typing environments. So for example, $\ofTypeP{\{ x, y \}}{\{ x = \τ;
-y = \σ \}}$ is equal to the typing constraints $x : \τ$ and $y : \σ$, which may
-be used to type the body of the corresponding function.
+Likewise, the following statement holds.
+\[x:\Int; y: \Bool \dashv \left\{ x; y ? \text{true}; \right\} : \{ x = \Int; y =? \Bool \}\]
+This means that when if we match a term of type $\left\{ x =\Int; y =? \Bool
+\right\}$ against the pattern $\left\{ x; y ? \text{true}; \right\}$, then the
+environment on the right side of the pattern will be enriched with the
+constraints $x : \Int$ and $y : \Bool$.
+
+As the symbol ``$\dashv$'' suggests, this typing judgement is the converse of
+the classical typing judgement $\Γ \vdash e : \τ$ for expressions: instead of
+stating that under the hypothesis $\Γ$, the expression $e$ has type $\τ$, we
+state that if the pattern $p$ has type $\τ$, then in produces the environment
+$\Γ$.
+
+The typing rules for this statement are given by the
+figure~\pref{typing::patterns::typing-rules}.
+
+Maybe~\todo{Find out wether this is true} this enjoys principal typing.
 
 \subsubsection{Typecase}
 
@@ -32,16 +40,59 @@ an expression such as $(x := e \in \bm{{Int}}) ? x + 1 : x$, with $\vdash e :
 \any$ wouldn't typecheck, as $x+1$ isn't well typed without any further
 constraint on the type of $x$.
 
-A more interesting typing rule would state that if $\Γ; x:\τ \wedge t \vdash e_1:
-\τ_1$ and $\Γ; x:\τ \wedge \lnot t \vdash e_2: \τ_2$ (where $\τ$ is a type of
-$e$ under the hypothesis $\Γ$), then the whole expression has type $\τ_1 \vee
-\τ_2$.
+A more interesting typing rule would state that if $\Γ; x:\τ \wedge t \vdash
+e_1: \τ_1$ and $\Γ; x:\τ \wedge \lnot t \vdash e_2: \τ_2$ (where $\τ$ is a type
+of $e$ under the hypothesis $\Γ$), then the whole expression has type $\τ_1
+\vee \τ_2$.
 With this rule, the expression $(x := e \in \bm{{Int}}) ? x + 1 : x$ is
 well-typed (provided that $e$ is).
 
 The typing rules are given by the
 figures~\pref{typing::lambda-calculus},~\pref{typing::records}
 and~\pref{typing::operators}.
+
+\begin{figure}
+  \begin{mathpar}
+    \inferrule{~}{x:\τ \dashv x:\τ}
+    \and\inferrule{~}{\dashv \text{nil} : \text{nil}}
+    \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
+    \and\inferrule{%
+      \Γ \dashv p : \τ \\ \mathcal{B}(c) \subtype \τ
+    }{%
+      \Γ \dashv p ? c : \τ
+    }
+    \and\inferrule{%
+      \forall i \in \discrete{1}{n}, \Γ_i \dashv r_i : \τ_i \\
+      \forall i, j \in \discrete{1}{n}, \text{Vars}(\Γ_i) \cap \text{Vars}(\Γ_j) = \varnothing \\
+      \forall i, j \in \discrete{1}{n}, x_i \neq x_j
+    }{%
+      \Γ_1; \cdots; \Γ_n \dashv \left\{ x_1 = r_1; \cdots; x_n = r_n; \right\}
+        : \left\{ x_1 = \τ_1; \cdots; x_n = \τ_n; \right\}
+    }
+    \and\inferrule{%
+      \forall i \in \discrete{1}{n}, \Γ_i \dashv r_i : \τ_i \\
+      \forall i, j \in \discrete{1}{n}, \text{Vars}(\Γ_i) \cap \text{Vars}(\Γ_j) = \varnothing \\
+      \forall i, j \in \discrete{1}{n}, x_i \neq x_j
+    }{%
+      \Γ_1; \cdots; \Γ_n \dashv \left\{ x_1 = r_1; \cdots; x_n = r_n; \ldots \right\}
+        : \left\{ x_1 = \τ_1; \cdots; x_n = \τ_n; \ldots \right\}
+    }
+    \and\inferrule{%
+      \Γ_1 \dashv p_1 : \τ_1 \\
+      \Γ_2 \dashv p_2 : \τ_2 \\
+      \text{Vars}(\Γ_1) \cap \text{Vars}(\Γ_2) = \varnothing
+    }{%
+      \Γ_1; \Γ_2 \dashv \text{Cons}(p_1, p_2) : \text{Cons}(\τ_1, \τ_2)
+    }
+    \and\inferrule{%
+      \Γ \dashv p : \τ \\
+      x \notin \Γ
+    }{%
+      \Γ; x:\τ \dashv p@x : \τ
+    }
+  \end{mathpar}
+  \caption{Typing rules for the patterns\label{typing::patterns::typing-rules}}
+\end{figure}
 
 \begin{figure}
   \begin{center}
