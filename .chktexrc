@@ -507,7 +507,7 @@ MathEnvir
 {
     displaymath math eqnarray array equation
     align alignat gather flalign multline
-    grammar mathpar
+    mathpar
 }
 
 #####################################################################
@@ -547,7 +547,7 @@ VerbEnvir
 {
     verbatim comment listing verbatimtab rawhtml errexam picture texdraw
     filecontents pgfpicture tikzpicture
-    lstlisting
+    lstlisting grammar
 }
 
 #####################################################################
