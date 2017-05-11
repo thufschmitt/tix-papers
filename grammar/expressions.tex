@@ -3,12 +3,12 @@
   <e> ::=
     \x/ \| \c/
     \alt \e/.\a/ \| \e/.\a/ or \e/
-    \alt $\λ$\p/:\τ.\e/ \| \e/ \e/
+    \alt $\λ$\p/.\e/ \| \e/ \e/
     \alt \{ \e/ = \e/ \}
     \alt with \e/; \e/
     \alt (\x/ := \e/ $\bm{\in}$ \t/) ? \e/ : \e/
     \alt let \x/ = \e/; $\cdots{}$; \x/ = \e/; in \e/
-    \alt let rec \x/:\τ = \e/; $\cdots{}$; \x/:\τ/ = \e/; in \e/
+    \alt let rec \r/ = \e/; $\cdots{}$; \r/ = \e/; in \e/
     \alt \o/
 
     <o> ::= attrNames(\e/) \| listToAttrs(\e/)
@@ -24,12 +24,14 @@
     \alt nil
     \alt $\cdots{}$
 
-  <p> ::= \q/ \| \q/@\x/ \| \x/
+  <p> ::= \q/ \| \q/@\x/ \| \r/
 
   <q> ::= \{ \f/, $\cdots{}$, \f/ \} \| \{ \f/, $\cdots{}$, \f/ , \ldots{}\}
-    \alt Cons(\x/, \x/) \| nil
-    \alt \c/
+    \alt Cons(\r/, \r/) \| nil
+    \alt \q/:\τ
 
-  <f> ::= \x/ \| \x/ ? \c/
+  <r> ::= \x/ | \x/:\τ
+
+  <f> ::= \r/ \| \r/ ? \c/
 
 \end{grammar}
