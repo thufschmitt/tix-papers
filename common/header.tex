@@ -1,33 +1,45 @@
 \documentclass{article}
 
 % \usepackage[margin=1in]{geometry}
+
+% Some color
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% And hypertext links everywhere
+\usepackage{hyperref}
+
+% To get a proper text encoding with xelatex
 \usepackage{fontspec}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% Some math packages
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{stmaryrd}
-
 \usepackage{mathtools}
+
+% Render inference rules
 \usepackage{mathpartir}
+% The labels of those rules
 \newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
 
+% Used to display stuff like x/y or x//y
 \usepackage{xfrac}
 
+% Fore code blocks
 \usepackage{listings}
 \lstset{%
   escapeinside={//*}{*//}
   }
 
-\usepackage{hyperref}
 \usepackage{todo}
 
-\date{}
-
+% Tweak the syntax
 \usepackage{syntax}
 \renewcommand{\grammarlabel}[2]{\meta{#1 #2}}
 \newcommand{\meta}[1]{\ensuremath{#1}} % For meta syntax
 \renewcommand{\|}{\textrm{|}}
+% Define shortcuts for all meta variables
 \def\a/{\meta{a}}
 \def\b/{\meta{b}}
 \def\c/{\meta{c}}
@@ -52,24 +64,23 @@
 \newcommand{\ndstep} [2] {#1 \ensuremath{\nrightarrow} #2}
 \newcommand{\ndsteps} [2] {#1 \ensuremath{\nrightarrow^*} #2}
 \newcommand{\dstepa} [3] {\dstep{#1}{&#2}~\emph{#3} \\}
-
 \newcommand{\eqdef}[2]{#1 \ensuremath{\overset{\text{def}}{=}} #2}
 \newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} \emph{#3} \\}
 
+% TODO remove this, it's ugly
 \newcommand{\xone}{\ensuremath{x_1}}
 \newcommand{\xn}{\ensuremath{x_n}}
 \newcommand{\eone}{\ensuremath{e_1}}
 \newcommand{\etwo}{\ensuremath{e_2}}
 \newcommand{\en}{\ensuremath{e_n}}
-% TODO: redefine to get the 0 and 1 of types
-% (with double bar)
+% TODO: redefine to get the 0 and 1 of types (with double bar)
 \newcommand{\zero}{0}
 \newcommand{\one}{1}
 
-
+% Rendering of symbols and operators
+\newcommand{\discrete}[2]{\left\{ #1,\cdots, #2 \right\}}
 \newcommand{\ty}[1]{\texttt{#1}}
 \newcommand{\set}[1]{\ensuremath{\mathcal{#1}}}
-\newcommand{\undef}{\nabla}
 \newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
 \DeclareMathOperator\dom{dom}
 \DeclareMathOperator\deff{def}
@@ -89,11 +100,14 @@
 \newcommand{\σ}{\sigma}
 \DeclareMathOperator\any{\textsc{Any}}
 \DeclareMathOperator\grad{\star}
+\newcommand{\undef}{\nabla}
 \DeclareMathOperator\Int{Int}
 \DeclareMathOperator\Bool{Bool}
 \newcommand{\λ}{\lambda}
 \newcommand{\recleq}{\sqsubsetleq}
-\newcommand{\discrete}[2]{\left\{ #1,\cdots, #2 \right\}}
 
+% Easier writing of references
 \newcommand{\pref}[1]{\ref{#1} at page~\pageref{#1}}
+
+\date{}
 
