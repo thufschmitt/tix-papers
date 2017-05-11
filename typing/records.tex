@@ -26,7 +26,7 @@ Where:
   \item \textbackslash{} denotes the removal of a field (\emph{ie} $e_1
     \backslash e_2$ is the record $e_1$ whose field $s$ is undefined, where $s$
     is the value of $e_2$).
-  \item $e_1 . e_2$ denots the access to the field $s$ of the record $e_2$,
+  \item $e_1.e_2$ denots the access to the field $s$ of the record $e_2$,
     where $s$ is the value of $e_2$.
   \item $s$ range over the set of allowed value labels (which here will be \ty{string})
 \end{itemize}
@@ -140,10 +140,10 @@ We note $T_1 \orthplus T_2$ for $T_1 \orthsum_\undef T_2$
 \subsection{Subtyping relation}
 
 We first extend the $\subtype$ relation to a relation on $\ty{string}
-\rightarrow \textbf{Types}$ (defined as the pointwise relation : $\forall r_1,
+\rightarrow \textbf{Types}$ (defined as the pointwise relation: $\forall r_1,
 r_2 \in \ty{string} \rightarrow \textbf{Types}, r_1 \subtype r_2
 \Leftrightarrow \left( \forall s \in \ty{string}, r_1(s) \subtype r_2(s)
-\right)$
+\right)$).
 
 This relation defines the subtyping for record types. For example, for two
 closed record types:

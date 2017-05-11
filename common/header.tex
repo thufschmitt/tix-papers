@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[margin=1in]{geometry}
+% \usepackage[margin=1in]{geometry}
 \usepackage{fontspec}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{amssymb}
@@ -83,7 +83,6 @@
   slash-symbol = \sslash{}
 }
 \newcommand{\ofTypeP}[2]{\UseCollection{xfrac}{plainmath}\sfrac{#1}{#2}}
-\newcommand{\matchType}[1]{\Lbag #1 \Rbag}
 
 \newcommand{\Γ}{\Gamma}
 \newcommand{\τ}{\ensuremath{\tau}}
@@ -94,7 +93,7 @@
 \DeclareMathOperator\Bool{Bool}
 \newcommand{\λ}{\lambda}
 \newcommand{\recleq}{\sqsubsetleq}
-\newcommand{\discrete}[2]{\left\{ #1, .., #2 \right\}}
+\newcommand{\discrete}[2]{\left\{ #1,\cdots, #2 \right\}}
 
 \newcommand{\pref}[1]{\ref{#1} at page~\pageref{#1}}
 

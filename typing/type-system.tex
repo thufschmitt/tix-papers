@@ -35,7 +35,7 @@ saying that if $e$ has a type $τ$, $e_1$ has type $\τ_1$ and $e_2$ has type
 $\τ_2$ (under the current typing environment $\Γ$), then $(x := e \in t) ? e_1
 : e_2$ has type $\τ_1 \vee \τ_2$.
 However, doing so means that we do not use the extra type information given by
-"$e \in t$", which loosens a lot the interest of this construct. For example,
+``$e \in t$'', which loosens a lot the interest of this construct. For example,
 an expression such as $(x := e \in \bm{{Int}}) ? x + 1 : x$, with $\vdash e :
 \any$ wouldn't typecheck, as $x+1$ isn't well typed without any further
 constraint on the type of $x$.

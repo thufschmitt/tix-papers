@@ -12,23 +12,23 @@ figure~\pref{fig:semantics:nix-light:patterns}
     \dstepa{$v.s \text{ or } e'$}{$e'$}{if $\v/ \neq$ \{ \s/ = \e/; $\ldots{}$ \}}
     \dstepa{$(\λ x : \τ .e_1) e_2$}{$\substp{x}{e_2}{e_1}$}{}
     \dstepa{$(\λ p : \τ .e_1) v$} {$\substp{p}{v}{e_1}$}{if $p \neq x$}
-    \dstepa{with \{ $l_1$ = $e_1$; $\cdots{}$; $l_n$ = $e_n$; \} ; \e/}{
-      \e/[\assign{l_1}{\eone}; ...; \assign{l_n}{\en}]
+    \dstepa{with \{ $l_1$ = $e_1$; $\cdots{}$; $l_n$ = $e_n$; \}; \e/}{
+      \e/[\assign{l_1}{\eone}; $\cdots$; \assign{l_n}{\en}]
     }{}
     \dstepa{raise \e/}{$\bot$}{}
-    \dstepa{($x := v \in \τ$ ? \eone : $e_2$)}{\subst{x}{v}{\eone}}{if $\vdash v : \τ$}
-    \dstepa{($x := v \in \τ$ ? \eone : $e_2$)}{\subst{x}{v}{$e_2$}}{if $\vdash v : \lnot\τ$}
-    \dstepa{let \xone = \eone; $\cdots{}$; \xn = \en; in \e/}{%
-      \e/[\assign{x_1}{\eone}; ...; \assign{x_n}{\en}]
+    \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{\eone}}{if $\vdash v : \τ$}
+    \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{$e_2$}}{if $\vdash v : \lnot\τ$}
+    \dstepa{let \xone{} = \eone; $\cdots{}$; \xn{} = \en; in \e/}{%
+      \e/[\assign{x_1}{\eone}; $\cdots$; \assign{x_n}{\en}]
     }{}
-    \dstepa{let rec $x$ : $\τ$ = $e$; in $e'$}{%
+    \dstepa{let rec $x$: $\τ$ = $e$; in $e'$}{%
       \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
     }{}
-    \dstepa{let rec \xone : $\τ_1$ = \eone; $\cdots{}$; \xn : $\τ_n$ = \en; in \e/}{%
+    \dstepa{let rec \xone: $\τ_1$ = \eone; $\cdots{}$; \xn: $\τ_n$ = \en; in \e/}{%
       \parbox[t]{10cm}{%
-        (let rec $r$ : \{ $x'_1$ = $\τ_1$; $\cdots$; $x'_n$ = $\τ_n$; \} = \\
-        \{ $x'_1$ = \eone; $\cdots$; $x'_n$ = \en \}; in e)
-      [ \\ \assign{\xone}{r.x'_1}; \ldots{}; \assign{\xn}{r.x'_n} \\ ]
+        (let rec $r$: \{ $x'_1$ = $\τ_1$; $\cdots$; $x'_n$ = $\τ_n$; \} = \\
+        \{ $x'_1$ = \eone; $\cdots$; $x'_n$ = \en{} \}; in e)
+      [ \\ \assign{\xone}{r.x'_1}; $\cdots$; \assign{\xn}{r.x'_n} \\ ]
       }
     }{}
   \end{tabular}
