@@ -1,56 +1,62 @@
 \begin{mathpar}
-  \inferrule{ }{\Gamma; x:\tau \vdash x:\tau}(Var)
+  \inferrule{ }{\Γ \tinfer x:\Γ(x)}(IVar)
+  \and\inferrule{ \Γ(x) \subtypeG \τ }{\Γ; \tcheck x:\τ}(CVar)
 
-  \and
-  \inferrule{ }{\Gamma \vdash c:\mathcal{B}(c)}(Const)
+  \and\inferrule{ }{\Γ \tinfer c:\mathcal{B}(c)}(IConst)
+  \and\inferrule{ \mathcal{B}(c) \subtypeG \τ }{\Γ \tcheck c:\τ}(CConst)
 
-  \and
-  \inferrule{%
-    \Gamma \vdash e_1 : \tau_1 \\ \Gamma \vdash e_2 : \tau_2 \\
-    \tau_1 \subtype \zero \rightarrow \one \\
-    \tau_2 \subtype \dom(\tau_1)
+  \and\inferrule{%
+    \Γ \tinfer e_1 : \τ_1 \\ \Γ \tinfer e_2 : \τ_2 \\
+    \τ_1 \subtypeG \zero \rightarrow \one \\
+    \τ_2 \subtypeG \dom(\τ_1)
   }{%
-    \Gamma \vdash e_1 e_2 : \tau_1 \circ \tau_2
+    \Γ \tinfer e_1~e_2 : \τ_1 \circ \τ_2
   }
-  (App)
+  (IApp)
 
-  \and
-  \inferrule{%
-    \forall i \in \discrete{1}{n}, \\
-      \Gamma; \ofTypeP{p}{\sigma_i} \vdash e: \tau_i \\
+  \and\inferrule{%
+    \Γ \tinfer e_2 : \σ \\
+    \Γ \tcheck e_1 : \σ \rightarrow \τ
   }{%
-    \lambda \left(p:{\bigvee\limits_{i=1}^n\σ}\right).e :
-      \bigwedge\limits_{i=1}^n \left(\σ \rightarrow \τ\right)
+    \Γ \tcheck e_1~e_2 : \τ
   }
-  (Abs)
+  (CApp)
 
-  \and
-  \inferrule{%
-    \Gamma \vdash e : \tau \\
-      \Γ; x : \τ \wedge t \vdash e_1 : \sigma_1 \\
-      \Γ; x : \τ \wedge \lnot t \vdash e_2 : \sigma_2
+  \and\inferrule{%
+    \Γ' \dashv p:\σ \\
+    \Γ;\Γ' \tinfer e : \τ
   }{%
-    \Gamma \vdash ((x := e \in t) ? e_1 : e_2) : \sigma_1 \vee \sigma_2
+    \Γ \tinfer \λ p.e : \σ \rightarrow \τ
   }
-  (Tcase)
+  (IAbs)
+
+  \and\inferrule{%
+    \τ \subtype \zero \rightarrow \one \\
+    \forall \σ_1 \rightarrow \σ_2 \in \mathcal{A}(\τ), \\
+      \Γ' \dashv p:\σ_1 \\ \Γ;\Γ' \tcheck e : \σ_2
+  }{%
+    \Γ \tcheck \λ p.e : \τ
+  }(CAbs)
 
   \and
   \inferrule{%
-    \forall i \in \discrete{1}{n}, \Γ \vdash e_i : \τ_i \\
-      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e : \τ
+    \forall i \in \discrete{1}{n},
+      \Γ; x_1 : ?; \cdots; x_n : ? \tinfer e_i : \τ_i \\
+    \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
   }{%
-    \Gamma \vdash \text{let } x_1 = e_1; \ldots{}; x_n = e_n
+    \Gamma \tIC \text{let } x_1 = e_1; \cdots; x_n = e_n
       \text{ in } e : \τ
   }
   (Let)
 
   \and
   \inferrule{%
-    \forall i \in \discrete{0}{n},
-      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \vdash e_i : \τ_i
+    \forall i \in \discrete{1}{n},
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \tinfer e_i : \τ_i \\
+    \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
   }{%
-    \Gamma \vdash \text{let rec } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+    \Gamma \tIC \text{let rec } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
       \text{ in } e_0 : \τ_0
   }
-  (LetRec)
+  (LetAnnot)
 \end{mathpar}
