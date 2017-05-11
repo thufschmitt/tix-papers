@@ -15,7 +15,7 @@ check: FORCE
 	latexmk -output-directory=out -pdf -xelatex -pv -use-make $<
 
 clean:
-	latexmk -CA
+	rm -r out
 
 # Fore some reasons that are far behind my understanding of make, The PHONY
 # rule doesn't work for the "%.pdf" rule, so let's use this old trick to
