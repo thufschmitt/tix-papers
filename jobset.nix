@@ -1,0 +1,3 @@
+{
+  paper = import ./default.nix;
+}
