@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   src = ./.;
 
   installPhase = ''
-    mkdir -p $out
-    cp out/main.pdf $out/
+    cp out/main.pdf $out
   '';
 }
 

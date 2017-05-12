@@ -1,3 +1,3 @@
 {
-  paper = import ./default.nix;
+  "paper.pdf" = import ./default.nix;
 }
