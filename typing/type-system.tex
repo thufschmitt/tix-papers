@@ -57,7 +57,7 @@ and~\pref{typing::operators}.
     \and\inferrule{~}{\dashv \text{nil} : \text{nil}}
     \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
     \and\inferrule{%
-      \Γ \dashv p : \τ \\ \mathcal{B}(c) \subtype \τ
+      \Γ \dashv p : \τ \\ \Bt(c) \subtype \τ
     }{%
       \Γ \dashv p ? c : \τ
     }

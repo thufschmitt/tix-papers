@@ -2,8 +2,8 @@
   \inferrule{ }{\Γ \tinfer x:\Γ(x)}(IVar)
   \and\inferrule{ \Γ(x) \subtypeG \τ }{\Γ; \tcheck x:\τ}(CVar)
 
-  \and\inferrule{ }{\Γ \tinfer c:\mathcal{B}(c)}(IConst)
-  \and\inferrule{ \mathcal{B}(c) \subtypeG \τ }{\Γ \tcheck c:\τ}(CConst)
+  \and\inferrule{ }{\Γ \tinfer c:\Bt(c)}(IConst)
+  \and\inferrule{ \Bt(c) \subtypeG \τ }{\Γ \tcheck c:\τ}(CConst)
 
   \and\inferrule{%
     \Γ \tinfer e_1 : \τ_1 \\ \Γ \tinfer e_2 : \τ_2 \\
@@ -32,7 +32,7 @@
 
   \and\inferrule{%
     \τ \subtype \zero \rightarrow \one \\
-    \forall \σ_1 \rightarrow \σ_2 \in \mathcal{A}(\τ), \\
+    \forall \σ_1 \rightarrow \σ_2 \in \A(\τ), \\
       \Γ' \dashv p:\σ_1 \\ \Γ;\Γ' \tcheck e : \σ_2
   }{%
     \Γ \tcheck \λ p.e : \τ
