@@ -1,9 +1,14 @@
 # borrowed from
 # http://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project
 
+VIEWER=evince
+
 .PHONY: all clean
 
 all: combined/main.pdf
+
+view: combined/main.pdf
+	$(VIEWER) out/main.pdf
 
 check: FORCE
 	# Warning 11 is \ldots vs \cdots.
@@ -12,7 +17,7 @@ check: FORCE
 	chktex -g0 -l .chktexrc -n11 combined/main.tex
 
 %.pdf: %.tex common/header.tex FORCE
-	latexmk -output-directory=out -pdf -xelatex -pv -use-make $<
+	latexmk -output-directory=out -pdf -xelatex -use-make $<
 
 clean:
 	rm -r out
