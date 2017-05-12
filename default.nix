@@ -9,7 +9,6 @@ stdenv.mkDerivation rec {
       (texlive.combine {
         inherit (texlive) scheme-medium syntax todo;
       })
-      biber fontconfig pdfpc rubber
   ];
 
   src = ./.;
