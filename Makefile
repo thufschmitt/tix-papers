@@ -12,7 +12,7 @@ check: FORCE
 	chktex -g0 -l .chktexrc -n11 combined/main.tex
 
 %.pdf: %.tex common/header.tex FORCE
-	latexmk -output-directory=out -pdf -xelatex -pv -use-make $<
+	latexmk -output-directory=out -pdf -xelatex -use-make $<
 
 clean:
 	rm -r out
