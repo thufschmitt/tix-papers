@@ -31,6 +31,24 @@
 \lstset{%
   escapeinside={//*}{*//}
   }
+\lstdefinelanguage{NLight}{%
+  morekeywords={%
+    let,in
+  },%
+  morekeywords={[2]Int,true,false,Bool},   % types go here
+  otherkeywords={:,=}, % operators go here
+  literate={% replace strings with symbols
+    {->}{{$\to$}}{2}
+    {lambda}{{$\lambda$}}{1}
+    {tin}{{$\in$}}{2}
+    {\&}{{$\wedge$}}{2}
+  },
+  basicstyle={\sffamily},
+  keywordstyle={\bfseries},
+  keywordstyle={[2]\itshape}, % style for types
+  keepspaces,
+  mathescape % optional
+}[keywords,comments,strings]%
 
 \usepackage{todo}
 
