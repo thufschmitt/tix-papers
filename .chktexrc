@@ -706,7 +706,7 @@ NotPreSpaced
 
 Linker
 {
-    \ref \vref \pageref \eqref \cite
+    \ref \vref \pageref \eqref \cite \pref
 }
 
 #####################################################################
