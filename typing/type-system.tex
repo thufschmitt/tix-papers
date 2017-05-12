@@ -51,6 +51,54 @@ The typing rules are given by the
 figures~\pref{typing::lambda-calculus},~\pref{typing::records}
 and~\pref{typing::operators}.
 
+\subsection{Bidirectional typing}
+
+The rules defined above are already quite expressive. However, they aren't
+enough to type the following function, no matter how the type annotations are
+written:
+
+\begin{lstlisting}[language=NLight]
+  (lambda cond. lambda x.  (y = cond in true) ? x+1 : not x
+  : (true -> Int -> Int & false -> Bool -> Bool))
+\end{lstlisting}
+
+Indeed, do to this we would need to annotate $x$ as \ty{Int} or \ty{Bool}
+depending on wether \texttt{cond} was \ty{true} or \ty{false}, which isn't
+possible.
+
+To remedy this problem, we split our type system in two parts: an inference
+part and a checking part.  The inference part − denoted with typing judgements
+of the form $\Γ \tinfer e : \τ$ − corresponds to classical bottom-up
+type-inference, while the checking part − denoted with typing judgements of the
+form $\Γ \tcheck e : \τ$ corresponds to a top-down type inference, where the
+type of the expression is already known and we use it to infer the type of the
+sub-expressions − in other words, we propagate the type annotations to the
+bottom while type-checking. In particular, this ``checking'' type-system allows
+us a more precise typing of lambdas.
+
+Explicitly annotated let-bindings are thus typed using the checking type-system
+and we can rewrite the previous expression as
+\begin{lstlisting}[language=NLight]
+let f : (true -> Int -> Int & false -> Bool -> Bool) =
+ lambda cond. lambda x.  (y = cond tin true) ? x+1 : not x
+in f
+\end{lstlisting}
+
+In this case, we just have to \emph{check} that
+\begin{lstlisting}[language=NLight]
+lambda x. (y = cond tin true) ? x+1 : not x
+\end{lstlisting}
+has type $\ty{Int} \rightarrow \ty{Int}$ under the hypothesis $\texttt{cond} :
+\ty{true}$ and $\ty{Bool} \rightarrow \ty{Bool}$ under the hypothesis
+$\texttt{cond} : \ty{false}$. This means checking that
+\begin{lstlisting}[language=NLight]
+(y = cond tin true) ? x+1 : not x
+\end{lstlisting}
+has type $\ty{Int}$ under the hypothesis $\texttt{cond} : \ty{true}; \texttt{x}
+: \ty{Int}$ and $\ty{Bool}$ under the hypothesis $\texttt{cond} : \ty{false};
+\texttt{x} : Bool$. This is true, thanks to the rules TcaseL and TcaseR of the
+type system (figure~\pref{typing::lambda-calculus}).
+
 \begin{figure}
   \begin{mathpar}
     \inferrule{~}{x:\τ \dashv x:\τ}
