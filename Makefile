@@ -6,9 +6,9 @@
 all: combined/main.pdf
 
 check: FORCE
-	# Warning 11 is \ldots vs \cdots.
-	# We disable it as we use both in the same context to differentiate
-	# syntax and meta-syntax
+# Warning 11 is \ldots vs \cdots.
+# We disable it as we use both in the same context to differentiate
+# syntax and meta-syntax
 	chktex -g0 -l .chktexrc -n11 combined/main.tex
 
 %.pdf: %.tex common/header.tex FORCE
