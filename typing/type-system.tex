@@ -53,6 +53,8 @@ and~\pref{typing::operators}.
 
 \subsection{Bidirectional typing}
 
+\subsubsection{Motivation and overview}
+
 The rules defined above are already quite expressive. However, they aren't
 enough to type the following function, no matter how the type annotations are
 written:
@@ -98,6 +100,93 @@ has type $\ty{Int}$ under the hypothesis $\texttt{cond} : \ty{true}; \texttt{x}
 : \ty{Int}$ and $\ty{Bool}$ under the hypothesis $\texttt{cond} : \ty{false};
 \texttt{x} : Bool$. This is true, thanks to the rules TcaseL and TcaseR of the
 type system (figure~\pref{typing::lambda-calculus}).
+
+\subsubsection{Description of the top-down type-checking}
+\label{sec::lambda::topDown::descr}
+
+The basic idea behind the top-down type-checking is to use the type annotations
+of parent nodes (or any other type information that we got from upper in the
+AST), not just to check that the inferred type was correct, but in the
+inference process itself.
+
+For example, if we want to type the expression $(e_1, e_2) : (\τ_1 \times
+\τ_2)$, we will try to type $(e_1 : \τ_1)$ and $(e_1 : \τ_2)$ and then merge
+the results.
+In a more general fashion, if we got $(e_1, e_2) : \τ$ − where $\τ$ is any
+subtype of $\one \times \one$ − we will need to project $\τ$ on its first and
+second component respectively to type $e_1$ and $e_2$. The exact definition of
+those projections are defined in Section~\ref{sec::lambda::projections}.
+
+\subsection{Projections of types}
+\label{sec::lambda::projections}
+
+\subsubsection{Pairs}
+
+In order to propagate the type informations, we sometimes have to project a
+type build from a type constructor onto its different components. For example,
+in Section~\ref{sec::lambda::topDown::descr}, we quickly discussed about the
+projections of a pair.
+
+We now extends this simple definition of the projections $\pi_1$
+and $\pi_2$ to more complex pair types (\emph{ie.} subtypes of $\one \times
+\one$), keeping the invariant that for a given subtype $\τ$ of $\one \times
+\one$, $\pi_1(\τ) \times \pi_2(\τ)$ is a subtype~\todo{Gradual ?} of $\τ$, so
+that if $e_1$ has type $\pi_1(\τ)$ and $e_2$ has type $\pi_2(\τ)$, then $(e_1,
+e_2)$ can be given the type $\τ$.
+
+Let $\τ$ be a subtype of $\one \times \one$.
+We know that $\τ$ can be written as:
+\[
+  \τ = \bigvee\limits_{i\in I}\left(\bigwedge\limits_{p\in P_i} (\σ_p \times \τ_p)
+  \wedge \bigwedge\limits_{n \in N_i} \lnot (\σ_n \times \τ_n) \right)
+\]
+We define $\pi_1(\τ)$ (resp. $\pi_2(\τ)$) as
+\begin{align*}
+  \pi_1(\τ) &= \bigwedge\limits_{i \in I} \bigwedge\limits_{N' \subseteq N}
+    \left(\bigwedge\limits_{p \in P_i} \σ_p \wedge
+    \bigwedge\limits_{n \in N'} \lnot \σ_n \right)\\
+  \pi_2(\τ) &= \bigwedge\limits_{i \in I} \bigwedge\limits_{N' \subseteq N}
+    \left(\bigwedge\limits_{p \in P_i} \τ_p \wedge
+    \bigwedge\limits_{n \in N'} \lnot \τ_n \right)
+\end{align*}
+
+We can check\todo{Check that this is indeed true} that this definition respects
+our constraint.
+
+\subsubsection{Arrows}
+
+Another construct for which we want to propagate type informations is the
+definition of a function.
+
+Assume we got an expression $(\λ p . e) : \τ$ where $\τ$ is a subtype (not
+gradual) of $\zero \rightarrow \one$.
+
+We want to type the function for each concrete arrow type included in $\τ$. In
+other words, if we note $\A(\τ)$ the set of all arrow types in $\τ$, we want that
+for all $\σ \rightarrow \σ' \in \A(\τ)$, $p$ matches $\σ$, and that under this
+matching, $e$ has type $\σ'$.
+
+This is given by the rule \emph{CAbs} of the type system in the
+Figure~\pref{typing::lambda-calculus}.
+
+Remains the definition of $\A(\τ)$, that we give as follows:
+
+If $\τ$ is in the form
+\[
+  \τ = \bigvee\limits_{i\in I}\left(
+    \bigwedge\limits_{p\in P_i} (\σ_p \rightarrow \τ_p)
+    \wedge \bigwedge\limits_{n \in N_i} \lnot (\σ_n \rightarrow \τ_n)
+  \right)
+\]
+then $\A(\τ)$ is given by:
+\[
+  \A(\σ) = \bigsqcap\limits_{i \in I} \{ \σ_p \rightarrow \τ_p \| p \in P_i \}
+\]
+where $\sqcap$ is defined as
+\[
+  \{ \σ_i \rightarrow \τ_i \| i \in I \} \sqcap \{ \σ_j \rightarrow \τ_j \| j \in J \} =
+    \{ (\σ_i \wedge \σ_j) \rightarrow (\τ_i \vee \τ_j) \| i \in I, j \in J \}
+\]
 
 \begin{figure}
   \begin{mathpar}
