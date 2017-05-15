@@ -54,6 +54,7 @@ and~\pref{typing::operators}.
 \subsection{Bidirectional typing}
 
 \subsubsection{Motivation and overview}
+\label{motivation-and-overview}
 
 The rules defined above are already quite expressive. However, they aren't
 enough to type the following function, no matter how the type annotations are
@@ -101,38 +102,25 @@ has type $\ty{Int}$ under the hypothesis $\texttt{cond} : \ty{true}; \texttt{x}
 \texttt{x} : Bool$. This is true, thanks to the rules TcaseL and TcaseR of the
 type system (figure~\pref{typing::lambda-calculus}).
 
-\subsubsection{Description of the top-down type-checking}
-\label{sec::lambda::topDown::descr}
+So the basic idea behind this is to use the type annotations of parent nodes
+(or any other type information that we got from upper in the AST), not just to
+check that the inferred type was correct, but in the inference process itself.
 
-The basic idea behind the top-down type-checking is to use the type annotations
-of parent nodes (or any other type information that we got from upper in the
-AST), not just to check that the inferred type was correct, but in the
-inference process itself.
+\subsubsection{Pairs}
 
 For example, if we want to type the expression $(e_1, e_2) : (\τ_1 \times
 \τ_2)$, we will try to type $(e_1 : \τ_1)$ and $(e_1 : \τ_2)$ and then merge
 the results.
 In a more general fashion, if we got $(e_1, e_2) : \τ$ − where $\τ$ is any
 subtype of $\one \times \one$ − we will need to project $\τ$ on its first and
-second component respectively to type $e_1$ and $e_2$. The exact definition of
-those projections are defined in Section~\ref{sec::lambda::projections}.
+second component respectively to type $e_1$ and $e_2$.
 
-\subsection{Projections of types}
-\label{sec::lambda::projections}
-
-\subsubsection{Pairs}
-
-In order to propagate the type informations, we sometimes have to project a
-type build from a type constructor onto its different components. For example,
-in Section~\ref{sec::lambda::topDown::descr}, we quickly discussed about the
-projections of a pair.
-
-We now extends this simple definition of the projections $\pi_1$
-and $\pi_2$ to more complex pair types (\emph{ie.} subtypes of $\one \times
-\one$), keeping the invariant that for a given subtype $\τ$ of $\one \times
-\one$, $\pi_1(\τ) \times \pi_2(\τ)$ is a subtype~\todo{Gradual ?} of $\τ$, so
-that if $e_1$ has type $\pi_1(\τ)$ and $e_2$ has type $\pi_2(\τ)$, then $(e_1,
-e_2)$ can be given the type $\τ$.
+We thus extends this definition of the projections $\pi_1$ and $\pi_2$ to more
+complex pair types (\emph{ie.} subtypes of $\one \times \one$), keeping the
+invariant that for a given subtype $\τ$ of $\one \times \one$, $\pi_1(\τ)
+\times \pi_2(\τ)$ is a subtype~\todo{Gradual ?} of $\τ$, so that if $e_1$ has
+type $\pi_1(\τ)$ and $e_2$ has type $\pi_2(\τ)$, then $(e_1, e_2)$ can be given
+the type $\τ$.
 
 Let $\τ$ be a subtype of $\one \times \one$.
 We know that $\τ$ can be written as:
@@ -187,6 +175,13 @@ where $\sqcap$ is defined as
   \{ \σ_i \rightarrow \τ_i \| i \in I \} \sqcap \{ \σ_j \rightarrow \τ_j \| j \in J \} =
     \{ (\σ_i \wedge \σ_j) \rightarrow (\τ_i \vee \τ_j) \| i \in I, j \in J \}
 \]
+
+In the example of the Section~\ref{motivation-and-overview}, the expression has
+type $t = (true \rightarrow (Int \rightarrow Int)) \wedge (false \rightarrow
+(Bool \rightarrow Bool))$
+
+Thus, we have $\A(t)$ equal to the set $\left\{ true \rightarrow (Int
+\rightarrow Int); false \rightarrow (Bool \rightarrow Bool) \right\}$
 
 \begin{figure}
   \begin{mathpar}
