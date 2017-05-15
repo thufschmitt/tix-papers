@@ -497,7 +497,7 @@ WipeArg
     \Citet:*[][]{} \Citep:*[][]{} \Citealt:*{} \Citealp:*[]{} \Citeauthor:{}
     \citetext:{} \citeyear:*{} \citeyearpar:{}
     # Listings
-    \inlinelst:{}
+    \lstinline:{}
 }
 
 #####################################################################

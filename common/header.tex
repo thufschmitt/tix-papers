@@ -31,15 +31,12 @@
 
 % Fore code blocks
 \usepackage{listings}
-\lstset{%
-  escapeinside={//*}{*//}
-  }
 \lstdefinelanguage{NLight}{%
   morekeywords={%
-    let,in
+    let,in,if,then,else,Cons,Nil
   },%
-  morekeywords={[2]Int,true,false,Bool},   % types go here
-  otherkeywords={:,=}, % operators go here
+  morekeywords={[2]Int,true,false,Bool,T},   % types go here
+  otherkeywords={:,=[]}, % operators go here
   literate={% replace strings with symbols
     {->}{{$\to$}}{2}
     {lambda}{{$\lambda$}}{1}
@@ -51,9 +48,13 @@
   keywordstyle={[2]\itshape}, % style for types
   keepspaces,
   mathescape % optional
-}[keywords,comments,strings]%
-% Mostly because chktex can't expand the behaviour of \verb
-\newcommand{\inlinelst}[1]{\lstinline|#1|}
+}[keywords,comments,strings]
+\lstset{%
+  escapeinside={//*}{*//},
+  breaklines=true,
+  mathescape=true,
+  language=NLight
+}
 
 \usepackage{todo}
 

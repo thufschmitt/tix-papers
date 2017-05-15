@@ -1,0 +1,33 @@
+Both languages are rather similar, so the compilation is mostly
+straightforward: nix lambdas are compiled to nix-light lambdas; nix constants,
+and so on\ldots. The intersesting parts are:
+
+\begin{itemize}
+  \item[If-then-elses] Those are compiled, to typecases, as said in
+    Section~\ref{sec:nix-light-grammar}. However, there are several
+    possibilities for this.
+
+    The obvious one is to translate \lstinline{if $e$ then $e_1$ else $e_2$} into
+    \lstinline{($x$ := ($e$ : Bool) tin true) ? $e_1$ : $e_2$} (where $x$ do not appear
+    free in $e_1$ or $e_2$).
+    However, the interest of the typecase is that it gives us some information
+    on the type of $x$, that we can't use at all here. So this translation
+    isn't very interesting.
+    When possible, we will  to define smarter compilations for some forms of
+    if-then-else.
+
+    The most notable pattern that we want to recognize is
+    \lstinline{if isT $x$ then $e_1$ else $e_2$}
+    (where \lstinline{isT} is a predicate on types such as
+    \lstinline{isInt}, \lstinline{isBool}, \ldots).
+    Such an expression would be compiled to a typecase of the form
+    \lstinline{($x$ := $x$ tin T) ? $e_1$ : $e_2$}, which will later allow us to take
+    advantage of the knowledge of the type of $x$.
+
+  \item[Lists] Nix opaque lists are replaced in nix-light by the more
+    conventional algebraic datatype built using the \lstinline{Cons} and
+    \lstinline{Nil} constructors.
+    This translation is rather easy: the compilation simply considers that
+    \lstinline{[ $e_1$ $\cdots$ $e_n$ ]} is syntactic sugar for
+    \lstinline{Cons($e_1$, Cons($\cdots$, Cons($e_n$, Nil)))} %chktex 36
+\end{itemize}
