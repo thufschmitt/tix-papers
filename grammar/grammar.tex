@@ -1,7 +1,19 @@
 \subsection{Nix grammar}
 \label{sec:nix-grammar}
 
-\todo{Write the nix grammar}
+The grammar of nix is given at Figures~\pref{grammar::nix}
+and~\pref{grammar::types}. It consists\todo{Remove as soon as the grammar is
+extended} of a simple lambda calculus with lists (and type annotations).
+
+\begin{figure}
+  \input{grammar/nix}
+  \caption{\label{grammar::nix}The nix grammar for expressions}
+\end{figure}
+
+\begin{figure}
+  \input{grammar/types}
+  \caption{\label{grammar::types}The nix and nix-light grammar for types}
+\end{figure}
 
 \subsection{nix-light}
 \label{sec:nix-light-grammar}
@@ -54,9 +66,4 @@ and~\pref{grammar::types}.
 \begin{figure}
   \input{grammar/values}
   \caption{\label{grammar::values}The nix-light grammar for values}
-\end{figure}
-
-\begin{figure}
-  \input{grammar/types}
-  \caption{\label{grammar::types}The nix-light grammar for types}
 \end{figure}

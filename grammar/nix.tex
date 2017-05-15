@@ -1,0 +1,17 @@
+\begin{grammar}
+  \bfseries
+  <e> ::=
+    $x$ \| $c$
+    \alt $\λ$$p$.$e$ \| $e$ $e$
+    \alt let $x$ = $e$; $\cdots{}$; $x$ = $e$; in $e$
+    \alt [ e $\cdots$ $e$ ]
+    \alt if $e$ then $e$ else $e$
+
+  <c> ::= $s$ \| $i$ \| $b$
+
+  <p> ::= $q$ \| $q$@$x$ \| $r$
+
+  <q> ::= ($r$, $r$) \| $q$:\τ
+
+  <r> ::= $x$ | $x$:\τ
+\end{grammar}
