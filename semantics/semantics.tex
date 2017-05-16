@@ -12,21 +12,21 @@ The rules for the pattern-matching are in
 figure~\pref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
-  \begin{tabular}{rl}
-    \dstepa{$(\λ r .e_1) e_2$}{$\substp{\var(r)}{e_2}{e_1}$}{}
-    \dstepa{$(\λ p.e_1) v$} {$\substp{p}{v}{e_1}$}{if $p \neq x$}
-    \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{\eone}}{if $\vdash v : \τ$}
-    \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{$e_2$}}{if $\vdash v : \lnot\τ$}
-    \dstepa{let $r$ = $e$; in $e'$}{%
-      \subst{\var(r)}{\text{let $r$ = $e$; in $e$}}{$e'$}
+  \begin{align*}
+    \dstepa{(\λ r .e_1) e_2}{\substp{\var(r)}{e_2}{e_1}}{}
+    \dstepa{(\λ p.e_1) v} {\substp{p}{v}{e_1}}{\text{if } p \neq x}
+    \dstepa{(x := v \in \τ~? \eone: e_2)}{\subst{x}{v}{\eone}}{\text{if } \vdash v : \τ}
+    \dstepa{(x := v \in \τ~? \eone: e_2)}{\subst{x}{v}{e_2}}{\text{if } \vdash v : \lnot\τ}
+    \dstepa{\text{let } r = e; \text{ in } e'}{%
+      \subst{\var(r)}{\text{\text{let } r = e; \text{ in } e}}{e'}
     }{}
-    \dstepa{let $r_1$ = \eone; $\cdots{}$; $r_n$ = \en; in $e$}{%
-      \parbox[t]{10cm}{%
-        (let $y$ = \{ $x_1$ = \eone; $\cdots$; $x_n$ = \en{} \}; in $e$)
-      [ \\ \assign{\var(r_1)}{y.x_1}; $\cdots$; \assign{\var(r_n)}{y.x_n} \\ ]
-      }
+    \dstepa{\text{let } r_1 = \eone; \cdots{}; r_n = \en; \text{ in } e}{%
+      (\text{let } y = \{ x_1 = \eone; \cdots; x_n = \en{} \}; \text{ in } e) [
+          \assign{\var(r_1)}{y.x_1}; \cdots; \assign{\var(r_n)}{y.x_n}
+          ]
     }{}
-  \end{tabular}
+      &\text{Where } x_1, \cdots, x_n \text{ don't appear free in } e_1, \cdots, e_n \text{ or } e
+  \end{align*}
   \caption{Nix-light reduction rules\label{fig:semantics:nix-light}}
 \end{figure}
 
