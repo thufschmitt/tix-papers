@@ -3,7 +3,6 @@
   <t> ::= $c$ \| $t$ $\bm{\rightarrow}$ $t$
     \alt $t$ $\bm{\vee}$ $t$ \| $t$ $\bm{\wedge}$ $t$ \| $t$ $\bm{\backslash}$ $t$
     \alt [\meta{R}]
-    \alt \{ $s$ = $u$; $\cdots{}$; $s$ = $u$; _ = $u$ \}
     \alt bool \| int \| string
 
   <u> ::= $t$ \| ?$t$
@@ -13,9 +12,3 @@
 
   <\τ> ::= $t$ % No polymorphism for now
 \end{grammar}
-
-We write \textbf{\{ $s$ = $u$; $\cdots{}$; $s$ = $u$; \}} as
-syntactic sugar for \textbf{\{ $s$ = $u$; $\cdots{}$; $s$ = $u$; _ =
-$\undef$ \}}, and \textbf{\{ $s$ = $u$; $\cdots{}$; $s$ = $u$;.. \}}
-as syntactic sugar for \textbf{\{ $s$ = $u$; $\cdots{}$; $s$ = $u$; _
-= \textmd{\emph{Any}} \}}
