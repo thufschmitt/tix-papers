@@ -73,7 +73,7 @@
 \newcommand{\ndsteps} [2] {#1 \ensuremath{\nrightarrow^*} #2}
 \newcommand{\dstepa} [3] {\dstep{#1}{&#2}~{#3} \\}
 \newcommand{\eqdef}[2]{#1 \ensuremath{\overset{\text{def}}{=}} #2}
-\newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} \emph{#3} \\}
+\newcommand{\eqdefa}[3]{\eqdef{#1}{&#2} #3 \\}
 
 % TODO remove this, it's ugly
 \newcommand{\xone}{\ensuremath{x_1}}
@@ -92,6 +92,8 @@
 \newcommand{\quasiconst}[1]{\overset{#1}{\twoheadrightarrow}}
 \DeclareMathOperator\dom{dom}
 \DeclareMathOperator\deff{def}
+\DeclareMathOperator\cons{Cons}
+\DeclareMathOperator\nil{Nil}
 \DeclareMathOperator\var{\mathcal{V}}
 \DeclareMathOperator\A{\mathcal{A}}
 \DeclareMathOperator\Bt{\mathcal{B}}

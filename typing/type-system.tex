@@ -30,18 +30,33 @@ Maybe~\todo{Find out wether this is true} this enjoys principal typing.
 
 \todo{Define the projections $\pi_1$ and $\pi_2$}.
 
+ \begin{figure}
+  \begin{center}
+    \begin{align*}
+      \eqdefa{\accept{x}}{\grad}{}
+      \eqdefa{\accept{x:\τ}}{\τ}{}
+      \eqdefa{\accept{q@x}}{\accept{q}}{}
+      \eqdefa{\accept{\cons(x_1, x_2)}}{\cons(\accept{x_1}, \accept{x_2})}{}
+      \eqdefa{\accept{\cons(x_1, x_2) : \τ}}{%
+        \accept{\cons(x_1 : \pi_1(\τ), x_2 : \pi_2(\τ))}
+      }{\text{If }\τ \subtypeG Cons(\one, \one)}
+      \eqdefa{\accept{\nil}}{\nil}{}
+    \end{align*}
+  \end{center}\label{typing::pattern-accept}
+   \caption{Semantics of the $\accept{\_}$ operator}
+\end{figure}
 \begin{figure}
   \begin{mathpar}
     \inferrule{~}{x:\τ \dashv x:\τ}
     \and\inferrule{~}{\dashv \text{Nil} : \text{Nil}}
     \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
     \and\inferrule{%
-      \τ \subtypeG \text{Cons}(\one,\one) \\
+      \τ \subtypeG \cons(\one,\one) \\
       \Γ_1 \dashv p_1 : \pi_1(\τ) \\
       \Γ_2 \dashv p_2 : \pi_2(\τ) \\
       \text{Vars}(\Γ_1) \cap \text{Vars}(\Γ_2) = \varnothing
     }{%
-      \Γ_1; \Γ_2 \dashv \text{Cons}(p_1, p_2) : \τ
+      \Γ_1; \Γ_2 \dashv \cons(p_1, p_2) : \τ
     }
     \and\inferrule{%
       \Γ \dashv p : \τ \\
