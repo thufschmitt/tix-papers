@@ -32,44 +32,13 @@ figure~\pref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
   \begin{tabular}{rl}
-    \eqdefa{$\sfrac{x:t}{e}$}{$\sfrac{x}{e}$}{}
-    \eqdefa{$\sfrac{x}{e}$}{$\sfrac{x}{e}$}{}
+    \eqdefa{$\sfrac{r}{e}$}{$\sfrac{\var(r)}{e}$}{}
     \eqdefa{$\sfrac{q@x}{e}$}{$\sfrac{x}{e}; \sfrac{q}{e}$}{}
     \eqdefa{$\sfrac{q:t}{e}$}{$\sfrac{q}{e}$}{}
-    \eqdefa{$\sfrac{\{\}}{\{ r_1 ? c_1, \cdots, r_n ? c_n \}}$}{%
-      $\sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n}$}{}
-    \eqdefa{%
-      $\sfrac{%
-        \{ s_1 = e_1; \cdots; s_m = e_m; \}%
-      }{%
-        \{r_1 ? c_1, \cdots, r_n ? c_n, \textbf{\ldots}\}%
-      }$%
-    }{%
-      $\sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n}$%
-    }{%
-      if %
-      $\forall (i,j) \in \discrete{1}{m} \times \discrete{1}{n}, s_i \neq \var(r_j)$%
-    }
-    \eqdefa{$\sfrac{\{ s = e;\}}{\{ r \}}$}{$\sfrac{r}{e}$}{if $s = \var(r)$}
-    \eqdefa{$\sfrac{\{ s = e;\}}{\{ r ? c \}}$}{$\sfrac{r}{e}$}{if $s = \var(r)$}
-    \eqdefa{$%
-      \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}{\{ r, f_1, \cdots, f_m \}}%
-    $}{$%
-      \sfrac{r}{e};%
-      \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{\{ f_1, \cdots, f_m \}}%
-    $}{if $s_1 = \var(r)$}
-    \eqdefa{
-      $\sfrac{%
-        \{ s_1 = e_1; \cdots; s_n = e_n \}}%
-        {\{ r ? c, f_1 \cdots, f_m \}}$%
-      }{%
-        $\sfrac{r}{e};%
-        \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}%
-          {\{ f_1, \cdots, f_m \}}$%
-      }{if $s_1 = \var(r)$}
     \eqdefa{%
       $\sfrac{\text{Cons}(e_1, e_2)}{\text{Cons}(r_1, r_2)}$%
     }{$\sfrac{r_1}{e_1}; \sfrac{r_2}{e_2}$}{}
+    \eqdefa{$\sfrac{\text{Nil}}{\text{Nil}}$}{$\varnothing$}{}
   \end{tabular}
 
   \caption{Semantic of the pattern-matching in nix-light\label{fig:semantics:nix-light:patterns}}
