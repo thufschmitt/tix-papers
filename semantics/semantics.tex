@@ -7,28 +7,17 @@ figure~\pref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
   \begin{tabular}{rl}
-    \dstepa{\{ $s$ = $e$; $\ldots{}$\}.$s$}{$e$}{}
-    \dstepa{\{ $s$ = $e$; $\ldots{}$\}.$s$ or $e'$}{$e$}{}
-    \dstepa{$v.s \text{ or } e'$}{$e'$}{if $$v$ \neq$ \{ $s$ = $e$; $\ldots{}$ \}}
-    \dstepa{$(\λ x : \τ .e_1) e_2$}{$\substp{x}{e_2}{e_1}$}{}
-    \dstepa{$(\λ p : \τ .e_1) v$} {$\substp{p}{v}{e_1}$}{if $p \neq x$}
-    \dstepa{with \{ $l_1$ = $e_1$; $\cdots{}$; $l_n$ = $e_n$; \}; $e$}{
-      $e$[\assign{l_1}{\eone}; $\cdots$; \assign{l_n}{\en}]
-    }{}
-    \dstepa{raise $e$}{$\bot$}{}
+    \dstepa{$(\λ r .e_1) e_2$}{$\substp{\var(r)}{e_2}{e_1}$}{}
+    \dstepa{$(\λ p.e_1) v$} {$\substp{p}{v}{e_1}$}{if $p \neq x$}
     \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{\eone}}{if $\vdash v : \τ$}
     \dstepa{($x := v \in \τ$~? \eone: $e_2$)}{\subst{x}{v}{$e_2$}}{if $\vdash v : \lnot\τ$}
-    \dstepa{let \xone{} = \eone; $\cdots{}$; \xn{} = \en; in $e$}{%
-      $e$[\assign{x_1}{\eone}; $\cdots$; \assign{x_n}{\en}]
+    \dstepa{let $r$ = $e$; in $e'$}{%
+      \subst{\var(r)}{\text{let $r$ = $e$; in $e$}}{$e'$}
     }{}
-    \dstepa{let rec $x$: $\τ$ = $e$; in $e'$}{%
-      \subst{x}{\text{let $x$ = $e$; in $x$}}{$e'$}
-    }{}
-    \dstepa{let rec \xone: $\τ_1$ = \eone; $\cdots{}$; \xn: $\τ_n$ = \en; in $e$}{%
+    \dstepa{let $r_1$ = \eone; $\cdots{}$; $r_n$ = \en; in $e$}{%
       \parbox[t]{10cm}{%
-        (let rec $r$: \{ $x'_1$ = $\τ_1$; $\cdots$; $x'_n$ = $\τ_n$; \} = \\
-        \{ $x'_1$ = \eone; $\cdots$; $x'_n$ = \en{} \}; in e)
-      [ \\ \assign{\xone}{r.x'_1}; $\cdots$; \assign{\xn}{r.x'_n} \\ ]
+        (let $y$ = \{ $x_1$ = \eone; $\cdots$; $x_n$ = \en{} \}; in $e$)
+      [ \\ \assign{\var(r_1)}{y.x_1}; $\cdots$; \assign{\var(r_n)}{y.x_n} \\ ]
       }
     }{}
   \end{tabular}
