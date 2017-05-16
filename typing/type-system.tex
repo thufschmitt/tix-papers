@@ -28,6 +28,31 @@ figure~\pref{typing::patterns::typing-rules}.
 
 Maybe~\todo{Find out wether this is true} this enjoys principal typing.
 
+\todo{Define the projections $\pi_1$ and $\pi_2$}.
+
+\begin{figure}
+  \begin{mathpar}
+    \inferrule{~}{x:\τ \dashv x:\τ}
+    \and\inferrule{~}{\dashv \text{Nil} : \text{Nil}}
+    \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
+    \and\inferrule{%
+      \τ \subtypeG \text{Cons}(\one,\one) \\
+      \Γ_1 \dashv p_1 : \pi_1(\τ) \\
+      \Γ_2 \dashv p_2 : \pi_2(\τ) \\
+      \text{Vars}(\Γ_1) \cap \text{Vars}(\Γ_2) = \varnothing
+    }{%
+      \Γ_1; \Γ_2 \dashv \text{Cons}(p_1, p_2) : \τ
+    }
+    \and\inferrule{%
+      \Γ \dashv p : \τ \\
+      x \notin \Γ
+    }{%
+      \Γ; x:\τ \dashv p@x : \τ
+    }
+  \end{mathpar}
+  \caption{Typing rules for the patterns\label{typing::patterns::typing-rules}}
+\end{figure}
+
 \subsubsection{Typecase}
 
 The typecase $(x := e \in t) ? e_1 : e_2$ can be typed in a simple way, by
@@ -182,28 +207,6 @@ type $t = (true \rightarrow (Int \rightarrow Int)) \wedge (false \rightarrow
 
 Thus, we have $\A(t)$ equal to the set $\left\{ true \rightarrow (Int
 \rightarrow Int); false \rightarrow (Bool \rightarrow Bool) \right\}$
-
-\begin{figure}
-  \begin{mathpar}
-    \inferrule{~}{x:\τ \dashv x:\τ}
-    \and\inferrule{~}{\dashv \text{Nil} : \text{Nil}}
-    \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
-    \and\inferrule{%
-      \Γ_1 \dashv p_1 : \τ_1 \\
-      \Γ_2 \dashv p_2 : \τ_2 \\
-      \text{Vars}(\Γ_1) \cap \text{Vars}(\Γ_2) = \varnothing
-    }{%
-      \Γ_1; \Γ_2 \dashv \text{Cons}(p_1, p_2) : \text{Cons}(\τ_1, \τ_2)
-    }
-    \and\inferrule{%
-      \Γ \dashv p : \τ \\
-      x \notin \Γ
-    }{%
-      \Γ; x:\τ \dashv p@x : \τ
-    }
-  \end{mathpar}
-  \caption{Typing rules for the patterns\label{typing::patterns::typing-rules}}
-\end{figure}
 
 \begin{figure}
   \input{typing/lambdaCalculus}
