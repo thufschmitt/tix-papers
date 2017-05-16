@@ -49,7 +49,7 @@ Maybe~\todo{Find out wether this is true} this enjoys principal typing.
   \begin{mathpar}
     \inferrule{~}{x:\τ \dashv x:\τ}
     \and\inferrule{~}{\dashv \text{Nil} : \text{Nil}}
-    \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
+    \and\inferrule{\Γ \dashv p:\τ \\ \τ \subtypeG \σ}{\Γ \dashv (p:\σ):\τ}
     \and\inferrule{%
       \τ \subtypeG \cons(\one,\one) \\
       \Γ_1 \dashv p_1 : \pi_1(\τ) \\
