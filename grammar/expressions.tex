@@ -6,14 +6,14 @@
     \alt $\λ$$p$.$e$ \| $e$ $e$
     \alt let $x$ = $e$; $\cdots{}$; $x$ = $e$; in $e$
     \alt let rec $r$ = $e$; $\cdots{}$; $r$ = $e$; in $e$
-    \alt ($e$, $e$)
+    \alt Cons ($e$, $e$) \| Nil
     \alt ($x$ = $e$ $\bm{\in}$ $t$) ? $e$ : $e$
 
   <c> ::= $s$ \| $i$ \| $b$
 
   <p> ::= $q$ \| $q$@$x$ \| $r$
 
-  <q> ::= ($r$, $r$) \| $q$:\τ
+  <q> ::= Cons ($r$, $r$) \| Nil \| $q$:\τ
 
   <r> ::= $x$ | $x$:\τ
 \end{grammar}
