@@ -23,10 +23,10 @@
   (CApp)
 
   \and\inferrule{%
-    \Γ' \dashv p:\σ \\
+    \Γ' \dashv p:\accept{p} \\ % Replace by the type accepted by p
     \Γ;\Γ' \tinfer e : \τ
   }{%
-    \Γ \tinfer \λ p.e : \σ \rightarrow \τ
+    \Γ \tinfer \λ p.e : \accept{p} \rightarrow \τ
   }
   (IAbs)
 
@@ -52,7 +52,7 @@
   \and
   \inferrule{%
     \forall i \in \discrete{1}{n},
-      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \tinfer e_i : \τ_i \\
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \tcheck e_i : \τ_i \\
     \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
   }{%
     \Gamma \tIC \text{let rec } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
