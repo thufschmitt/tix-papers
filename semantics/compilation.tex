@@ -1,6 +1,6 @@
 Both languages are rather similar, so the compilation is mostly
-straightforward: nix lambdas are compiled to nix-light lambdas; nix constants,
-and so on\ldots. The intersesting parts are:
+straightforward: nix lambdas are compiled to nix-light lambdas; nix constants
+to nix-light constants, and so on\ldots. The intersesting parts are:
 
 \begin{itemize}
   \item[If-then-elses] Those are compiled, to typecases, as said in
@@ -20,7 +20,7 @@ and so on\ldots. The intersesting parts are:
     \lstinline{if isT $x$ then $e_1$ else $e_2$}
     (where \lstinline{isT} is a predicate on types such as
     \lstinline{isInt}, \lstinline{isBool}, \ldots).
-    Such an expression would be compiled to a typecase of the form
+    Such an expression will be compiled to a typecase of the form
     \lstinline{($x$ := $x$ tin T) ? $e_1$ : $e_2$}, which will later allow us to take
     advantage of the knowledge of the type of $x$.
 
@@ -54,9 +54,9 @@ point of view).
     \sem{\text{if isT $x$ then $e_1$ else $e_2$}} &=
       (x := x \in T) ? e_1 : e_2 \\
     \sem{\text{if $e'_1$ || $e'_2$ then $e_1$ else $e_2$}} &=
-      \sem{\text{if $e'1$ then $e_1$ else if $e'_2$ then $e_1$ else $e_2$}} \\
+      \sem{\text{if $e'_1$ then $e_1$ else (if $e'_2$ then $e_1$ else $e_2$)}} \\
     \sem{\text{if $e'_1$ \&\& $e'_2$ then $e_1$ else $e_2$}} &=
-      \sem{\text{if $e'1$ then if $e'_2$ then $e_1$ else $e_2$ else $e_2$}} \\
+      \sem{\text{if $e'_1$ then (if $e'_2$ then $e_1$ else $e_2)$ else $e_2$}} \\
     \sem{\text{if not $e$ then $e_1$ else $e_2$}} &=
       \sem{\text{if $e$ then $e_2$ else $e_1$}} \\
     \sem{\text{if $e$ then $e_1$ else $e_2$}} &=

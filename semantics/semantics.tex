@@ -14,7 +14,7 @@ figure~\pref{fig:semantics:nix-light:patterns}
 \begin{figure}
   \begin{align*}
     \dstepa{(\λ r .e_1) e_2}{\substp{\var(r)}{e_2}{e_1}}{}
-    \dstepa{(\λ p.e_1) v} {\substp{p}{v}{e_1}}{\text{if } p \neq x}
+    \dstepa{(\λ p.e_1) v} {\substp{p}{v}{e_1}}{\text{if } p \neq r}
     \dstepa{(x := v \in \τ~? \eone: e_2)}{\subst{x}{v}{\eone}}{\text{if } \vdash v : \τ}
     \dstepa{(x := v \in \τ~? \eone: e_2)}{\subst{x}{v}{e_2}}{\text{if } \vdash v : \lnot\τ}
     \dstepa{\text{let } r = e; \text{ in } e'}{%
