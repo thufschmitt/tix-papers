@@ -106,7 +106,7 @@ So the basic idea behind this is to use the type annotations of parent nodes
 (or any other type information that we got from upper in the AST), not just to
 check that the inferred type was correct, but in the inference process itself.
 
-\subsubsection{Pairs}
+\subsubsection{Pairs}\todo{Replace by lists}
 
 For example, if we want to type the expression $(e_1, e_2) : (\τ_1 \times
 \τ_2)$, we will try to type $(e_1 : \τ_1)$ and $(e_1 : \τ_2)$ and then merge
@@ -186,29 +186,8 @@ Thus, we have $\A(t)$ equal to the set $\left\{ true \rightarrow (Int
 \begin{figure}
   \begin{mathpar}
     \inferrule{~}{x:\τ \dashv x:\τ}
-    \and\inferrule{~}{\dashv \text{nil} : \text{nil}}
+    \and\inferrule{~}{\dashv \text{Nil} : \text{Nil}}
     \and\inferrule{\Γ \dashv p:\τ}{\Γ \dashv (p:\τ):\τ}
-    \and\inferrule{%
-      \Γ \dashv p : \τ \\ \Bt(c) \subtype \τ
-    }{%
-      \Γ \dashv p ? c : \τ
-    }
-    \and\inferrule{%
-      \forall i \in \discrete{1}{n}, \Γ_i \dashv r_i : \τ_i \\
-      \forall i, j \in \discrete{1}{n}, \text{Vars}(\Γ_i) \cap \text{Vars}(\Γ_j) = \varnothing \\
-      \forall i, j \in \discrete{1}{n}, x_i \neq x_j
-    }{%
-      \Γ_1; \cdots; \Γ_n \dashv \left\{ x_1 = r_1; \cdots; x_n = r_n; \right\}
-        : \left\{ x_1 = \τ_1; \cdots; x_n = \τ_n; \right\}
-    }
-    \and\inferrule{%
-      \forall i \in \discrete{1}{n}, \Γ_i \dashv r_i : \τ_i \\
-      \forall i, j \in \discrete{1}{n}, \text{Vars}(\Γ_i) \cap \text{Vars}(\Γ_j) = \varnothing \\
-      \forall i, j \in \discrete{1}{n}, x_i \neq x_j
-    }{%
-      \Γ_1; \cdots; \Γ_n \dashv \left\{ x_1 = r_1; \cdots; x_n = r_n; \ldots \right\}
-        : \left\{ x_1 = \τ_1; \cdots; x_n = \τ_n; \ldots \right\}
-    }
     \and\inferrule{%
       \Γ_1 \dashv p_1 : \τ_1 \\
       \Γ_2 \dashv p_2 : \τ_2 \\
@@ -231,13 +210,4 @@ Thus, we have $\A(t)$ equal to the set $\left\{ true \rightarrow (Int
   \caption{Typing rules for the $\λ\&-calculus$\label{typing::lambda-calculus}\\
   \small{The ``$\delta$'' symbol means either ``$\Uparrow$'' either ``$\Downarrow$''
   (but always the same within a given inferrence rule)}}
-\end{figure}
-\begin{figure}
-    \input{typing/recordTypingRules}
-  \caption{Typing rules for records\label{typing::records}}
-\end{figure}
-
-\begin{figure}
-  \todo{add rules for operators}
-  \caption{Typing rules for builtins operators\label{typing::operators}}
 \end{figure}
