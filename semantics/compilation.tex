@@ -2,8 +2,8 @@ Both languages are rather similar, so the compilation is mostly
 straightforward: nix lambdas are compiled to nix-light lambdas; nix constants
 to nix-light constants, and so on\ldots. The intersesting parts are:
 
-\begin{itemize}
-  \item[If-then-elses] Those are compiled, to typecases, as said in
+\begin{description}
+  \item[If-then-else's] Those are compiled, to typecases, as said in
     Section~\ref{sec:nix-light-grammar}. However, there are several
     possibilities for this.
 
@@ -30,7 +30,7 @@ to nix-light constants, and so on\ldots. The intersesting parts are:
     This translation is rather easy: the compilation simply considers that
     \lstinline{[ $e_1$ $\cdots$ $e_n$ ]} is syntactic sugar for
     \lstinline{Cons($e_1$, Cons($\cdots$, Cons($e_n$, Nil)))} %chktex 36
-\end{itemize}
+\end{description}
 
 The exact semantics of nix in term of nix-light are given by the
 Figure~\pref{compilation}.
