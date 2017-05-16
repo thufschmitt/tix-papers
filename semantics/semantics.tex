@@ -1,3 +1,9 @@
+To make the reduction rules simpler and easier to read, we define an
+``annotation erasing'' operator $\var(r)$ for variable patterns:
+\[
+  \var(x) = \var(x:\τ) = x
+\]
+
 The reduction rules are presented in figure~\pref{fig:semantics:nix-light} and
 the evaluation contexts in
 figure~\pref{fig:semantics:nix-light:reduction-contexts}.
@@ -66,7 +72,6 @@ figure~\pref{fig:semantics:nix-light:patterns}
     }{$\sfrac{r_1}{e_1}; \sfrac{r_2}{e_2}$}{}
   \end{tabular}
 
-  Where we define $\var(r)$ as $\var(x) = \var(x:t) = x$
   \caption{Semantic of the pattern-matching in nix-light\label{fig:semantics:nix-light:patterns}}
 \end{figure}
 
