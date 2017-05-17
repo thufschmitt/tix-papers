@@ -1,0 +1,46 @@
+Although the nix language isn't a very complex one, it still contains a lot of
+syntactic sugar that we want to get rid of, and because of its flexibility is
+really hard to type − because a lot of patterns that are syntactic in other
+languages are only determined by the semantics, and thus impossible to detect
+statically.
+
+In particular, most statically typed languages which have a notion of type at
+runtime have a special syntactic construct to do case analysis on the type of
+a variable. For example, in the CDuce language~\cite{Fri04}, this case
+analysis is expressed by a special form of pattern that can be used in
+pattern-matching. This is important because it means that those informations
+can be used by the type-checker. In Nix, however, this case analysis is done by
+the combination of if-then-else's constructs and functions that tell wether
+their argument is of a certain type (\lstinline{isInt} which returns
+\lstinline{true} if its argument is an integer for example).
+The problem is that some expressions that are reasonable can't be typed without
+enriching the typing environment in one of the branches of the if. For example,
+one may expect the expression \lstinline{if isInt $x$ then $x + 1$ else $x$} to
+be well typed, but this requires the type-checker to be aware that in the first
+branch $x$ is of type \lstinline{Int}.
+
+To work around this problem, we restrict ourselves to some syntactic patterns
+that we can recognise. In practice, to keep the type system simple, we only try
+to enrich the environment in presence of an expression of the form
+\lstinline{if isT $x$ then $e_1$ else $e_2$}.
+
+As this is rather limiting, we allow ourselves a pre-processing phase that
+converts some slightly more complicated expressions into the pattern above −
+while preserving the semantics of course.
+The list of those conversions may be expanded at will − that's why it is kept
+out of the type system, but the figure~\pref{semantics::pre-processing}
+provides a few of them. (Although we did not give any formal semantics for nix
+yet, we can at least say that those intuitively preserve the expected semantics
+of a if-then-else construct).
+
+\begin{figure}
+  \begin{align}
+    \text{if $e'_1$ || $e'_2$ then $e_1$ else $e_2$} &\rightarrow
+      \text{if $e'_1$ then $e_1$ else (if $e'_2$ then $e_1$ else $e_2$)} \\
+    \text{if $e'_1$ \&\& $e'_2$ then $e_1$ else $e_2$} &\rightarrow
+      \text{if $e'_1$ then (if $e'_2$ then $e_1$ else $e_2)$ else $e_2$} \\
+    \text{if not $e$ then $e_1$ else $e_2$} &\rightarrow
+      \text{if $e$ then $e_2$ else $e_1$}
+  \end{align}
+  \caption{Simple pre-processing phase for nix expressions}\label{semantics::pre-processing}
+\end{figure}

@@ -34,10 +34,6 @@ to nix-light constants, and so on\ldots. The intersesting parts are:
 
 The exact semantics of nix in term of nix-light are given by the
 Figure~\pref{compilation}.
-Some rules are overlapping for the compilation of the if-then-else
-construct. In this case, the first one is the correct one (In fact, they all
-have the same semantic meaning in nix-light, but they differ from a typing
-point of view).
 
 \begin{figure}
   \begin{align*}
@@ -53,14 +49,9 @@ point of view).
     \sem{[ e ]} &= \text{Cons}(\sem{e}, \text{Nil}) \\
     \sem{\text{if isT $x$ then $e_1$ else $e_2$}} &=
       (x := x \in T) ? e_1 : e_2 \\
-    \sem{\text{if $e'_1$ || $e'_2$ then $e_1$ else $e_2$}} &=
-      \sem{\text{if $e'_1$ then $e_1$ else (if $e'_2$ then $e_1$ else $e_2$)}} \\
-    \sem{\text{if $e'_1$ \&\& $e'_2$ then $e_1$ else $e_2$}} &=
-      \sem{\text{if $e'_1$ then (if $e'_2$ then $e_1$ else $e_2)$ else $e_2$}} \\
-    \sem{\text{if not $e$ then $e_1$ else $e_2$}} &=
-      \sem{\text{if $e$ then $e_2$ else $e_1$}} \\
     \sem{\text{if $e$ then $e_1$ else $e_2$}} &=
       (x := (\sem{e} : \text{Bool}) \in \text{true})\ ?\ \sem{e_1} : \sem{e_2} \\
+      & \text{ where $e$ isn't of the form ``isT $x$''}
   \end{align*}
   \caption{Semantics of the compilation from nix to nix-light}\label{compilation}
 \end{figure}
