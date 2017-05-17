@@ -1,0 +1,98 @@
+\begin{mathpar}
+  \inferrule{ }{\Γ \tinfer x:\Γ(x)}(IVar)
+  \and\inferrule{ \Γ(x) \subtypeG \τ }{\Γ; \tcheck x:\τ}(CVar)
+
+  \and\inferrule{ }{\Γ \tinfer c:\Bt(c)}(IConst)
+  \and\inferrule{ \Bt(c) \subtypeG \τ }{\Γ \tcheck c:\τ}(CConst)
+
+  \and\inferrule{%
+    \Γ \tinfer e_1 : \τ_1 \\ \Γ \tinfer e_2 : \τ_2 \\
+    \τ_1 \subtypeG \zero \rightarrow \one \\
+    \τ_2 \subtypeG \dom(\τ_1)
+  }{%
+    \Γ \tinfer e_1~e_2 : \τ_1 \circ \τ_2
+  }
+  (IApp)
+
+  \and\inferrule{%
+    \Γ \tinfer e_2 : \σ \\
+    \Γ \tcheck e_1 : \σ \rightarrow \τ
+  }{%
+    \Γ \tcheck e_1~e_2 : \τ
+  }
+  (CApp)
+
+  \and\inferrule{%
+    \Γ' \dashv p:\accept{p} \\ % Replace by the type accepted by p
+    \Γ;\Γ' \tinfer e : \τ
+  }{%
+    \Γ \tinfer \λ p.e : \accept{p} \rightarrow \τ
+  }
+  (IAbs)
+
+  \and\inferrule{%
+    \τ \subtype \zero \rightarrow \one \\
+    \forall \σ_1 \rightarrow \σ_2 \in \A(\τ), \\
+      \Γ' \dashv p:\σ_1 \\ \Γ;\Γ' \tcheck e : \σ_2
+  }{%
+    \Γ \tcheck \λ p.e : \τ
+  }(CAbs)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{1}{n},
+      \Γ; x_1 : ?; \cdots; x_n : ? \tinfer e_i : \τ_i \\
+    \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
+  }{%
+    \Gamma \tIC \text{let } x_1 = e_1; \cdots; x_n = e_n
+      \text{ in } e : \τ
+  }
+  (Let)
+
+  \and
+  \inferrule{%
+    \forall i \in \discrete{1}{n},
+      \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \tcheck e_i : \τ_i \\
+    \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
+  }{%
+    \Gamma \tIC \text{let } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+      \text{ in } e_0 : \τ_0
+  }
+  (LetAnnot)
+
+  \and\inferrule{%
+    \Γ \tinfer e : \τ \\
+    \τ \not\subtype t \\
+    \τ \not\subtype \lnot t \\
+    \Γ; x : \τ \wedge t \tinfer e_1 : \τ_1 \\
+    \Γ; x : \τ \wedge \lnot t \tinfer e_2 : \τ_2
+  }{%
+    \Γ \tinfer (x = e \in t) ? e_1 : e_2 : \τ_1 \vee \τ_2
+  }(ITcaseLR)
+
+  \and\inferrule{%
+    \Γ \tinfer e : \τ \\
+    \τ \not\subtype t \\
+    \τ \not\subtype \lnot t \\
+    \Γ; x : \τ \wedge t \tcheck e_1 : \σ \\
+    \Γ; x : \τ \wedge \lnot t \tcheck e_2 : \σ
+  }{%
+    \Γ \tcheck (x = e \in t) ? e_1 : e_2 : \σ
+  }(CTcaseLR)
+
+  \and\inferrule{%
+    \Γ \tinfer e : \τ \\
+    \τ \subtype t \\
+    \Γ; x : \τ \tIC e_1 : \σ
+  }{%
+    \Γ \tIC (x = e \in t) ? e_1 : e_2 : \σ
+  }(TcaseL)
+
+  \and\inferrule{%
+    \Γ \tinfer e : \τ \\
+    \τ \subtype \lnot t \\
+    \Γ; x : \τ \tIC e_2 : \σ
+  }{%
+    \Γ \tIC (x = e \in t) ? e_1 : e_2 : \σ
+  }(TcaseR)
+\end{mathpar}

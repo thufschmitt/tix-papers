@@ -5,6 +5,10 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+
+\pagebreak
+
 In order to lighten the type system, we will not work on the full nix language
 (presented in Section~\ref{sec:nix-grammar}), but on a simplified version
 called nix-light (roughly a subset of the original one) that we also presents
@@ -13,7 +17,14 @@ in this document.
 We also present a compilation from nix to nix-light.
 
 \section{grammar}
-\input{grammar/grammar}
+
+\subsection{Nix grammar}
+\label{sec:nix-grammar}
+\input{grammar/nix}
+
+\subsection{nix-light}
+\label{sec:nix-light-grammar}
+\input{grammar/nix-light}
 
 \section{semantics}
 
@@ -28,7 +39,11 @@ We also present a compilation from nix to nix-light.
 
 \section{typing}
 
-\input{typing/type-system.tex}
+\subsection{The $\λ\&-calculus$}
+\input{typing/lambdaCalculus}
+
+\subsection{Bidirectional typing}
+\input{typing/bidir.tex}
 
 \todos{}
 

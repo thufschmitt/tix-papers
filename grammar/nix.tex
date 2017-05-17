@@ -1,17 +1,29 @@
-\begin{grammar}
-  \bfseries
-  <e> ::=
+The grammar of nix is given at Figures~\pref{grammar::nix}
+and~\pref{grammar::types}. It consists\todo{Remove as soon as the grammar is
+extended} of a simple lambda calculus with lists (and type annotations).
+
+\begin{figure}
+  \begin{grammar}
+    \bfseries
+    <e> ::=
     $x$ \| $c$
     \alt $\λ$$p$.$e$ \| $e$ $e$
     \alt let $x$ = $e$; $\cdots{}$; $x$ = $e$; in $e$
     \alt [ $e$ $\cdots$ $e$ ]
     \alt if $e$ then $e$ else $e$
 
-  <c> ::= $s$ \| $i$ \| $b$
+    <c> ::= $s$ \| $i$ \| $b$
 
-  <p> ::= $q$ \| $q$@$x$ \| $r$
+    <p> ::= $q$ \| $q$@$x$ \| $r$
 
-  <q> ::= ($r$, $r$) \| $q$:\τ
+    <q> ::= ($r$, $r$) \| $q$:\τ
 
-  <r> ::= $x$ | $x$:\τ
-\end{grammar}
+    <r> ::= $x$ | $x$:\τ
+  \end{grammar}
+  \caption{\label{grammar::nix}The nix grammar for expressions}
+\end{figure}
+
+\begin{figure}
+  \input{grammar/types}
+  \caption{\label{grammar::types}The nix and nix-light grammar for types}
+\end{figure}
