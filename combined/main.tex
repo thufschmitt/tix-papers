@@ -11,39 +11,48 @@
 
 In order to lighten the type system, we will not work on the full nix language
 (presented in Section~\ref{sec:nix-grammar}), but on a simplified version
-called nix-light (roughly a subset of the original one) that we also presents
-in this document.
+called nix-light that we also presents in this document.
 
 We also present a compilation from nix to nix-light.
 
-\section{grammar}
+\section{The nix language}
 
-\subsection{Nix grammar}
+\subsection{Grammar}
 \label{sec:nix-grammar}
 \input{grammar/nix}
 
-\subsection{nix-light}
+\subsection{Typing}
+\todo{Write}
+
+\subsection{Preprocessing}
+\todo{Reformulate to fit the position in the document}
+\input{semantics/preprocessing.tex}
+
+\section{Nix-light}
+
+\subsection{Grammar}
 \label{sec:nix-light-grammar}
 \input{grammar/nix-light}
 
-\section{semantics}
-
-\subsection{nix-light semantics}
+\subsection{Semantics}
 \input{semantics/semantics}
 
-\subsection{Restricting to the right subset of nix}
-\input{semantics/preprocessing.tex}
-
-\subsection{From nix to nix-light}
-\input{semantics/compilation.tex}
-
-\section{typing}
+\section{Nix-light typing}
 
 \subsection{The $\λ\&-calculus$}
 \input{typing/lambdaCalculus}
 
 \subsection{Bidirectional typing}
 \input{typing/bidir.tex}
+
+\subsection{Soundness}
+
+\section{Compilation}
+
+\subsection{Compilation rules}
+\input{semantics/compilation.tex}
+
+\subsection{Preservation of typing}
 
 \todos{}
 
