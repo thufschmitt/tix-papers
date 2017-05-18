@@ -75,4 +75,11 @@
   }{%
     \Γ \tcheck (x = e \in t) ? e_1 : e_2 : \σ
   }(CTcase)
+
+  \and\inferrule{%
+    \Γ \tIC e_1 : \τ_1 \\ \Γ \tIC e_2 : \τ_2 \\
+    \τ_2 \subtypeG \cons(\any, \any)
+  }{%
+    \Γ \tIC \cons(e_1, e_2) : \cons(\τ_1, \τ_2)
+  }(Cons)
 \end{mathpar}
