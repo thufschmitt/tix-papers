@@ -62,37 +62,17 @@
 
   \and\inferrule{%
     \Γ \tinfer e : \τ \\
-    \τ \not\subtype t \\
-    \τ \not\subtype \lnot t \\
-    \Γ; x : \τ \wedge t \tinfer e_1 : \τ_1 \\
-    \Γ; x : \τ \wedge \lnot t \tinfer e_2 : \τ_2
+    \τ \not\subtype t \Rightarrow \Γ; x : \τ \wedge \lnot t \tinfer e_2 : \τ_2 \\
+    \τ \not\subtype \lnot t \Rightarrow \Γ; x : \τ \wedge t \tinfer e_1 : \τ_1 \\
   }{%
     \Γ \tinfer (x = e \in t) ? e_1 : e_2 : \τ_1 \vee \τ_2
-  }(ITcaseLR)
+  }(ITcase)
 
   \and\inferrule{%
     \Γ \tinfer e : \τ \\
-    \τ \not\subtype t \\
-    \τ \not\subtype \lnot t \\
-    \Γ; x : \τ \wedge t \tcheck e_1 : \σ \\
-    \Γ; x : \τ \wedge \lnot t \tcheck e_2 : \σ
+    \τ \not\subtype t \Rightarrow \Γ; x : \τ \wedge \lnot t \tcheck e_2 : \σ \\
+    \τ \not\subtype \lnot t \Rightarrow \Γ; x : \τ \wedge t \tcheck e_1 : \σ \\
   }{%
     \Γ \tcheck (x = e \in t) ? e_1 : e_2 : \σ
-  }(CTcaseLR)
-
-  \and\inferrule{%
-    \Γ \tinfer e : \τ \\
-    \τ \subtype t \\
-    \Γ; x : \τ \tIC e_1 : \σ
-  }{%
-    \Γ \tIC (x = e \in t) ? e_1 : e_2 : \σ
-  }(TcaseL)
-
-  \and\inferrule{%
-    \Γ \tinfer e : \τ \\
-    \τ \subtype \lnot t \\
-    \Γ; x : \τ \tIC e_2 : \σ
-  }{%
-    \Γ \tIC (x = e \in t) ? e_1 : e_2 : \σ
-  }(TcaseR)
+  }(CTcase)
 \end{mathpar}

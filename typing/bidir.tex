@@ -44,8 +44,8 @@ $\texttt{cond} : \ty{false}$. This means checking that
 \end{lstlisting}
 has type $\ty{Int}$ under the hypothesis $\texttt{cond} : \ty{true}; \texttt{x}
 : \ty{Int}$ and $\ty{Bool}$ under the hypothesis $\texttt{cond} : \ty{false};
-\texttt{x} : Bool$. This is true, thanks to the rules TcaseL and TcaseR of the
-type system (figure~\pref{typing::lambda-calculus}).
+\texttt{x} : Bool$. This is true, thanks to the ruls CTcase of the type system
+(figure~\pref{typing::lambda-calculus}).
 
 So the basic idea behind this is to use the type annotations of parent nodes
 (or any other type information that we got from upper in the AST), not just to
