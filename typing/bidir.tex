@@ -51,40 +51,12 @@ So the basic idea behind this is to use the type annotations of parent nodes
 (or any other type information that we got from upper in the AST), not just to
 check that the inferred type was correct, but in the inference process itself.
 
-\subsubsection{Pairs}\todo{Replace by lists}
-
-For example, if we want to type the expression $(e_1, e_2) : (\τ_1 \times
+For example, if we want to type the expression $\cons (e_1, e_2) : \cons (\τ_1,
 \τ_2)$, we will try to type $(e_1 : \τ_1)$ and $(e_1 : \τ_2)$ and then merge
-the results.
-In a more general fashion, if we got $(e_1, e_2) : \τ$ − where $\τ$ is any
-subtype of $\one \times \one$ − we will need to project $\τ$ on its first and
-second component respectively to type $e_1$ and $e_2$.
-
-We thus extends this definition of the projections $\pi_1$ and $\pi_2$ to more
-complex pair types (\emph{ie.} subtypes of $\one \times \one$), keeping the
-invariant that for a given subtype $\τ$ of $\one \times \one$, $\pi_1(\τ)
-\times \pi_2(\τ)$ is a subtype~\todo{Gradual ?} of $\τ$, so that if $e_1$ has
-type $\pi_1(\τ)$ and $e_2$ has type $\pi_2(\τ)$, then $(e_1, e_2)$ can be given
-the type $\τ$.
-
-Let $\τ$ be a subtype of $\one \times \one$.
-We know that $\τ$ can be written as:
-\[
-  \τ = \bigvee\limits_{i\in I}\left(\bigwedge\limits_{p\in P_i} (\σ_p \times \τ_p)
-  \wedge \bigwedge\limits_{n \in N_i} \lnot (\σ_n \times \τ_n) \right)
-\]
-We define $\pi_1(\τ)$ (resp. $\pi_2(\τ)$) as
-\begin{align*}
-  \pi_1(\τ) &= \bigwedge\limits_{i \in I} \bigwedge\limits_{N' \subseteq N}
-    \left(\bigwedge\limits_{p \in P_i} \σ_p \wedge
-    \bigwedge\limits_{n \in N'} \lnot \σ_n \right)\\
-  \pi_2(\τ) &= \bigwedge\limits_{i \in I} \bigwedge\limits_{N' \subseteq N}
-    \left(\bigwedge\limits_{p \in P_i} \τ_p \wedge
-    \bigwedge\limits_{n \in N'} \lnot \τ_n \right)
-\end{align*}
-
-We can check\todo{Check that this is indeed true} that this definition respects
-our constraint.
+the results~\footnote{It is possible to extend this to a more general case
+where the type annotation is any subtype $\τ$ of $\cons(\any, \any)$ using a
+\emph{maximal product decomposition} as defined by Kim Nguyễn in~\cite{phdkim},
+but this out of our scope for now.}.
 
 \subsubsection{Arrows}
 
