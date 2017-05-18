@@ -34,7 +34,7 @@ We first prove the following lemmas:
   This builds a new derivation of $\Γ \tinfer \subst{x}{e'}{e} : \τ$.
 \end{proof}
 
-\begin{theorem}[Subject reduction $\Uparrow$]
+\begin{theorem}[Subject reduction $\Uparrow$]\label{thm:subj-reduction-infer}
   For any pair $e, e'$ of terms (of nix-light), if $\Γ \tinfer e : t$ and $e
   \rightarrow e'$, then $\Γ \tinfer e' : t$.
 \end{theorem}
@@ -140,4 +140,13 @@ We first prove the following lemmas:
 
         By symmetry, this also holds if $\tinfer v : \lnot s$.
   \end{description}
+\end{proof}
+
+\begin{theorem}[Subject reduction $\Downarrow$]\label{thm:subj-reduction-check}
+  For any pair $e, e'$ of terms (of nix-light), if $\Γ \tcheck e : t$ and $e
+  \rightarrow e'$, then $\Γ \tcheck e' : t$.
+\end{theorem}
+
+\begin{proof}
+  The proof is similar to the one of~\autoref{thm:subj-reduction-infer}.
 \end{proof}
