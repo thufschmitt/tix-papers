@@ -1,6 +1,13 @@
 The grammar of nix is given at Figures~\pref{grammar::nix}
 and~\pref{grammar::types}. It consists\todo{Remove as soon as the grammar is
-extended} of a simple lambda calculus with lists (and type annotations).
+extended} of a simple lambda calculus with lists, constants and some type
+annotations.
+
+The set of constants $c$ constists of strings $s$, integers $i$, booleans $b$
+and a set of builtins functions $f$.
+To each constant $c$, we associate a type $\Bt(c)$, and to each builtin
+function $f$, we associate a function $\F(f)$ from expressions to expressions
+which represents the semantics of the function.
 
 \begin{figure}
   \begin{grammar}
@@ -12,7 +19,7 @@ extended} of a simple lambda calculus with lists (and type annotations).
     \alt [ $e$ $\cdots$ $e$ ]
     \alt if $e$ then $e$ else $e$
 
-    <c> ::= $s$ \| $i$ \| $b$
+    <c> ::= $s$ \| $i$ \| $b$ \| $f$
 
     <p> ::= $q$ \| $q$@$x$ \| $r$
 
