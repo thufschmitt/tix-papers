@@ -4,12 +4,13 @@ To make the reduction rules simpler and easier to read, we define an
   \var(x) = \var(x:\τ) = x
 \]
 
-The reduction rules are presented in figure~\pref{fig:semantics:nix-light} and
-the evaluation contexts in
-figure~\pref{fig:semantics:nix-light:reduction-contexts}.
+The reduction rules are presented in~\autoref{fig:semantics:nix-light}.
 
-The rules for the pattern-matching are in
-figure~\pref{fig:semantics:nix-light:patterns}
+We also allow evaluation behind a reduction context (which are given by the
+grammar of the~\autoref{fig:semantics:nix-light:reduction-contexts}).
+
+The rules for the pattern-matching are defined
+in~\autoref{fig:semantics:nix-light:patterns}
 
 \begin{figure}
   \begin{align*}
