@@ -3,8 +3,8 @@ straightforward: nix lambdas are compiled to nix-light lambdas; nix constants
 to nix-light constants, and so on\ldots. The intersesting parts are:
 
 \begin{description}
-  \item[If-then-else's] Those are compiled, to typecases, as said in
-    Section~\ref{sec:nix-light-grammar}. However, there are several
+  \item[If-then-else's] Those are compiled, to typecases, as said
+    in~\autoref{sec:nix-light-grammar}. However, there are several
     possibilities for this.
 
     The obvious one is to translate \lstinline{if $e$ then $e_1$ else $e_2$} into
@@ -17,12 +17,11 @@ to nix-light constants, and so on\ldots. The intersesting parts are:
     if-then-else.
 
     The most notable pattern that we want to recognize is
-    \lstinline{if isT $x$ then $e_1$ else $e_2$}
-    (where \lstinline{isT} is a predicate on types such as
-    \lstinline{isInt}, \lstinline{isBool}, \ldots).
+    \lstinline{if $f$ $x$ then $e_1$ else $e_2$} where $f \in
+    \mathbb{D}$\footnote{Defined in~\autoref{sec:nix-typing}}.
     Such an expression will be compiled to a typecase of the form
-    \lstinline{($x$ := $x$ tin T) ? $e_1$ : $e_2$}, which will later allow us to take
-    advantage of the knowledge of the type of $x$.
+    \lstinline{($x$ := $x$ tin $\mathcal{T}(f)$) ? $e_1$ : $e_2$}, which will
+    later allow us to take advantage of the knowledge of the type of $x$.
 
   \item[Lists] Nix opaque lists are replaced in nix-light by the more
     conventional algebraic datatype built using the \lstinline{Cons} and
