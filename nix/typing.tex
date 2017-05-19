@@ -1,0 +1,123 @@
+The typing rules are given by the~\autoref{fig:nix:typing-rules}.
+They assume the existence of a function $\Bt$ which assiocates to every constant
+$c$ its static type $\Bt(c)$.
+
+They also assume a set $\mathbb{D}$ of builtins functions $f$ and a function
+$\mathcal{T}$ from $\mathcal{D}$ to $\textsc{Types}$ such that
+\[
+  \forall d \in \mathbb{D}, \Bt(d) = (\mathcal{T}(d) \rightarrow \text{True})
+                          \cap (\lnot\mathcal{T}(d) \rightarrow \text{False})
+\]
+
+Those functions are the functions that checks wether their argument is of a
+given type, such as the \lstinline{isInt} function which returns
+\lstinline{True} if its argument is an integer, and \lstinline{False} otherwise.
+
+
+\begin{figure}
+  \begin{mathpar}
+    \inferrule{ }{\Γ \tinfer x:\Γ(x)}(IVar)
+    \and\inferrule{ \Γ(x) \subtypeG \τ }{\Γ; \tcheck x:\τ}(CVar)
+
+    \and\inferrule{ }{\Γ \tinfer c:\Bt(c)}(IConst)
+    \and\inferrule{ \Bt(c) \subtypeG \τ }{\Γ \tcheck c:\τ}(CConst)
+
+    \and\inferrule{%
+      \Γ \tinfer e_1 : \τ_1 \\ \Γ \tinfer e_2 : \τ_2 \\
+      \τ_1 \subtypeG \zero \rightarrow \one \\
+      \τ_2 \subtypeG \dom(\τ_1)
+    }{%
+      \Γ \tinfer e_1~e_2 : \τ_1 \circ \τ_2
+    }
+    (IApp)
+
+    \and\inferrule{%
+      \Γ \tinfer e_2 : \σ \\
+      \Γ \tcheck e_1 : \σ \rightarrow \τ
+    }{%
+      \Γ \tcheck e_1~e_2 : \τ
+    }
+    (CApp)
+
+    \and\inferrule{%
+      \Γ' \dashv p:\accept{p} \\
+      \Γ;\Γ' \tinfer e : \τ
+    }{%
+      \Γ \tinfer \λ p.e : \accept{p} \rightarrow \τ
+    }
+    (IAbs)
+
+    \and\inferrule{%
+      \τ \subtype \zero \rightarrow \one \\
+      \forall \σ_1 \rightarrow \σ_2 \in \A(\τ), \\
+        \Γ' \dashv p:\σ_1 \\ \Γ;\Γ' \tcheck e : \σ_2
+    }{%
+      \Γ \tcheck \λ p.e : \τ
+    }(CAbs)
+
+    \and
+    \inferrule{%
+      \forall i \in \discrete{1}{n},
+        \Γ; x_1 : ?; \cdots; x_n : ? \tinfer e_i : \τ_i \\
+      \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
+    }{%
+      \Gamma \tIC \text{let } x_1 = e_1; \cdots; x_n = e_n
+        \text{ in } e : \τ
+    }
+    (Let)
+
+    \and
+    \inferrule{%
+      \forall i \in \discrete{1}{n},
+        \Γ; x_1 : \τ_1; \ldots; x_n : \τ_n \tcheck e_i : \τ_i \\
+      \Γ; x_1 : \τ_1; \cdots; x_n : \τ_n \tIC e : \τ
+    }{%
+      \Gamma \tIC \text{let } x_1 : \τ_1 = e_1; \ldots{}; x_n : \τ_n = e_n
+        \text{ in } e_0 : \τ_0
+    }
+    (LetAnnot)
+
+    \and\inferrule{%
+      f \in \mathbb{D} \\
+      t = \mathcal{T}(f) \\
+      \Γ \tinfer e : \τ \\
+      \τ \not\subtype t \Rightarrow \Γ; x : \τ \wedge \lnot t \tinfer e_2 : \τ_2 \\
+      \τ \not\subtype \lnot t \Rightarrow \Γ; x : \τ \wedge t \tinfer e_1 : \τ_1 \\
+    }{%
+      \Γ \tinfer \text{ if } f~x \text{ then } e_1 \text{ else } e_2 : \τ_1 \cup \τ_2
+    }(ITcase)
+
+    \and\inferrule{%
+      f \in \mathbb{D} \\
+      t = \mathcal{T}(f) \\
+      \Γ \tinfer e : \τ \\
+      \τ \not\subtype t \Rightarrow \Γ; x : \τ \wedge \lnot t \tcheck e_2 : \σ \\
+      \τ \not\subtype \lnot t \Rightarrow \Γ; x : \τ \wedge t \tcheck e_1 : \σ \\
+    }{%
+      \Γ \tcheck \text{ if } f~x \text{ then } e_1 \text{ else } e_2: \σ
+    }(CTcase)
+
+    \and\inferrule{%
+      \Γ \tinfer e : \τ \\ \τ \subtype \text{Bool} \\
+      \Γ \tinfer e_1 : \τ_1 \\
+      \Γ \tinfer e_2 : \τ_1
+    }{%
+      \Γ \tinfer \text{ if } f~x \text{ then } e_1 \text{ else } e_2 : \τ_1 \cup \τ_2
+    }(IIf)
+
+    \and\inferrule{%
+      \Γ \tinfer e : \τ \\ \τ \subtype \text{Bool} \\
+      \Γ \tcheck e_1 : \σ \\
+      \Γ \tcheck e_2 : \σ
+    }{%
+      \Γ \tcheck \text{ if } f~x \text{ then } e_1 \text{ else } e_2 : \σ
+    }(CIf)
+
+    \and\inferrule{%
+      \forall i \in \discrete{1}{n}, \Γ \tIC e_i : \τ_i
+    }{%
+      \Γ \tIC [ e_1 \cdots e_n ] : [ \τ_1 \cdots \τ_n ]
+    }(List)
+  \end{mathpar}
+  \caption{Typing rules for nix}\label{fig:nix:typing-rules}
+\end{figure}
