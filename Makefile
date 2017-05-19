@@ -5,13 +5,13 @@ VIEWER=evince
 
 .PHONY: all clean
 
-all: combined/main.pdf
+all: main.pdf
 
 view: combined/main.pdf
 	$(VIEWER) out/main.pdf
 
 check: FORCE
-	chktex -g0 -l .chktexrc combined/main.tex
+	chktex -g0 -l .chktexrc main.tex
 
 %.pdf: %.tex common/header.tex FORCE
 	latexmk -output-directory=out -pdf -xelatex -use-make $<
