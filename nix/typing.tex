@@ -1,3 +1,4 @@
+\subsubsection{Presentation of the type system}
 The typing rules are given by the~\autoref{fig:nix:typing-rules}.
 They assume the existence of a function $\Bt$ which assiocates to every constant
 $c$ its static type $\Bt(c)$.
@@ -13,6 +14,60 @@ Those functions are the functions that checks wether their argument is of a
 given type, such as the \lstinline{isInt} function which returns
 \lstinline{True} if its argument is an integer, and \lstinline{False} otherwise.
 
+\subsubsection{Bidirectional typing}
+Because of the richness of the type argebra, the type system needs some
+annotations to infer useful types.
+However, it may happen that a given expression has several incompatible types
+depending on the context.
+
+Consider for example the function:
+\begin{lstlisting}[language=NLight]
+  lambda $y$. lambda $x$.  if isInt $y$ then $x+y$ else not $x$
+\end{lstlisting}
+
+We would like to give this the type
+\lstinline{Int -> Int -> Int & String -> Bool -> Bool}.
+
+The fact is that no matter how we write the type annotations, thi is not
+possible as it would require us to annotate the pattern $x$ with its expected
+type, but this type may be either \lstinline{Int} or \lstinline{Bool}.
+
+To remedy this problem, we split our type system in two parts: an inference
+part and a checking part.  The inference part − denoted with typing judgements
+of the form $\Γ \tinfer e : \τ$ − corresponds to classical bottom-up
+type-inference, while the checking part − denoted with typing judgements of the
+form $\Γ \tcheck e : \τ$ corresponds to a top-down type inference, where the
+type of the expression is already known and we use it to infer the type of the
+sub-expressions − in other words, we propagate the type annotations to the
+bottom while type-checking. In particular, this ``checking'' type-system allows
+us a more precise typing of lambdas.
+
+Explicitly annotated let-bindings are thus typed using the checking type-system
+and we can rewrite the previous expression as
+\begin{lstlisting}[language=NLight]
+let $f$ : (Int -> Int -> Int & String -> Bool -> Bool) =
+  lambda $y$. lambda $x$.  if isInt $y$ then $x+y$ else not $x$
+in $f$
+\end{lstlisting}
+
+The type-system will then propagate the information that, under the hypothesis
+that $y$ is of type \lstinline{Int}, the body must be of type
+\lstinline{Int -> Int} (and likewise, if $y$ is of type \lstinline{Strin}, then
+the body must be of type \lstinline{Bool -> Bool}). This allows us to give the
+expected type to the expression.
+
+\subsubsection{If-then-else}
+{
+  \def\ite{\emph{if-then-else}}
+Nix has an \emph{if-then-else} statement. This statement can of course be typed
+in a conventional way (what the \emph{CIf} and \emph{IIf} rules do), but
+because the language has the ability to perform dynamic checks on the type of
+an expression, we may want some finer typing: We want the expression
+\lstinline{if isInt $x$ then x+1 else not x} to be well typed. However, the
+classical \ite{} is not enough, as $x$ must be considered of type
+\lstinline{Int} in the first branch, and of type \lstinline{Bool} in the second.
+That's why we added the two ad-hoc \emph{TCase} rules.
+}
 
 \begin{figure}
   \begin{mathpar}
