@@ -1,0 +1,63 @@
+The type-system is defined in~\autoref{fig::oracle-type-system}.
+
+\begin{figure}
+  \begin{mathpar}
+    \and\inferrule{ \Γ(x) \subtype t }{\Γ; \toracle x:t}(OVar)
+
+    \and\inferrule{ \Bt(c) \subtype t }{\Γ \toracle c:t}(OConst)
+
+    \and\inferrule{%
+      \Γ \toracle e_2 : s \\
+      \Γ \toracle e_1 : s \rightarrow t
+    }{%
+      \Γ \toracle e_1~e_2 : t
+    }
+    (OApp)
+
+    \and\inferrule{%
+      t \subtype \zero \rightarrow \one \\
+      \forall s_1 \rightarrow s_2 \in \A(t), \\
+        \Γ' \dashv p:s_1 \\ \Γ;\Γ' \toracle e : s_2
+    }{%
+      \Γ \toracle \λ p.e : t
+    }(OAbs)
+
+    \and
+    \inferrule{%
+      \forall i \in \discrete{1}{n},
+        \Γ; x_1 : t_i \toracle e_i : t_i \\
+      \Γ; x_1 : t_1 \toracle e : t
+    }{%
+      \Gamma \toracle \text{let } x_1 = e_1 \text{ in } e : t
+    }
+    (OLet)
+
+    \and
+    \inferrule{%
+      \forall i \in \discrete{1}{n},
+        \Γ; x_1 : t_1; \ldots; x_n : t_n \toracle e_i : t_i \\
+      \Γ; x_1 : t_1; \cdots; x_n : t_n \toracle e : t
+    }{%
+      \Gamma \toracle \text{let } x_1 : t_1 = e_1; \ldots{}; x_n : t_n = e_n
+        \text{ in } e : t
+    }
+    (OLetAnnot)
+
+    \and\inferrule{%
+      \Γ \toracle e : t \\
+      t \not\subtype t \Rightarrow \Γ; x : t \wedge \lnot t \toracle e_2 : s \\
+      t \not\subtype \lnot t \Rightarrow \Γ; x : t \wedge t \toracle e_1 : s \\
+    }{%
+      \Γ \toracle (x = e \in t) ? e_1 : e_2 : s
+    }(OTcase)
+
+    \and\inferrule{%
+      \Γ \toracle e_1 : t_1 \\ \Γ \toracle e_2 : t_2 \\
+      t_2 \subtype \cons(\any, \any) \\
+      \cons(t_1, t_2) \subtype t
+    }{%
+      \Γ \toracle \cons(e_1, e_2) : t
+    }(OCons)
+  \end{mathpar}
+  \caption{The oracle type-system}\label{fig::oracle-type-system}
+\end{figure}

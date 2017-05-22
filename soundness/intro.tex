@@ -1,0 +1,14 @@
+The \emph{subject reduction} property does not hold for our type system.
+Indeed, the checking part makes uses of annotations which are lost during
+reduction, and designing a reduction system which keeps those annotations would
+be non-trivial at all and would require the reduction system to be deeply
+dependant on the structure of the types, which we want to avoid.
+But we can imagine an extension of our type-system that would be able to guess
+the type of any expression, and would just have to check it (some kind of
+``oracle'' type-system).
+
+In this section, we present such a type-system, and proove that subject
+reduction and progress both hold for it.
+As both the ``infer'' and ``check'' type-systems are restrictions of the oracle
+type-system (\emph{i.e.} every term well-typed in one of those is well-typed in
+the oracle), we get as corollary the soundness of those.
