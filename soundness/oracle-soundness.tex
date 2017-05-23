@@ -1,0 +1,129 @@
+We now prove the classical subject-reduction and progress for the oracle
+type-system.
+
+We first prove the following lemmas:
+
+\begin{lemma}[Admissibility of the sumbsumption]
+  In the oracle type-system, the sumbsumption rule stated as
+  \[
+    \inferrule{\Γ \toracle e : t\\ t \subtype t'}{\Γ \toracle e : t'}
+  \]
+  is admissible.
+\end{lemma}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{lemma}[Substitution]\label{lemma:substitution}
+  Let $e$ and $e'$ be expressions, $x$ be a variable, $t$ and $t'$ two types and
+  $\Γ$ a typing environment.
+
+  If $\Γ; x : t' \toracle e : t$ and $\Γ \toracle e' : t'$ then $\Γ \toracle
+  \subst{x}{e'}{e} : t$
+\end{lemma}
+
+\begin{proof}
+  By induction on the typing derivation of $\Γ; x : t' \toracle e : t$. We
+  replace every Ovar rule introducing $\Γ ; x : t' \toracle x : t''$ by a
+  derivation of $\Γ \toracle e' : t''$.
+
+  This builds a new derivation of $\Γ \toracle \subst{x}{e'}{e} : t$.
+\end{proof}
+
+\begin{theorem}[Subject reduction]\label{thm:subj-reduction-oracle}
+    For any pair $e, e'$ of terms (of nix-light), if $\Γ \toracle e : t$ and $e
+      \rightarrow e'$, then $\Γ \toracle e' : t$.
+\end{theorem}
+
+\begin{proof}
+  We consider an expression $e$ such that $\Γ \toracle e : t$.
+  We prove by induction on the derivation of $\Γ \toracle e : t$ that $\forall
+  e', (e \rightarrow e') \Rightarrow (\Γ \toracle e' : t)$.
+
+  Let's consider the various possibilities for the last rule of the derivation
+  $\Γ \toracle e : t$.
+
+  \begin{description}
+    \item[OVar,OConst,OAbs,OCons] The expression $e$ can't be
+      reduced, so the property holds.
+    \item[OApp]
+      $\inferrule{%
+        \Γ \toracle e_2 : s \\
+        \Γ \toracle e_1 : s \rightarrow t
+      }{%
+        \Γ \toracle e_1~e_2 : t
+      }$
+
+      The expression $e$ has then the form $e_1~e_2$ with $\Γ \toracle e_1
+      : s \rightarrow t$ and $\Γ \toracle e_2 : s$.
+      It can be reduced in three different ways (depending of the form of $e_1$
+      and $e_2$):
+      \begin{itemize}
+        \item If $e_1$ is a value $\λ r. e_0$, then the only possible reduction
+          is by applying the $\beta$-reduction rule, so the only choice for
+          $e'$ is $\subst{x}{e_2}{e_0}$ (where $x = \var(r)$).
+
+          Moreover, a case analysis on the different typing rules shows that
+          the last rule of the derivation of $\Γ \toracle \λ r . e_0 : t_1$ can
+          only be the \textbf{OAbs} rule:
+          \[
+            \inferrule{%
+                x:s \dashv x:s \\ \Γ;x:s \toracle e : t
+            }{%
+              \Γ \toracle \λ p.e : s \rightarrow t
+            }
+          \]
+          As $\Γ; x:s \toracle e_0:t$ and $\Γ \toracle e_2 : s$, the
+          Lemma~\ref{lemma:substitution} gives us that $\Γ \toracle e' : t$.
+
+        \item If $e_1$ is a value $\λ p.e_0$ (with $p$ not in the form $x$ or
+          $x:t$), and $e_2$ is a value, then we can use the same reasoning.
+        \item In the other cases, we can reduce either $e_1$, either $e_2$.
+
+          If we reduce $e_1$ to $e'_1$, we get a new expression $e' =
+          e'_1~e_2$, and $e'_1$ satisfies $\Γ \toracle e'_1 : s$ (by induction
+          hypothesis). By re-applying the Iapp rule, we get $\Γ \toracle
+          e'_1~e_2 : t$, thus $\Γ \toracle e' : t$.
+
+          The same holds if we reduce $e_2$.
+
+      \end{itemize}
+      \item[Let]
+        $\inferrule{%
+          \Γ; x_1 : t_1 \toracle e_1 : t_1\\
+          \Γ ; x_1 : t_1 \toracle e_2 : t
+        }{%
+          \Γ \toracle \text{let } e_1 = x_1 \text{ in } e_2 : t
+        }$
+
+        The expression $e$ has the form ``let $e_1 = x_1$ in $e_2$''.
+        It reduces (and may only reduce to) $e' = \subst{x_1}{e_1}{e_2}$.
+        By applying the substitiution lemma, we can deduce that $e'$ has type
+        $t$.
+      \item[LetAnnot]
+        The same reasoning also holds for the \textbf{LetAnnot} rule.
+      \item[OTcase]
+        $\inferrule{%
+          \Γ \toracle e_0 : t_0 \\
+          t_0 \not\subtype s \Rightarrow \Γ; x : t_0 \wedge \lnot s \toracle e_2 : t \\
+          t_0 \not\subtype \lnot s \Rightarrow \Γ; x : t_0 \wedge s \toracle e_1 : t \\
+        }{%
+          \Γ \toracle (x = e_0 \in s) ? e_1 : e_2 : t
+        }$
+
+        If $e_0$ is not a value, then the only possible reduction for $e$ is to
+        reduce $e_0$ to an expression $e'_0$ which will have a type $t_0$ under
+        the context $\Γ$ (by induction hypothesis).
+        By re-applying the \textbf{OTcase} rule, we obtain that
+        $\Γ \toracle (x = e'_0 \in s) ? e_1 : e_2 : t$
+
+        If $e_0$ is a value $v$, then the only possible reductions are if
+        $\toracle v : s$ or $\toracle v : \lnot s$.
+        Assume the first one. The expression $e$ then reduces to
+        $\subst{x}{v}{e_1}$, and (by application of the substitution Lemma), we
+        know that $\Γ \toracle \subst{x}{v}{e_1} : t$, thus $\Γ \toracle e': t$.
+
+        By symmetry, this also holds if $\toracle v : \lnot s$.
+  \end{description}
+\end{proof}
