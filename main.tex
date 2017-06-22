@@ -1,0 +1,119 @@
+\documentclass[frenchb]{scrartcl}
+% \usepackage[margin=1in]{geometry}
+
+% Put some french in it
+\usepackage{babel}
+
+% And hypertext links everywhere
+\usepackage{hyperref}
+
+% To get a proper text encoding with xelatex
+\usepackage{fontspec}
+\setmainfont{Crimson-Roman.otf}[
+  Path =./fonts/,
+  BoldFont = Crimson-Bold.otf,
+  ItalicFont = Crimson-Italic.otf,
+  BoldItalicFont = Crimson-BoldItalic.otf
+]
+
+% Render inference rules
+\usepackage{mathpartir}
+% The labels of those rules
+\newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
+
+% Fore code blocks
+\usepackage{listings}
+\lstdefinelanguage{NLight}{%
+  morekeywords={%
+    let,in,if,then,else,Cons,Nil
+  },%
+  morekeywords={[2]Int,true,false,Bool,T},   % types go here
+  otherkeywords={:,=[]}, % operators go here
+  literate={% replace strings with symbols
+    {->}{{$\to$}}{2}
+    {lambda}{{$\lambda$}}{1}
+    {tin}{{$\in$}}{2}
+    {\&}{{$\wedge$}}{2}
+  },
+  basicstyle={\sffamily},
+  keywordstyle={\bfseries},
+  keywordstyle={[2]\itshape}, % style for types
+  keepspaces,
+  mathescape % optional
+}[keywords,comments,strings]
+\lstset{%
+  escapeinside={//*}{*//},
+  breaklines=true,
+  mathescape=true,
+  language=NLight
+}
+
+\title{Rapport de stage}
+\author{Théophane Hufschmitt}
+\date{21 Août 2017}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\pagebreak
+
+\section*{Abstract}
+
+\section{Contexte}
+
+\subsection{Le langage Nix}
+% Description de Nix et de toutes les horreurs qu'il contient
+
+\subsection{CDuce}
+% Description du système de type de CDuce et de pourquoi il peut être en grande
+% partie réutilisé
+
+\section{Nix-light} % TODO: find another name for this
+
+\subsection{Motivation}
+% Explication de pourquoi nix est trop permissif et pourquoi il vaut mieux
+% bosser sur autre chose.
+
+\subsection{Description}
+% Description du langage, grammaire + sémantique
+
+\section{Typage}
+
+\subsection{Lambda-calcul}
+% Typage du langage sans records et sans listes
+
+\subsection{Types}
+
+\subsubsection{Syntaxe}
+\subsubsection{Sous-typage}
+% Discussion autour du sous-typage lazy
+% Sous-typage graduel
+
+\subsection{Structures de données}
+% Description du typage des deux structures de données de Nix
+
+\subsubsection{Extension des types}
+% Ajout des types Cons et record.
+
+\subsubsection{Listes}
+% Typage des listes. Rien de très compliqué, mais les regexp-lists nécessitent
+% peut-être un peu d'explication. À voir si on garde comme une sous-partie ou
+% si on merge dans la section "lambda-calcul", vu que c'est ni central ni
+% original (mais joli par contre)
+
+\subsubsection{Records}
+% Typage des records. Probablement plein de choses à dire ici.
+
+\section{Soundness du typage}
+\subsection{Définition}
+% Difficulté de définir la soundness avec le type graduel
+% Blablater sur la difficulté des preuves.
+
+\section{Implémentation}
+% Tout ce qui concerne l'implémentation. Probablement des choses à dire
+
+\bibliographystyle{alpha}
+\bibliography{references}
+\end{document}
