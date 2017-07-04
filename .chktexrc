@@ -722,7 +722,7 @@ Linker
 
 CenterDots
 {
-    = + - \cdot \div & \times \geq \leq < > , ;
+    = + - \cdot \div & \times \geq \leq < >
 }
 
 #####################################################################
