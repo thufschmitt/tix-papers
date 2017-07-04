@@ -1,0 +1,107 @@
+\subsubsection{Le gestionnaire de paquet}
+Nix est un gestionnaire de paquets pour les systèmes Unix visant à appliquer à
+la gestion de paquets des concepts provenant du monde des langages de
+programmation (fonctionnelle en particulier).
+
+Les gestionnaires de paquets ``traditionnels'' (\verb|rpm|, \verb|apt-get|)
+manipulent le système de fichier en place, installer ou désinstaller un paquet
+revenant à effectuer une modification dessus. De telles modifications sont
+extrêmement difficiles à contrôler, d'autant plus que l'installation des
+paquets est souvent en partie reléguée à des scripts shell dont la sémantique
+est connue pour être extrêmement complexe.
+% TODO: Référence au travail de Ralf Treinen & cie
+Du point de vue du programmeur, ce mode de fonctionnement revient à avoir un
+état global mutable, ce qui est généralement considéré comme une pratique
+dangereuse.
+Dans la pratique, ce modèle pose de nombreux problèmes. Par exemple, une mise à
+jour interrompue (coupure de courant, interruption par l'utilisateur) peut
+laisser le système dans un état incohérent car les opérations ne sont pas
+atomiques.
+De plus, l'état d'un système est très difficilement reproductible: deux
+machines avec le même ensemble de paquets installés, mais dans un ordre
+différent par exemple peuvent être dans des états totalement différents (pire:
+installer puis désinstaller un paquet laisse souvent le système dans un état
+différent de l'état de départ).
+
+Nix propose une approche radicalement différente : Du point de vue de
+l'utilisateur, la configuration du système est entièrement décrite par le
+résultat de l'évaluation d'une expression dans un langage fonctionnel pur
+(appelé lui aussi Nix). Ce mode de fonctionnement, couplé à un système de
+mémoïsation on-disk offre de nombreux avantages. On peut notamment citer :
+
+\begin{description}
+  \item[Reproductibilité] Cette spécification déclarative de la configuration
+    permet de ne pas dépendre d'un état antérieur du système.
+    De plus, chaque ``dérivation'' (l'équivalent Nix des paquets des
+    gestionnaires de paquets traditionnels) est instanciée dans un
+    environnement isolé avec uniquement ses dépendances disponibles, ce qui
+    assure l'absence de dépendance implicite envers d'autres parties du système.
+
+    Une reproductibilité totale n'est malheureusement pas possible de façon
+    réaliste car il reste toujours des paramètres variables (la configuration
+    physique de la machine en particulier, l'horloge, l'état d'entropie du
+    système etc..) qui peuvent influer sur la compilation des logiciels. Nix
+    essaie au mieux de mitiger ces sources de non reproductibilité, par exemple
+    en patchant le compilateur c pour que des macros comme \verb|__TIME__| ou
+    \verb|__DATE__| (qui sont normalement remplacées par l'heure et la date de
+    compilation) renvoient toujours la même valeur.
+
+  \item[Possibilité de rollback] De par le fonctionnement du logiciel, une mise
+    à jour n'est pas destructive mais ajoute juste une nouvelle configuration à
+    côté des précédentes (et fait pointer le système vers cette configuration).
+    Une conséquence est qu'il est possible de revenir en arrière de façon
+    transparente si besoin est.
+    De plus, la modularité du système fait que seules les parties du système
+    qui sont effectivement mises à jour (logiciels mis à jour et leurs
+    dépendances, configurations modifiées) sont dupliqués sur le disque, ce qui
+    rend ce système assez peu coûteux en espace disque.
+
+  \item[Mises à jour atomiques] Une mise à jour pour Nix consiste à réaliser la
+    nouvelle configuration du système, et ensuite à faire pointer le système
+    effectif vers cette configuration (ce qui correspond essentiellement à
+    modifier un lien symbolique). L'opération de mise à jour en tant que
+    telle est donc quasiment atomique, ce qui réduit à zéro les risques qu'une
+    mise à jour interrompue casse le système.
+
+  \item[Environnement locaux] Le fonctionnement de Nix permet trivialement
+    d'installer des paquets avec une visibilité plus réduite que l'ensemble du
+    système. Ce peut être par exemple une installation locale à un utilisateur
+    − il est possible dans nix d'autoriser aux utilisateurs d'installer (sans
+    accès root) des logiciels dans leur profile personnel sans pour autant
+    devoir dupliquer leur installation.
+
+    Plus encore, il est possible d'installer quelques logiciels de façon plus
+    locale encore, accessibles par exemple uniquement dans un certain shell à
+    la manière des virtualenvs python. Cette propriété est extrêmement pratique
+    parce qu'elle permet par exemple de configurer en une seule commande
+    l'environnement nécessaire pour modifier un logiciel pourvu que celui-ci
+    fournisse un fichier décrivant ses dépendances.
+\end{description}
+
+\subsubsection{Le langage Nix}
+
+Une grande partie de système repose donc sur le langage utilisé pour décrire le
+système.
+
+Ce langage est essentiellement un lambda-calcul (évalué paresseusement), avec
+des listes et des enregistrements, ainsi qu'une notion de types à l'exécution
+(via des fonctions comme \lstinline{isInt} qui renvoient \lstinline{true} si et
+seulement si leur argument est un entier).
+Il est de plus non typé (pas tant par choix que par manque de temps lors de sa
+conception).
+
+Ajouter un système de types à ce langage a deux objectifs :
+
+\begin{itemize}
+  \item \texttt{nixpkgs}, le répertoire de paquets Nix comporte aujourd'hui
+    plusieurs centaine de milliers de lignes de code, avec une structure
+    parfois très complexe.
+    L'absence de typage commence à rendre toute modification non triviale sur
+    ce dépôt très délicate et dangereuse.
+  \item Nix explore une piste extrêmement intéressante en appliquant à la
+    gestion de systèmes des principes issus de la programmation. Ajouter un
+    système de types ouvre une nouvelle piste extrêmement riche à cette
+    recherche. Le système de type présenté ici reste strictement cantonné au
+    langage et n'interagit pas avec la partie ``gestion des paquets'' en tant que
+    telle, mais offre une base à une telle extension.
+\end{itemize}
