@@ -105,3 +105,18 @@ Ajouter un système de types à ce langage a deux objectifs :
     langage et n'interagit pas avec la partie ``gestion des paquets'' en tant que
     telle, mais offre une base à une telle extension.
 \end{itemize}
+
+Le langage présente de nombreuses caractéristiques contraignant les
+possibilités de typage :
+
+\begin{itemize}
+  \item La présence de types à l'exécution nécessite de disposer de types union
+  \item Les enregistrements peuvent avoir leurs étiquettes définis
+    dynamiquement (l'étiquette n'est pas nécessairement une chaine de
+    caractères, mais peut être le résultat de l'évaluation d'une expression
+    arbitraire − dans la mesure où elle s'évalue vers une chaîne de
+    caractères).
+  \item Le langage existe depuis dix ans et a évolué en l'absence de système de
+    types. En conséquence, de nombreuses constructions idiomatiques sont
+    difficiles voire impossibles à typer.
+\end{itemize}
