@@ -1,0 +1,88 @@
+La syntaxe complète du langage est donnée par la figure \pref{nix::syntax}.
+
+Le langage est un lambda-calcul, avec
+
+\begin{description}
+  \item[Des listes] définies par la syntaxe \lstinline{[ <expr> ... <expr> ]}.
+
+  \item[Des enregistrements] définis par la syntaxe
+    \lstinline|{ <record-field>; ... <record-field>; }|. % chktex 26
+
+    Les étiquettes des champs peuvent être le résultat d'expressions
+    arbitraires − pourvu que ces expressions s'évaluent en une chaîne de
+    caractères.
+
+    Ces enregistrements peuvent être définis récursivement (avec le mot clé
+    \lstinline{rec}), auquel cas les champs peuvent dépendre les un des autres.
+
+    Par exemple, l'expression
+
+    \begin{lstlisting}
+    rec {
+      x = 1;
+      y = x;
+    }
+    \end{lstlisting}
+    est équivalente à
+    \begin{lstlisting}
+    {
+      x = 1;
+      y = 1;
+    }
+    \end{lstlisting}
+
+  \item[Un if-then-else].
+
+  \item[Une syntaxe d'accès aux chants des records] de la forme
+    \lstinline{<expr>.<access-path>}
+    Comme pour a définition d'un record, le nom des champs peut être une
+    expression arbitraire.
+
+    Si le champ n'est pas présent dans le record, l'évaluation est stoppée.
+
+    Une valeur par défaut en cas de champ absent peut être donnée avec la
+    syntaxe \lstinline{<expr>.<access-path> or <expr>}.
+
+    Par exemle, \lstinline|{ x = { y = 1; }; }.x.y| s'évalue en \lstinline{1},
+    \lstinline|{ x = { y = 1; }; }.x.z or 2| s'évalue en \lstinline{2} et
+    \lstinline|{ x = { y = 2; }; }.y| renvoie une erreur.
+
+\end{description}
+
+\begin{figure}
+  \def\dots{$\cdots$}
+  \begin{grammar}
+    \bfseries
+    <expr> ::=
+    <ident> | <constant>
+    \alt $\lambda$ <pattern>.<expr> | <expr> <expr>
+    \alt let <ident> = <expr>; \dots; <ident> = <expr>; in <expr>
+    \alt [ <expr> \dots <expr> ]
+    \alt \{ <record-field>; \dots; <record-field>; \}
+    \alt rec \{ <record-field>; \dots; <record-field>; \}
+    \alt if <expr> then <expr> else <expr>
+    \alt <expr>.<acces-path>
+    \alt <expr>.<acces-path> or <expr>
+    \alt <expr> <infix-op> <expr>
+
+    <constant> ::= <string> | <integer> | <boolean> | <paths>
+
+    <record-field> ::= inherit <ident> \dots <ident>
+    \alt inherit (<expr>) <ident> <ident>
+    \alt <ident> = <expr> | \$\{ <expr> \} = <expr>
+
+    <pattern> ::= <record-pattern> | <record-pattern>@<ident> | <ident>
+
+    <record-pattern> ::= \{ <record-pattern-field>, \dots, <record-pattern-field> \}
+    \alt \{ <record-pattern-field>, \dots, <record-pattern-field>, \ldots \}
+
+    <record-pattern-field> ::= <ident> | <ident>? <expr>
+
+    <access-path> ::= <access-path-item>. \dots . <access-path-item>
+
+    <access-path-item> ::= <ident> | \$\{ <expr> \}
+
+    <infix-op> ::= + | - | * | / | // | ++ | \dots
+  \end{grammar}
+  \caption{Syntaxe du langage Nix\label{nix::syntax}}
+\end{figure}

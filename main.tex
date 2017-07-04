@@ -4,6 +4,8 @@
 % Put some french in it
 \usepackage{babel}
 
+\newcommand{\pref}[1]{\ref{#1} à la page~\pageref{#1}}
+
 \usepackage[toc,page]{appendix}
 
 % And hypertext links everywhere
@@ -50,6 +52,10 @@
   language=NLight
 }
 
+\usepackage{syntax}
+
+\newcommand{\τ}{\ensuremath{\tau}}
+
 \title{Rapport de stage}
 \author{Théophane Hufschmitt}
 \date{21 Août 2017}
@@ -74,10 +80,11 @@
 
 \subsubsection{Présentation générale}
 % Explication de son utilisation et justification de la volonté de le typer
-\input{contexte/nix/presentation_generale}
+\input{contexte/nix/presentation-generale}
 
 \subsubsection{Syntaxe et sémantique}
 % Expliquer au passage les points problématiques pour le typage
+\input{contexte/nix/syntaxe-et-semantique}
 
 \subsection{Types ensemblistes}
 % Présentation de l'interprétation ensembliste des types
