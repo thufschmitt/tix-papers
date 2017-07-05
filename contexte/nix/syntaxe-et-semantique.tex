@@ -1,8 +1,15 @@
 La syntaxe complète du langage est donnée par la figure \pref{nix::syntax}.
+Sa sémantique est définie informellement ci dessous (une sémantique complète
+est donnée en section \ref{sec:nix-light}).
 
 Le langage est un lambda-calcul, avec
 
 \begin{description}
+  \item[Des constantes de base] (entiers, chaînes de caractères, booléens et
+    paths représentant des chemins d'accès Unix).
+
+  \item[Des let-bindings] qui sont récursifs par défaut.
+
   \item[Des listes] définies par la syntaxe \lstinline{[ <expr> ... <expr> ]}.
 
   \item[Des enregistrements] définis par la syntaxe
@@ -31,7 +38,7 @@ Le langage est un lambda-calcul, avec
     }
     \end{lstlisting}
 
-  \item[Un if-then-else].
+  \item[Des if-then-else].
 
   \item[Une syntaxe d'accès aux chants des records] de la forme
     \lstinline{<expr>.<access-path>}
@@ -46,6 +53,27 @@ Le langage est un lambda-calcul, avec
     Par exemle, \lstinline|{ x = { y = 1; }; }.x.y| s'évalue en \lstinline{1},
     \lstinline|{ x = { y = 1; }; }.x.z or 2| s'évalue en \lstinline{2} et
     \lstinline|{ x = { y = 2; }; }.y| renvoie une erreur.
+
+  \item[Des patterns] (uniquement pour les lambdas).
+
+    Les seuls patterns non-triviaux existant sont les patterns reconaissant un
+    enregistrement, de la forme
+    \lstinline|{ <pattern-field>, ..., <pattern-field> }| % chktex 26
+    ou
+    \lstinline|{ <pattern-field>, ..., <pattern-field>, "..." }|. % chktex 26 chktex 18
+
+    Le motif <pattern-field> est de la forme \lstinline{<ident>} ou
+    \lstinline{<ident> ? <expr>} pour spécifier une valeur par défaut dans le
+    cas où le champ est absent.
+
+    Contrairement à la pluspart des langages où la variable de capture est
+    indépendante du nom du champ (par exemple en OCaml où un pattern
+    reconaissant un enregistrements serait de la forme
+    °{ x = fieldname; y = otherfieldname }°, le motif °{ x; y }° n'étant qu'un
+    sucre syntaxique pour °{ x = x; y = y }°), Nix impose que les noms des
+    champs soient les mêmes que ceux des variables de capture.
+
+  \item[Des opérateurs infixes] comme °+°, °-°, etc..
 
 \end{description}
 
@@ -86,3 +114,5 @@ Le langage est un lambda-calcul, avec
   \end{grammar}
   \caption{Syntaxe du langage Nix\label{nix::syntax}}
 \end{figure}
+
+
