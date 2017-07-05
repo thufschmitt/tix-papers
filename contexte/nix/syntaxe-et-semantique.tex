@@ -94,6 +94,16 @@ Combinées avec le if-then-else, ces fonctions permettent à une expression de s
 comporter différement selon le type de son argument. Le système de type doit
 être capable de rendre compte de cette capacité.
 
+Ainsi, on veut pouvoir donner le type °Int° à une expression telle que
+
+\begin{lstlisting}
+if isInt x then x else 1
+\end{lstlisting}
+
+ce qui oblige le système de type à être conscient du fait que dans la branche
+°then°, °x° est nécessairement de type entier (et donc à reconnaitre que la
+condition a une forme particulière qui nécessite un traitement particulier).
+
 \begin{figure}
   \def\dots{$\cdots$}
   \begin{grammar}
