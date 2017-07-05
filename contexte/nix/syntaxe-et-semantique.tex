@@ -77,6 +77,23 @@ Le langage est un lambda-calcul, avec
 
 \end{description}
 
+En plus de ces constructions syntaxiques, une grande partie de l'expressivité
+du langage est caché derrière certaines fonctions prédéfinies.
+
+Par exemple, certaines fonctions permettent des opérations avancées sur les
+records comme la fonction °attrNames° qui, appliquée à un
+enregistrement, renvoie la liste de ses étiquettes (sous forme de chaînes de
+caractères).
+
+Une autre classe de fonctions qui étendent la sémantique du langage sont les
+fonctions permettant de discriminer sur le type de leur argument : des
+fonctions °isInt°, °isString°, °isBool°, etc..\ qui renvoient °true° si leur
+argument est respectivement un entier, une chaîne de caractères ou un booléen,
+et °false° sinon.
+Combinées avec le if-then-else, ces fonctions permettent à une expression de se
+comporter différement selon le type de son argument. Le système de type doit
+être capable de rendre compte de cette capacité.
+
 \begin{figure}
   \def\dots{$\cdots$}
   \begin{grammar}
