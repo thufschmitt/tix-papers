@@ -1,0 +1,37 @@
+Les caractéristiques du langage imposent plusieurs restrictions sur le système
+de type. En particulier :
+
+\begin{enumerate}
+  \item Du fait de la grande base de code (non typé) existant, le système doit
+    être assez souple pour accepter un maximum d'expressions, sans sacrifier
+    les garanties de sécurité pour autant.
+
+  \item Il doit pouvoir gérer des enregistrements anonymes avec des labels
+    définis dynamiquement, ainsi que différentes opérations sur ces records
+    (ajout et suppression de champs, fusion d'enregistrements, extraction de
+    l'ensemble des labels, etc..).
+
+  \item Les prédicats sur les types imposent de disposer de types union, ainsi
+    que d'une opération de typecase.
+\end{enumerate}
+
+Plusieurs systèmes de types existants répondent aux deux derniers critères. Le
+système choisi est basé sur les travaux d'Alain Frish sur les types
+ensemblistes \cite{Fri04}, avec les extensions apportées par Kim
+Nguyễn \cite{phdkim} et Guiseppe Castagna et Victor Lanvin \cite{CL16}.
+
+Ce système se base sur une interprétation de la sémantique des types comme un
+ensemble de valeurs, ce qui permet une interprétation naturelle des opérations
+d'union, intersection ou différence comme les opérations correspondantes sur
+les ensembles sous-jacents.
+Cette interprétation permet aussi la définition d'une relation de sous-typage
+correspondant naturellement à la relation d'inclusion sur les interprétations
+ensemblistes.
+Toutes les opérations mentionnées ci-dessus ainsi que la relation de
+sous-typage sont décidables dans ce système.
+
+Les travaux de G. Castagna et V. Lanvin (\cite{CL16}) ajoutent à ce système un
+type graduel, ce qui permet de répondre à la première problématique ci-dessus.
+L'ajout de ce type graduel est malheureusement pour l'instant au détriment du
+polymorphisme, mais une récente extension \cite{CL17} ouvre à ce sujet de
+nouvelles perspectives.
