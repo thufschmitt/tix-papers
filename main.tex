@@ -1,6 +1,8 @@
-\documentclass[frenchb]{scrartcl}
+\documentclass[pagesize=false,frenchb]{scrartcl}
 % \usepackage[margin=1in]{geometry}
- 
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
 % Put some french in it
 \usepackage{babel}
 
@@ -27,6 +29,7 @@
 
 % Fore code blocks
 \usepackage{listings}
+\definecolor{lstbg}{rgb}{0, 0, 0.3}
 \lstdefinelanguage{NLight}{%
   morekeywords={%
     let,in,if,then,else,Cons,Nil
@@ -49,7 +52,8 @@
   escapeinside={//*}{*//},
   breaklines=true,
   mathescape=true,
-  language=NLight
+  language=NLight,
+  basicstyle=\color{lstbg}
 }
 \lstMakeShortInline{°}
 
