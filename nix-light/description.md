@@ -40,10 +40,12 @@ prédicat sur les types.
 
     <vr> ::= <x> | <x>:<τ>
 
+    <basetype> ::= Bool | Int | String | Any | Empty
+
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
       | [<R>]
-      | bool | int | string
+      | <basetype>
 
     <r> ::= <t> | <r>+ | <r>* | <r>?
       | <r> <r> | <r> ¦ <r>
@@ -51,7 +53,7 @@ prédicat sur les types.
     <τ> ::= <c> | <τ> $\rightarrow$ <τ>
       | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
       | [<R>]
-      | bool | int | string | ?
+      | <basetype> | ?
 
     <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
       | <ρ> <ρ> | <ρ> ¦ <ρ>
