@@ -224,3 +224,6 @@ TSWLatexianTemp*
 
 # Who does want build outputs in its repo ?
 *.pdf
+
+# Generated latex files
+_markdown-main/
