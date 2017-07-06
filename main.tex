@@ -58,6 +58,8 @@
 
 \usepackage{myunicode}
 
+\usepackage{markdown}
+
 \newcommand{\τ}{\ensuremath{\tau}}
 \catcode`τ=13
 \catcode`λ=13
@@ -67,6 +69,12 @@
 \subtitle{Un système de types pour Nix}
 \author{Théophane Hufschmitt}
 \date{21 Août 2017}
+
+\markdownSetup{
+  rendererPrototypes = {
+    codeSpan = {\lstinline!#1!}
+  }
+}
 
 \begin{document}
 \maketitle

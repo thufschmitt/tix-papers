@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   version = "2017";
   buildInputs = [
       (texlive.combine {
-        inherit (texlive) scheme-medium syntax todo appendix;
+        inherit (texlive) scheme-medium syntax todo appendix markdown paralist;
       })
   ];
 
