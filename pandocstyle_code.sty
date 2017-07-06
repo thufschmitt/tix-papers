@@ -1,0 +1,22 @@
+\usepackage{luacode} % for 'luacode' environment
+\begin{luacode}
+-- Just to use `` as code delimiters, because LaTeX alone forbids it
+function color_lstinline(s)
+   s = string.gsub (s , "%b``",
+      function (match)
+        local listing = string.sub(match, 2, -2)
+          return "\\lstinline!" .. listing .. "!"
+      end)
+   return s
+end
+\end{luacode}
+
+\newcommand{\ColorLstinlineOn}{\directlua{
+   luatexbase.add_to_callback ( "process_input_buffer" ,
+   color_lstinline, "color_lstinline" )
+ }
+   }
+\newcommand{\ColorLstinlineOff}{\directlua{
+   luatexbase.remove_from_callback ( "process_input_buffer" , 
+   "color_lstinline" )}}
+\AtBeginDocument{\ColorLstinlineOn} % Default: activate the Lua function 

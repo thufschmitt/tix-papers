@@ -14,7 +14,7 @@ check: FORCE
 	chktex -g0 -l .chktexrc main.tex
 
 %.pdf: %.tex FORCE
-	latexmk -output-directory=out -pdf -xelatex -use-make $<
+	latexmk -output-directory=out -pdf -lualatex -use-make $<
 
 clean:
 	rm -r out
