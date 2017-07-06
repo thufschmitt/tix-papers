@@ -19,7 +19,7 @@ d'information de type pour savoir que `f` doit être considérée comme un
 prédicat sur les types.
 
 \begin{figure}
-  \begin{lstlisting}
+  ```
     <e> ::=
         <x> | <c>
       | <e>.<a> | <e>.<a> or <e>
@@ -55,6 +55,6 @@ prédicat sur les types.
 
     <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
       | <ρ> <ρ> | <ρ> ¦ <ρ>
-  \end{lstlisting}
+  ```
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
