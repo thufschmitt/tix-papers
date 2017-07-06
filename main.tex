@@ -58,7 +58,10 @@
 
 \usepackage{myunicode}
 
-\usepackage{markdown}
+\usepackage[
+  fencedCode,
+  hybrid
+  ]{markdown}
 
 \newcommand{\τ}{\ensuremath{\tau}}
 \catcode`τ=13
@@ -70,9 +73,18 @@
 \author{Théophane Hufschmitt}
 \date{21 Août 2017}
 
-\markdownSetup{
+\markdownSetup{%
   rendererPrototypes = {
-    codeSpan = {\lstinline!#1!}
+    inputFencedCode = {%
+      \ifx\relax#2\relax
+        \lstinputlisting{#1}%
+      \else
+        \lstinputlisting[language=#2]{#1}%
+      \fi
+    }
+  },
+  rendererPrototypes = {
+    codeSpan = {\lstinline!#1!}%
   }
 }
 
