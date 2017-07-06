@@ -1,3 +1,5 @@
+#### Grammaire
+
 La grammaire de Nix-light est donnée en figure \pref{nix-light::grammar}.
 
 Ce langage reprend essentiellement toutes les caractéristiques de Nix, mais en
@@ -59,4 +61,38 @@ prédicat sur les types.
       | <ρ> <ρ> | <ρ> ¦ <ρ>
   ```
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
+\end{figure}
+
+#### Sémantique
+
+La sémantique complète de Nix-light est donnée par la
+figure \pref{nix-light::sematics}.
+
+La majorité de cette sémantique est très classique. Quelques points méritent
+cependant un peu plus d'attention :
+
+- Contrairement à de nombreux langages (Perl, Python, …), un enregistrement
+  littéral dans lequel un même label apparait plusieurs fois est invalide et
+  son évaluation renvoie une erreur^[Le langage Nix offre ici un comportement
+  assez peu cohérent, dans la mesure où si deux champs sont définis
+  statiquement avec la même étiquette (par exemple `LB x = 1; x = 2; RB`),
+  alors l'expression sera considérée comme invalide durant une phase de test
+  avant l'évaluation − donc le programme ne sera pas évalué −, alors que si les
+  champs sont définis dynamiquement (par exemple `let x = "x"; in LB
+  DOLLARLBxRB = 1; DOLLARLBxRB = 2; RB`) la collision ne pourra être détectée
+  qu'à l'execution. D'un point de vue sémantique, cela signifie donc que la
+  première forme est une expression invalide, alors que la seconde peut être
+  vue comme une expression valide qui renvoie une erreur à l'exécution].
+
+- Déjà évoqué précédemment, le typecase est une construction suffisamment rare
+  pour méritée d'être citée.
+  Bien que cela ne soit pas explicité dans la grammaire pour des questions de
+  lisibilité, la syntaxe du type utilisé dans un typecase est limitée : le seul
+  type flèche qui peut y apparaitre est la flèche `Empty -> Any`.
+  En effet, autoriser des flèches arbitraires rendraient cette construction
+  indécidable pour le système de type dans certains cas.
+
+\begin{figure}
+  TODO
+  \caption{Sémantique opérationnelle de Nix-light\label{nix-light::grammar}}
 \end{figure}
