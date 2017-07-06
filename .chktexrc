@@ -179,6 +179,10 @@ CmdLine
 # We disable it as we use both in the same context to differentiate
 # syntax and meta-syntax
   -n11
+# Don't warn about quotes as we misuse them to get markdown-style code
+  -n33
+# Don't warn about spaces in front of ponctuation either
+  -n26
 }
 
 #####################################################################
