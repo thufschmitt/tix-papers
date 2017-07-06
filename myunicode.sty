@@ -2,11 +2,9 @@
 \begin{luacode}
 -- Just to use `` as code delimiters, because LaTeX alone forbids it
 function color_lstinline(s)
-   s = string.gsub (s , "%b``",
-      function (match)
-        local listing = string.sub(match, 2, -2)
-          return "\\lstinline!" .. listing .. "!"
-      end)
+  s = string.gsub(s, "τ", "tau")
+  s = string.gsub(s, "λ", "lambda")
+  s = string.gsub(s, "ρ", "rho")
    return s
 end
 \end{luacode}

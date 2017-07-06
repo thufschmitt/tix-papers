@@ -19,25 +19,22 @@ d'information de type pour savoir que `f` doit être considérée comme un
 prédicat sur les types.
 
 \begin{figure}
-  \begin{grammar}
-    \def\tt{\ensuremath{\tilde{t}}}
-    \def\RR{\ensuremath{\tilde{R}}}
-    \bfseries
+  \begin{lstlisting}
     <e> ::=
-      <x> | <c>
-      \alt <e>.<a> | <e>.<a> or <e>
-      \alt $\lambda$<p>.<e> | <e> <e>
-      \alt let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
-      \alt Cons (<e>, <e>)
-      \alt (<x> = <e> $\in$ <t>) ? <e> : <e>
+        <x> | <c>
+      | <e>.<a> | <e>.<a> or <e>
+      | $\lambda$<p>.<e> | <e> <e>
+      | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
+      | Cons (<e>, <e>)
+      | (<x> = <e> $\in$ <t>) ? <e> : <e>
 
     <c> ::= <s> | <i> | <b> | Nil
 
     <p> ::= <rp> | <rp>@<x> | <vr>
 
-    <rp> ::= \{ <rpf>, $\cdots$, <rpf> \}
-      | \{ <rpf>, $\cdots$, <rpf>, \ldots \}
-      | <rp>:τ
+    <rp> ::= <rp>:τ
+      | { <rpf>, $\cdots$, <rpf> }
+      | { <rpf>, $\cdots$, <rpf>, ... }
 
     <rpf> ::= <vr> | <vr> ? <c>
 
@@ -45,19 +42,19 @@ prédicat sur les types.
 
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
-      \alt [<R>]
-      \alt bool | int | string
+      | [<R>]
+      | bool | int | string
 
-    <R> ::= <t> | <R>\textsuperscript{+} | <R>* | <R>? | <R> <R>
-      | <R> \texttt{|} <R>
+    <r> ::= <t> | <r>+ | <r>* | <r>?
+      | <r> <r> | <r> ¦ <r>
 
     <τ> ::= <c> | <τ> $\rightarrow$ <τ>
       | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
-      \alt [<R>]
-      \alt bool | int | string | ?
+      | [<R>]
+      | bool | int | string | ?
 
-    <\RR> ::= <τ> | <\RR>\textsuperscript{+} | <\RR>* | <\RR>? | <\RR> <\RR>
-      | <\RR> \texttt{|} <\RR>
-  \end{grammar}
+    <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
+      | <ρ> <ρ> | <ρ> ¦ <ρ>
+  \end{lstlisting}
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}

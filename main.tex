@@ -31,14 +31,14 @@
 \usepackage{listings}
 \definecolor{lstbg}{rgb}{0, 0, 0.3}
 \lstdefinelanguage{NLight}{%
-  morekeywords={%
-    let,in,if,then,else,Cons,Nil
-  },%
+  morekeywords={let,in,if,then,else,Cons,Nil},
   morekeywords={[2]Int,true,false,Bool,T},   % types go here
-  otherkeywords={:,=[]}, % operators go here
+  otherkeywords={:,;,=,[,],\{,\},...}, % operators go here
   literate={% replace strings with symbols
     {->}{{$\to$}}{2}
     {lambda}{{$\lambda$}}{1}
+    {tau}{{\ensuremath{\tau}}}{1}
+    {rho}{{\ensuremath{\rho}}}{1}
     {tin}{{$\in$}}{2}
     {\&}{{$\wedge$}}{2}
   },
@@ -56,8 +56,7 @@
   basicstyle=\color{lstbg}
 }
 
-\usepackage{pandocstyle_code}
-\usepackage{syntax}
+\usepackage{myunicode}
 
 \newcommand{\τ}{\ensuremath{\tau}}
 \catcode`τ=13
