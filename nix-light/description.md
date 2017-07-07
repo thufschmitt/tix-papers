@@ -65,6 +65,46 @@ prédicat sur les types.
 
 #### Sémantique
 
+##### Pattern-matching
+
+Le pattern-matching dans Nix-light a une sémantique classique pour un langage à
+évaluation pareusse, avec cette simplification que, les motifs n'étant pas
+récursifs, l'argument est soit non-évalué, soit uniquement évalué en forme
+normale de tête.
+
+\newcommand{\var}{\mathcal{V}}
+Pour une variable (éventuellement annotée) `r`, on définit $\var(r)$ par
+$\var(x) = \var(x:\τ) = x$.
+
+Pour un motif `p` et une valeur `v` (resp. une expression `e`), on définit
+$\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) l'ensemble des substitutions générées
+par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
+
+\begin{align\*}
+  \sfrac{e}{x}    &= x := e \\\\
+  \sfrac{e}{p:\τ}  &= \sfrac{e}{p} \\\\
+  \sfrac{v}{q@x}  &= x := e; \sfrac{e}{q} \\\\
+  \sfrac{\\{ s = e;\\}}{\\{ x \\}}
+   &= \sfrac{r}{e} \text{\quad si } s = \var(r) \\\\
+  \sfrac{\\{\cdots\\}}{\\{..\\}} &= \varnothing\\\\
+  \sfrac{\\{\\}}{\\{ r\_1 ? c\_1, \cdots, r\_n ? c\_n \\}}
+   &= \sfrac{r\_1}{c\_1}; \cdots; \sfrac{r\_n}{c\_n} \\\\
+  \sfrac{\\{\cdots\\}}{\\{ r\_1 ? c\_1, \cdots, r\_n ? c\_n, .. \\}}
+   &= \sfrac{r\_1}{c\_1}; \cdots; \sfrac{r\_n}{c\_n} \\\\
+  \sfrac{\\{ s\_1 = e\_1; \cdots; s\_n = e\_n \\}}
+   {\\{ r\_1, \cdots; r\_m \\}}
+   &= \sfrac{r\_1}{e\_1}; \sfrac{\\{ s\_2 = e\_2; \cdots; s\_n = e\_n \\}}{
+   \\{ r\_2, \cdots, r\_m \\}}
+  \text{ si } s\_1 = \var(r\_1) \\\\
+  \sfrac{\\{ s\_1 = e\_1; \cdots; s\_n = e\_n \\}}
+   {\\{ r\_1, \cdots, r\_m, .. \\}}
+   &= \sfrac{r\_1}{e\_1}; \sfrac{\\{ s\_2 = e\_2; \cdots; s\_n = e\_n \\}}{
+   \\{ r\_2, \cdots; r\_m, .. \\}}
+  \text{ si } s\_1 = \var(r\_1) \\\\
+\end{align\*}
+
+##### Sémantique opérationnelle
+
 La sémantique complète de Nix-light est donnée par la
 figure \pref{nix-light::sematics}.
 
