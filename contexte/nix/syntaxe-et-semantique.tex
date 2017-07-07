@@ -129,7 +129,7 @@ condition a une forme particulière qui nécessite un traitement particulier).
 
 <record-field> ::= inherit <ident> $\cdots$ <ident>
   | inherit (<expr>) <ident> <ident>
-  | <ident> = <expr> | { <expr> } = <expr>
+  | <access-path> = <expr> | <access-path> : <τ> = <expr>
 
 <pattern> ::= <record-pattern> | <record-pattern>@<ident>
   | <var-pattern>
