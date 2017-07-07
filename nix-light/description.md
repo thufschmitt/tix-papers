@@ -106,7 +106,7 @@ par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
 ##### Sémantique opérationnelle
 
 La sémantique complète de Nix-light est donnée par la
-figure \pref{nix-light::sematics}.
+figure \pref{nix-light::semantics}.
 
 La majorité de cette sémantique est très classique. Quelques points méritent
 cependant un peu plus d'attention :
@@ -132,7 +132,4 @@ cependant un peu plus d'attention :
   En effet, autoriser des flèches arbitraires rendraient cette construction
   indécidable pour le système de type dans certains cas.
 
-\begin{figure}
-  TODO
-  \caption{Sémantique opérationnelle de Nix-light\label{nix-light::grammar}}
-\end{figure}
+\input{nix-light/semantics}

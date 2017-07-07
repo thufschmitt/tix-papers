@@ -1,0 +1,15 @@
+\begin{figure}
+  \center
+  \def\leadsto{\ensuremath{\rightsquigarrow}}
+  \begin{tabular}{rl}
+  °(λx.e1) e2° &\leadsto °e1[x := e2]° \\
+  °(λp.e) v° &\leadsto °e[$\sfrac{p}{v}$]° \\
+  °(x = v tin T) ? e1 : e2° &\leadsto °e1° \quad si $\vdash v : T$ \\
+  °(x = v tin T) ? e1 : e2° &\leadsto °e2° \quad si $\vdash v : \lnot T$ \\
+  °{ x = e; $\cdots$ }.x° &\leadsto °e° \\
+  °{ x = e; $\cdots$ }.x or e'° &\leadsto °e° \\
+  °{ x1 = e1; $\cdots$; xn = en }.x or e'° &\leadsto °e'°
+      \quad si $x \notin \left\{ x1, \cdots, xn \right\}$ \\
+  \end{tabular}
+  \caption{Sémantique opérationnelle de Nix-light\label{nix-light::semantics}}
+\end{figure}
