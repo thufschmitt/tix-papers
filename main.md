@@ -36,6 +36,7 @@
 
 ### De Nix à Nix-light
 <!--  Compilation -->
+\input{nix-light/compilation.tex}
 
 ## Typage
 

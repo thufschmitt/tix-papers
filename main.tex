@@ -27,6 +27,10 @@
 % The labels of those rules
 \newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
 
+% Some math caracters (\{ll,rr}bracket in particular)
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+
 % Fore code blocks
 \usepackage{listings}
 \definecolor{lstbg}{rgb}{0, 0, 0.3}
@@ -35,15 +39,19 @@
   morekeywords={[2]Int,true,false,Bool,T, Empty, Any},   % types go here
   otherkeywords={:,;,=,[,],\{,\},...}, % operators go here
   literate={% replace strings with symbols
-    {->}{{$\to$}}{2}
+    {->}{{$\to$}}{1}
     {lambda}{{$\lambda$}}{1}
     {tau}{{\ensuremath{\tau}}}{1}
     {rho}{{\ensuremath{\rho}}}{1}
-    {tin}{{$\in$}}{2}
-    {\&}{{$\wedge$}}{2}
+    {tin}{{$\in$}}{1}
+    {\&}{{$\wedge$}}{1}
     {LB}{{\{}}{1}
     {RB}{{\}}}{1}
     {DOLLAR}{{\$}}{1}
+    {(|}{{\ensuremath{\llbracket}}}{1} % chktex 9
+    {|)}{{\ensuremath{\rrbracket}}}{1} % chktex 9
+    {(||}{{\ensuremath{\llparenthesis}}}{1} % chktex 9
+    {||)}{{\ensuremath{\rrparenthesis}}}{1} % chktex 9
   },
   basicstyle={\sffamily},
   keywordstyle={\bfseries},
@@ -58,6 +66,8 @@
   language=NLight,
   basicstyle=\color{lstbg}
 }
+
+\lstMakeShortInline{°}
 
 \usepackage{myunicode}
 
