@@ -1,3 +1,8 @@
+Le langage étudié est une extension du langage Nix auquel des annotations de
+type ont été ajoutées.
+Dans toute la suite, toute référence au langage Nix se réfèrera à cette
+extension.
+
 La syntaxe complète du langage est donnée par la figure \pref{nix::syntax}.
 Sa sémantique est définie informellement ci dessous (une sémantique complète
 est donnée en section \ref{sec:nix-light}).
@@ -105,11 +110,12 @@ ce qui oblige le système de type à être conscient du fait que dans la branche
 condition a une forme particulière qui nécessite un traitement particulier).
 
 \begin{figure}
+  \small
   \begin{lstlisting}
 <expr> ::=
   <ident> | <constant>
   | $\lambda$ <pattern>.<expr> | <expr> <expr>
-  | let <ident> = <expr>; $\cdots$; <ident> = <expr>; in <expr>
+  | let <var-pattern> = <expr>; $\cdots$; <var-pattern> = <expr>; in <expr>
   | [ <expr> $\cdots$ <expr> ]
   | { <record-field>; $\cdots$; <record-field>; }
   | rec { <record-field>; $\cdots$; <record-field>; }
@@ -117,6 +123,7 @@ condition a une forme particulière qui nécessite un traitement particulier).
   | <expr>.<acces-path>
   | <expr>.<acces-path> or <expr>
   | <expr> <infix-op> <expr>
+  | <expr> : <τ>
 
 <constant> ::= <string> | <integer> | <boolean> | <paths>
 
@@ -125,19 +132,39 @@ condition a une forme particulière qui nécessite un traitement particulier).
   | <ident> = <expr> | { <expr> } = <expr>
 
 <pattern> ::= <record-pattern> | <record-pattern>@<ident>
-  | <ident>
+  | <var-pattern>
+
+<var-pattern> ::= <ident> | <ident> : <τ>
 
 <record-pattern> ::=
   | { <record-pattern-field>, $\cdots$, <record-pattern-field> }
   | { <record-pattern-field>, $\cdots$, <record-pattern-field>, ... }
 
-<record-pattern-field> ::= <ident> | <ident>? <expr>
+<record-pattern-field> ::= <var-pattern> | <var-pattern> ? <expr>
 
 <access-path> ::= <access-path-item>. $\cdots$ . <access-path-item>
 
 <access-path-item> ::= <ident> | { <expr> }
 
 <infix-op> ::= + | - | * | / | // | ++ | $\cdots$
+
+<basetype> ::= Bool | Int | String | Any | Empty
+
+<t> ::= <constant> | <t> $\rightarrow$ <t>
+  | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
+  | [<R>]
+  | <basetype>
+
+<r> ::= <t> | <r>+ | <r>* | <r>?
+  | <r> <r> | <r> ¦ <r>
+
+<τ> ::= <c> | <τ> $\rightarrow$ <τ>
+  | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
+  | [<R>]
+  | <basetype> | ?
+
+<ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
+  | <ρ> <ρ> | <ρ> ¦ <ρ>
   \end{lstlisting}
   \caption{Syntaxe du langage Nix\label{nix::syntax}}
 \end{figure}
