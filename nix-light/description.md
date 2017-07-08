@@ -29,6 +29,7 @@ prédicat sur les types.
       | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
       | Cons (<e>, <e>)
       | (<x> = <e> $\in$ <t>) ? <e> : <e>
+      | <e>:<τ>
 
     <c> ::= <s> | <i> | <b> | Nil
 
