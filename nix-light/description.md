@@ -28,6 +28,7 @@ prédicat sur les types.
       | $\lambda$<p>.<e> | <e> <e>
       | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
       | Cons (<e>, <e>)
+      | { <x> = <e> } | {} | <e> <> <e>
       | (<x> = <e> $\in$ <t>) ? <e> : <e>
       | <e>:<τ>
 
@@ -48,6 +49,7 @@ prédicat sur les types.
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
       | [<R>]
+      | { <x> = <t> } | {} | { … } | <t> <> <t>
       | <basetype>
 
     <r> ::= <t> | <r>+ | <r>* | <r>?
@@ -56,6 +58,7 @@ prédicat sur les types.
     <τ> ::= <c> | <τ> $\rightarrow$ <τ>
       | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
       | [<R>]
+      | { <x> = <τ> } | {} | { … } | <τ> <> <τ>
       | <basetype> | ?
 
     <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
