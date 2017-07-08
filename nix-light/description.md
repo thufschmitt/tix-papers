@@ -2,6 +2,13 @@
 
 La grammaire de Nix-light est donnée en figure \pref{nix-light::grammar}.
 
+Dans toute la suite, on suppose que l'opérateur `<>` est commutatif. En
+conséquence, on s'autorise à réordonner arbitrairement les termes d'une
+expression de la forme `<e> <> ... <> <e>` (resp. d'un type de la forme `<t> <>
+... <> <t>` ou `<τ> <> ... <> <τ>`).
+On s'autorise de plus à écrire `LB x1 = e1; ...; xn = en RB` à la place de `LB
+x1 = e1 RB <> ... <> LB xn = en RB`, et de même pour les types enregistrement.
+
 Ce langage reprend essentiellement toutes les caractéristiques de Nix, mais en
 rendant syntaxiquement reconnaissable les éléments qui nécessitent un traitement
 spécial au typage.
@@ -28,7 +35,7 @@ prédicat sur les types.
       | $\lambda$<p>.<e> | <e> <e>
       | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
       | Cons (<e>, <e>)
-      | { <x> = <e> } | {} | <e> <> <e>
+      | { <x> = <e> } | {} | <e> <> ... <> <e>
       | (<x> = <e> $\in$ <t>) ? <e> : <e>
       | <e>:<τ>
 
@@ -38,7 +45,7 @@ prédicat sur les types.
 
     <rp> ::= <rp>:τ
       | { <rpf>, $\cdots$, <rpf> }
-      | { <rpf>, $\cdots$, <rpf>, ... }
+      | { <rpf>, $\cdots$, <rpf>, … }
 
     <rpf> ::= <vr> | <vr> ? <c>
 
@@ -49,7 +56,7 @@ prédicat sur les types.
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
       | [<R>]
-      | { <x> = <t> } | {} | { … } | <t> <> <t>
+      | { <x> = <t> } | {} | { … } | <t> <> ... <> <t>
       | <basetype>
 
     <r> ::= <t> | <r>+ | <r>* | <r>?
