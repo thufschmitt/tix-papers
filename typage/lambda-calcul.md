@@ -56,17 +56,17 @@ On définit deux opérateurs $\accept{p}$ et $\tmatch{\tau}{p}$ correspondant
 respectivement au type accepté par un motif $p$ et l'environnement de typage
 produit par la confrontation du type $\tau$ au motif $p$ par :
 
-\begin{align\*}
-  \accept{x} &= \grad \\\\
+\begin{align*}
+  \accept{x} &= \grad \\
   \accept{x:\tau} &= \tau
-\end{align\*}
+\end{align*}
 
 et
 
-\begin{align\*}
-  \tmatch{\tau}{x} &= x : \tau \\\\
+\begin{align*}
+  \tmatch{\tau}{x} &= x : \tau \\
   \tmatch{\sigma}{x:\tau} &= \sigma \cap \tau
-\end{align\*}
+\end{align*}
 
 Par défaut (en l'absence d'annotation), le type accepté par un motif est le
 type graduel.
@@ -95,11 +95,11 @@ lambda-abstraction est assez simple et naturelle.
 
 Le check est un peu plus délicat : L'idée pour vérifier qu'une expression
 $\lambda p.e$ admet le type $\tau$ sous l'hypothèse $\Gamma$ est de, pour
-chaque type flèche $\sigma\_1 \rightarrow \sigma\_2$ « contenue » dans le type
+chaque type flèche $\sigma_1 \rightarrow \sigma_2$ « contenue » dans le type
 $\tau$ (sous réserve que $\tau$ est un sous-type − non graduel − de `Empty ->
 Any`), vérifier que ce type est bien admis par l'expression, c'est-à-dire que
-sous l'hypothèses $\Gamma; \tmatch{\sigma\_1}{p}$, $e$ admet le type
-$\sigma\_2$.
+sous l'hypothèses $\Gamma; \tmatch{\sigma_1}{p}$, $e$ admet le type
+$\sigma_2$.
 
 \newcommand{\A}{\mathcal{A}}
 La définition de l'ensemble des flèches « contenues » dans un type $\tau$ est
@@ -108,24 +108,24 @@ donnée par la fonction $\A$ construite comme suit :
 Si $\tau$ est sous la forme
 
 \begin{displaymath}
-  \tau = \bigvee\limits\_{i\in I}\left(
-    \bigwedge\limits\_{p\in P\_i} (\sigma\_p \rightarrow \tau\_p)
-    \wedge \bigwedge\limits\_{n \in N\_i} \lnot (\sigma\_n \rightarrow \tau\_n)
+  \tau = \bigvee\limits_{i\in I}\left(
+    \bigwedge\limits_{p\in P_i} (\sigma_p \rightarrow \tau_p)
+    \wedge \bigwedge\limits_{n \in N_i} \lnot (\sigma_n \rightarrow \tau_n)
   \right)
 \end{displaymath}
 
 alors $\A(\tau)$ est défini comme
 
 \begin{displaymath}
-  \A(\tau) = \bigsqcup\limits\_{i \in I} \\{ \sigma\_p \rightarrow \tau\_p | p \in P\_i \\}
+  \A(\tau) = \bigsqcup\limits_{i \in I} \{ \sigma_p \rightarrow \tau_p | p \in P_i \}
 \end{displaymath}
 
 où $\sqcup$ est défini comme
 
 
 \begin{displaymath}
-  \\{ \sigma\_i \rightarrow \tau\_i \| i \in I \\} \sqcup \\{ \sigma\_j \rightarrow \tau\_j \| j \in J \\} =
-    \\{ (\sigma\_i \wedge \sigma\_j) \rightarrow (\tau\_i \vee \tau\_j) \| i \in I, j \in J \\}
+  \{ \sigma_i \rightarrow \tau_i \| i \in I \} \sqcup \{ \sigma_j \rightarrow \tau_j \| j \in J \} =
+    \{ (\sigma_i \wedge \sigma_j) \rightarrow (\tau_i \vee \tau_j) \| i \in I, j \in J \}
 \end{displaymath}.
 
 Il est montré dans @Fri04 qu'il est toujours possible de mettre $\tau$ sous la
@@ -158,10 +158,10 @@ $\tau$.
 
 La règle de check est plus simple mais nécessite d'utiliser un peu d'inférence,
 dans la mesure ou le type de l'argument n'est pas donné. Pour vérifier que
-$\Gamma \tcheck e\_1 e\_2 : \tau$, il faut donc inférer que $e\_2$ a un
-certain type $\sigma$ et ensuite vérifier que $e\_1$ a le type $\sigma
+$\Gamma \tcheck e_1 e_2 : \tau$, il faut donc inférer que $e_2$ a un
+certain type $\sigma$ et ensuite vérifier que $e_1$ a le type $\sigma
 \rightarrow \tau$ (on pourrait aussi vouloir inférer le type $\sigma$ de
-$e\_1$, et en déduire le type que doit avoir $e\_2$ comme l'image inverse de
+$e_1$, et en déduire le type que doit avoir $e_2$ comme l'image inverse de
 $\tau$ par $\sigma$, mais cette approche est nettement plus complexe et semble
 moins utile en pratique).
 

@@ -28,7 +28,7 @@ d'information de type pour savoir que `f` doit être considérée comme un
 prédicat sur les types.
 
 \begin{figure}
-  ```
+  \begin{lstlisting}
     <e> ::=
         <x> | <c>
       | <e>.<a> | <e>.<a> or <e>
@@ -65,7 +65,7 @@ prédicat sur les types.
       | { <x> = <τ> } | {} | { … } | <τ> <> <τ>
       | <basetype> | ?
       | t
-  ```
+  \end{lstlisting}
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
 
@@ -86,28 +86,28 @@ Pour un motif `p` et une valeur `v` (resp. une expression `e`), on définit
 $\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) l'ensemble des substitutions générées
 par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
 
-\begin{align\*}
-  \sfrac{e}{x}    &= x := e \\\\
-  \sfrac{e}{p:\τ}  &= \sfrac{e}{p} \\\\
-  \sfrac{v}{q\@x}  &= x := e; \sfrac{e}{q} \\\\
-  \sfrac{\\{ s = e;\\}}{\\{ x \\}}
-   &= \sfrac{r}{e} \text{\quad si } s = \var(r) \\\\
-  \sfrac{\\{\cdots\\}}{\\{..\\}} &= \varnothing\\\\
-  \sfrac{\\{\\}}{\\{ r\_1 ? c\_1, \cdots, r\_n ? c\_n \\}}
-   &= \sfrac{r\_1}{c\_1}; \cdots; \sfrac{r\_n}{c\_n} \\\\
-  \sfrac{\\{\cdots\\}}{\\{ r\_1 ? c\_1, \cdots, r\_n ? c\_n, .. \\}}
-   &= \sfrac{r\_1}{c\_1}; \cdots; \sfrac{r\_n}{c\_n} \\\\
-  \sfrac{\\{ s\_1 = e\_1; \cdots; s\_n = e\_n \\}}
-   {\\{ r\_1, \cdots; r\_m \\}}
-   &= \sfrac{r\_1}{e\_1}; \sfrac{\\{ s\_2 = e\_2; \cdots; s\_n = e\_n \\}}{
-   \\{ r\_2, \cdots, r\_m \\}}
-  \text{ si } s\_1 = \var(r\_1) \\\\
-  \sfrac{\\{ s\_1 = e\_1; \cdots; s\_n = e\_n \\}}
-   {\\{ r\_1, \cdots, r\_m, .. \\}}
-   &= \sfrac{r\_1}{e\_1}; \sfrac{\\{ s\_2 = e\_2; \cdots; s\_n = e\_n \\}}{
-   \\{ r\_2, \cdots; r\_m, .. \\}}
-  \text{ si } s\_1 = \var(r\_1) \\\\
-\end{align\*}
+\begin{align*}
+  \sfrac{e}{x}    &= x := e \\
+  \sfrac{e}{p:\τ}  &= \sfrac{e}{p} \\
+  \sfrac{v}{q@x}  &= x := e; \sfrac{e}{q} \\
+  \sfrac{\{ s = e;\}}{\{ x \}}
+   &= \sfrac{r}{e} \text{\quad si } s = \var(r) \\
+  \sfrac{\{\cdots\}}{\{..\}} &= \varnothing\\
+  \sfrac{\{\}}{\{ r_1 ? c_1, \cdots, r_n ? c_n \}}
+   &= \sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n} \\
+  \sfrac{\{\cdots\}}{\{ r_1 ? c_1, \cdots, r_n ? c_n, .. \}}
+   &= \sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n} \\
+  \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}
+   {\{ r_1, \cdots; r_m \}}
+   &= \sfrac{r_1}{e_1}; \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{
+   \{ r_2, \cdots, r_m \}}
+  \text{ si } s_1 = \var(r_1) \\
+  \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}
+   {\{ r_1, \cdots, r_m, .. \}}
+   &= \sfrac{r_1}{e_1}; \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{
+   \{ r_2, \cdots; r_m, .. \}}
+  \text{ si } s_1 = \var(r_1) \\
+\end{align*}
 
 ##### Sémantique opérationnelle
 

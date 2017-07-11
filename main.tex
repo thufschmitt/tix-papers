@@ -76,14 +76,6 @@
 
 \usepackage{myunicode}
 
-\usepackage[
-  fencedCode,
-  hybrid,
-  html,
-  citations,
-  inlineFootnotes
-  ]{markdown}
-
 % Some useful macros
 \catcode`τ=13
 \catcode`λ=13
@@ -109,21 +101,6 @@
 \author{Théophane Hufschmitt}
 \date{21 Août 2017}
 
-\markdownSetup{%
-  rendererPrototypes = {
-    inputFencedCode = {%
-      \ifx\relax#2\relax
-        \lstinputlisting{#1}%
-      \else
-        \lstinputlisting[language=#2]{#1}%
-      \fi
-    }
-  },
-  rendererPrototypes = {
-    codeSpan = {\lstinline!#1!}%
-  }
-}
-
 \begin{document}
 \maketitle
 
@@ -131,7 +108,7 @@
 
 \pagebreak
 
-\markdownInput{main.md}
+\input{generated/main.tex}
 \bibliographystyle{alpha}
 \bibliography{references}
 \end{document}

@@ -31,15 +31,15 @@
   Explication de pourquoi nix est trop permissif et pourquoi il vaut mieux
   bosser sur autre chose.
 -->
-\markdownInput{nix-light/motivation.md}
+\input{generated/nix-light/motivation.tex}
 
 ## Description
 <!--  Description du langage, grammaire + sémantique -->
-\markdownInput{nix-light/description.md}
+\input{generated/nix-light/description.tex}
 
 ## De Nix à Nix-light
 <!--  Compilation -->
-\markdownInput{nix-light/compilation.md}
+\input{generated/nix-light/compilation.tex}
 
 # Typage
 
@@ -47,11 +47,11 @@
 <!--  Présentation des types utilisés -->
 <!--  Discussion autour du sous-typage lazy -->
 <!--  Sous-typage graduel -->
-\markdownInput{typage/types.md}
+\input{generated/typage/types.tex}
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
-\markdownInput{typage/lambda-calcul.md}
+\input{generated/typage/lambda-calcul.tex}
 
 ## Structures de données
 <!--  Description du typage des deux structures de données de Nix -->
@@ -64,7 +64,7 @@
   original (mais joli par contre)
 -->
 \label{typage/structures/listes}
-\markdownInput{typage/listes.md}
+\input{generated/typage/listes.tex}
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->

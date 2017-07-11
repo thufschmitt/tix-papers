@@ -41,7 +41,7 @@ particulière (notée $\bot$) à l'interprétation des types.
 Ainsi, l'interprétation $\llbracket A \times B \rrbracket$ du type $A \times B$
 qui est égale à $\llbracket A \rrbracket \times \llbracket B \rrbracket$ dans
 l'interprétation stricte devient $\left(\llbracket A \rrbracket \cup \bot
-\right) \times \left(\llbracket B \rrbracket \cup \bot \right) $.
+\right) \times \left(\llbracket B \rrbracket \cup \bot \right)$.
 De cette nouvelle interprétation découle un nouvel algorithme de sous-typage.
 
 Cette interprétation et ses conséquences sont décrites dans l'article

@@ -3,7 +3,9 @@
 
 VIEWER=evince
 
-.PHONY: all clean
+.PHONY: clean main.pdf
+
+GENERATED_LATEX=$(shell find . -name '*.md' | sed 's_./\(.*\).md_generated/\1.tex_g')
 
 all: main.pdf
 
@@ -13,11 +15,25 @@ view: main.pdf
 check: FORCE
 	chktex -g0 -l .chktexrc main.tex
 
-%.pdf: %.tex FORCE
-	latexmk -output-directory=out -pdf -lualatex -use-make $<
+main.pdf: main.tex $(GENERATED_LATEX)
+	latexmk \
+	  -output-directory=out \
+	  -pdf \
+	  -lualatex \
+	  -use-make \
+	  # -interaction=nonstopmode \
+	  $<
+
+generated/%.tex: %.md
+	mkdir -p $(shell dirname $@)
+	pandoc \
+	  --listings \
+	  $< \
+	  -o $@
 
 clean:
 	rm -r out
+	rm -r generated
 
 # Fore some reasons that are far behind my understanding of make, The PHONY
 # rule doesn't work for the "%.pdf" rule, so let's use this old trick to

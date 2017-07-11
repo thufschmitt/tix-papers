@@ -37,10 +37,10 @@ Le typage des listes est présenté à la figure \pref{typage::liste}.
 \begin{figure}
   \begin{displaymath}
     \inferrule{
-      \Gamma \tIC e\_1 : \tau\_1 \\\\ \Gamma \tIC e\_2 : \tau\_2 \\\\
-      \tau\_2 \subtypeG \cons(\Any, \Any)
+      \Gamma \tIC e_1 : \tau_1 \\\\ \Gamma \tIC e_2 : \tau_2 \\\\
+      \tau_2 \subtypeG \cons(\Any, \Any)
     }{
-      \Gamma \tIC \cons(e\_1, e\_2) : \cons(\tau\_1, \tau\_2)
+      \Gamma \tIC \cons(e_1, e_2) : \cons(\tau_1, \tau_2)
     }\lbl{Cons}
   \end{displaymath}
   \caption{Règle de typage des listes}\label{typage::liste}
