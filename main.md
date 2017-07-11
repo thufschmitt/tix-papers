@@ -56,9 +56,6 @@
 ## Structures de données
 <!--  Description du typage des deux structures de données de Nix -->
 
-### Extension des types
-<!--  Ajout des types Cons et record. -->
-
 ### Listes
 <!--
   Typage des listes. Rien de très compliqué, mais les regexp-lists nécessitent
