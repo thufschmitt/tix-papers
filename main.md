@@ -43,13 +43,11 @@
 
 # Typage
 
-## Types
+## Types et sous-typage
 <!--  Présentation des types utilisés -->
-
-### Syntaxe
-### Sous-typage
 <!--  Discussion autour du sous-typage lazy -->
 <!--  Sous-typage graduel -->
+\markdownInput{typage/types.md}
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
