@@ -48,6 +48,7 @@
     {rho}{{\ensuremath{\rho}}}{1}
     {tin}{{$\in$}}{1}
     {\&}{{$\wedge$}}{1}
+    {AND}{{$\wedge$}}{1}
     {LB}{{\{}}{1}
     {RB}{{\}}}{1}
     {...}{{$\cdots$}}{1}
@@ -84,13 +85,21 @@
   ]{markdown}
 
 % Some useful macros
-\newcommand{\τ}{\ensuremath{\tau}}
 \catcode`τ=13
 \catcode`λ=13
+\catcode`Γ=13
 \newcommand{λ}{\ensuremath{\lambda}}
+\newcommand{τ}{\ensuremath{\tau}}
+\newcommand{τ}{\ensuremath{\tau}}
 % Subtyping
 \newcommand{\subtype}{\leq}
 \newcommand{\subtypeG}{\tilde\subtype}
+% Misc. operators
+\DeclareMathOperator\dom{Dom}
+% Builtin types
+\DeclareMathOperator\Empty{Empty}
+\DeclareMathOperator\Any{Any}
+\DeclareMathOperator\grad{?}
 
 \title{Rapport de stage}
 \subtitle{Un système de types pour Nix}

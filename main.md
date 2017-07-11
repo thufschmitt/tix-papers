@@ -51,6 +51,7 @@
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
+\markdownInput{typage/lambda-calcul.md}
 
 ## Structures de données
 <!--  Description du typage des deux structures de données de Nix -->

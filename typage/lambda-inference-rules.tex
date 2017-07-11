@@ -1,0 +1,27 @@
+\begin{figure}
+  \newcommand{\lbl}[1]{\text{(\emph{#1})}}
+  \begin{mathpar}
+
+    \inferrule{ }{\Gamma \tinfer x:\Gamma(x)}\lbl{IVar}
+    \and\inferrule{ \Gamma(x) \subtypeG \tau }{\Gamma; \tcheck x:\tau}\lbl{CVar}
+
+    \and\inferrule{ }{\Gamma \tinfer c:\Bt(c)}\lbl{IConst}
+    \and\inferrule{ \Bt(c) \subtypeG \tau }{\Gamma \tcheck c:\tau}\lbl{CConst}
+
+    \and\inferrule{%
+      \Gamma;\tmatch{\accept{p}}{p} \tinfer e : \τ
+    }{%
+      \Gamma \tinfer \lambda p.e : \accept{p} \rightarrow \tau
+    } \lbl{IAbs}
+
+  \and\inferrule{%
+    \tau \subtype \Empty \rightarrow \Any \\
+    \forall \sigma_1 \rightarrow \sigma_2 \in \A(\tau), \\
+      \Gamma;\tmatch{\sigma_1}{p} \tcheck e : \sigma_2
+  }{%
+    \Gamma \tcheck \lambda p.e : \tau
+  }\lbl{CAbs}
+
+  \end{mathpar}
+  \caption{Règles d'inférence et de check pour le lambda-calcul avec typecase\label{typing::lambda-calculus}}
+\end{figure}

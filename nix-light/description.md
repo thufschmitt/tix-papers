@@ -94,7 +94,7 @@ par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
 \begin{align\*}
   \sfrac{e}{x}    &= x := e \\\\
   \sfrac{e}{p:\τ}  &= \sfrac{e}{p} \\\\
-  \sfrac{v}{q@x}  &= x := e; \sfrac{e}{q} \\\\
+  \sfrac{v}{q\@x}  &= x := e; \sfrac{e}{q} \\\\
   \sfrac{\\{ s = e;\\}}{\\{ x \\}}
    &= \sfrac{r}{e} \text{\quad si } s = \var(r) \\\\
   \sfrac{\\{\cdots\\}}{\\{..\\}} &= \varnothing\\\\
