@@ -73,9 +73,6 @@ type graduel.
 
 ### Règles de typage
 
-\newcommand{\tcheck}{\vdash^{\Downarrow}}
-\newcommand{\tinfer}{\vdash^{\Uparrow}}
-\newcommand{\tIC}{\vdash^{\delta}}
 Le jugement $\Gamma \tinfer e : \tau$ correspond au système d'inférence et le
 jugement $\Gamma \tcheck e : \tau$ au système de check.
 La notation $\Gamma \tIC e : \tau$ signifie au choix $\Gamma \tinfer e : \tau$

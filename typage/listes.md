@@ -29,3 +29,19 @@ Cette compilation est analogue à la compilation d'expressions régulières vers
 une machine à état.
 
 \input{typage/compilation-listes}
+
+### Typage
+
+Le typage des listes est présenté à la figure \pref{typage::liste}.
+
+\begin{figure}
+  \begin{displaymath}
+    \inferrule{
+      \Gamma \tIC e\_1 : \tau\_1 \\\\ \Gamma \tIC e\_2 : \tau\_2 \\\\
+      \tau\_2 \subtypeG \cons(\Any, \Any)
+    }{
+      \Gamma \tIC \cons(e\_1, e\_2) : \cons(\tau\_1, \tau\_2)
+    }\lbl{Cons}
+  \end{displaymath}
+  \caption{Règle de typage des listes}\label{typage::liste}
+\end{figure}
