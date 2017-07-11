@@ -51,25 +51,19 @@ prédicat sur les types.
 
     <vr> ::= <x> | <x>:<τ>
 
-    <basetype> ::= Bool | Int | String | Any | Empty
+    <basetype> ::= Bool | Int | String | Any | Empty | Nil
 
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
-      | [<R>]
+      | Cons(<t>, <t>) | let <x> = <t>; $\cdots$; <x> = <t> in <t>
       | { <x> = <t> } | {} | { … } | <t> <> ... <> <t>
       | <basetype>
 
-    <r> ::= <t> | <r>+ | <r>* | <r>?
-      | <r> <r> | <r> ¦ <r>
-
     <τ> ::= <c> | <τ> $\rightarrow$ <τ>
       | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
-      | [<R>]
+      | Cons(<τ>, <τ>) | let <x> = <τ>; $\cdots$; <x> = <τ> in <τ>
       | { <x> = <τ> } | {} | { … } | <τ> <> <τ>
       | <basetype> | ?
-
-    <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
-      | <ρ> <ρ> | <ρ> ¦ <ρ>
   ```
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
