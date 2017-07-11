@@ -64,6 +64,7 @@ prédicat sur les types.
       | Cons(<τ>, <τ>) | let <x> = <τ>; $\cdots$; <x> = <τ> in <τ>
       | { <x> = <τ> } | {} | { … } | <τ> <> <τ>
       | <basetype> | ?
+      | t
   ```
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
