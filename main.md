@@ -63,6 +63,8 @@
   si on merge dans la section "lambda-calcul", vu que c'est ni central ni
   original (mais joli par contre)
 -->
+\label{typage/structures/listes}
+\markdownInput{typage/listes.md}
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
