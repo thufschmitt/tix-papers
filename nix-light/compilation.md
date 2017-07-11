@@ -1,7 +1,8 @@
 #### Compilation
 
 Le programme Nix est compilé selon les règles de la
-figure \pref{nix-light::compilation}.
+figure \pref{nix-light::compilation} (à l'exception de la compilation des types
+qui est expliquée en section \ref{typage/structures/listes}).
 
 Les deux langages sont très proches et la plupart des transformations sont de
 simples transpositions d'une même construction d'un langage à l'autre.
