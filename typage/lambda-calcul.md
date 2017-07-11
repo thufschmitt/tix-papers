@@ -136,4 +136,32 @@ le type $\tau$ est égal à `(true -> Int -> Int) AND (false -> Bool -> Bool)`,
 donc $\A(\tau)$ vaut $\\{ \text{`true -> Int -> Int`}; \text{`false -> Bool ->
 Bool`} \\}$.
 
+#### Application
+
+\newcommand{\dom}{\tilde{\operatorname{Dom}}}
+\newcommand{\image}{\tilde{\circ}}
+
+La règle d'inférence de l'application est elle aussi légèrement différente de
+celle utilisée dans le lambda calcul simplement typé : la présence de type
+union et intersection fait que les types de fonction ne sont pas nécessairement
+des types flèche (syntaxiquement), mais sont tous les sous-types du type `Empty
+-> Any`.
+La définition du domaine et du codomaine d'un type de fonction est donc plus
+complexe.
+Nous reprenons les définitions des opérateurs $\dom$ et $\image$ définis dans
+@CL16, en donnant simplement les intuitions suivantes pour ces opérateurs :
+$\dom(\tau)$ correspond au domaine des fonctions de type $\tau$ (en supposant
+que $\tau$ est un type de fonction), et $\tau \image \sigma$ correspond à
+l'image de l'ensemble des éléments de type $\sigma$ par les fonctions de type
+$\tau$.
+
+La règle de check est plus simple mais nécessite d'utiliser un peu d'inférence,
+dans la mesure ou le type de l'argument n'est pas donné. Pour vérifier que
+$\Gamma \tcheck e\_1 e\_2 : \tau$, il faut donc inférer que $e\_2$ a un
+certain type $\sigma$ et ensuite vérifier que $e\_1$ a le type $\sigma
+\rightarrow \tau$ (on pourrait aussi vouloir inférer le type $\sigma$ de
+$e\_1$, et en déduire le type que doit avoir $e\_2$ comme l'image inverse de
+$\tau$ par $\sigma$, mais cette approche est nettement plus complexe et semble
+moins utile en pratique).
+
 \input{typage/lambda-inference-rules.tex}

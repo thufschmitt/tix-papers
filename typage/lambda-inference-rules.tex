@@ -22,6 +22,22 @@
     \Gamma \tcheck \lambda p.e : \tau
   }\lbl{CAbs}
 
+
+  \and\inferrule{%
+    \Gamma \tinfer e_1 : \tau_1 \\ \Gamma \tinfer e_2 : \tau_2 \\
+    \tau_1 \subtypeG \Empty \rightarrow \Any \\
+    \tau_2 \subtypeG \dom(\tau_1)
+  }{%
+    \Gamma \tinfer e_1 e_2 : \tau_1 \image \tau_2
+  }\lbl{IApp}
+
+  \and\inferrule{%
+    \Gamma \tinfer e_2 : \sigma \\
+    \Gamma \tcheck e_1 : \sigma \rightarrow \tau
+  }{%
+    \Gamma \tcheck e_1 e_2 : \tau
+  }\lbl{Capp}
+
   \end{mathpar}
   \caption{Règles d'inférence et de check pour le lambda-calcul avec typecase\label{typing::lambda-calculus}}
 \end{figure}
