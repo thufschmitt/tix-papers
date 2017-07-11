@@ -38,6 +38,33 @@
     \Gamma \tcheck e_1 e_2 : \tau
   }\lbl{Capp}
 
+  \and\inferrule{%
+    \forall i \in \{ 1 \ldots n \},
+      \Gamma; x_1 : ?; \cdots; x_n : ?; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tinfer e_i : \tau_i \\
+    \forall i \in \{ 1 \ldots m \},
+      \Gamma; x_1 : ?; \cdots; x_n : ?; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tcheck e'_i : \tau'_i \\
+    \Gamma; x_1 : \tau_1; \cdots; x_n : \tau_n; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tIC e : \tau
+  }{%
+    \Gamma \tIC \text{let } x_1 = e_1; \cdots; x_n = e_n; x'_1 : \tau'_1 = e'_1; \cdots; x'_m : \tau'_m = e'_m;
+      \text{ in } e : \tau
+  }\lbl{Let}
+
+  \and\inferrule{%
+    \Gamma \tinfer e : \tau \\
+    \tau \not\subtype \lnot t \Rightarrow \Gamma; x : \tau \wedge t \tinfer e_1 : \sigma_1 \\
+    \tau \not\subtype t \Rightarrow \Gamma; x : \tau \wedge \lnot t \tinfer e_2 : \sigma_2 \\
+  }{%
+    \Gamma \tinfer (x = e \in t) ? e_1 : e_2 : \sigma_1 \vee \sigma_2
+  }\lbl{ITcase}
+
+  \and\inferrule{%
+    \Gamma \tinfer e : \tau \\
+    \tau \not\subtype \lnot t \Rightarrow \Gamma; x : \tau \wedge t \tcheck e_1 : \sigma \\
+    \tau \not\subtype t \Rightarrow \Gamma; x : \tau \wedge \lnot t \tcheck e_2 : \sigma \\
+  }{%
+    \Gamma \tcheck (x = e \in t) ? e_1 : e_2 : \sigma
+  }\lbl{CTcase}
+
   \end{mathpar}
   \caption{Règles d'inférence et de check pour le lambda-calcul avec typecase\label{typing::lambda-calculus}}
 \end{figure}

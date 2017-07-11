@@ -75,8 +75,12 @@ type graduel.
 
 \newcommand{\tcheck}{\vdash^{\Downarrow}}
 \newcommand{\tinfer}{\vdash^{\Uparrow}}
+\newcommand{\tIC}{\vdash^{\delta}}
 Le jugement $\Gamma \tinfer e : \tau$ correspond au système d'inférence et le
 jugement $\Gamma \tcheck e : \tau$ au système de check.
+La notation $\Gamma \tIC e : \tau$ signifie au choix $\Gamma \tinfer e : \tau$
+ou $\Gamma \tcheck e : \tau$ (mais toujours le même dans une même règle
+d'inférence).
 
 Les règles pour les deux systèmes sont données par la
 figure \pref{typing::lambda-calculus}.
@@ -163,5 +167,40 @@ certain type $\sigma$ et ensuite vérifier que $e\_1$ a le type $\sigma
 $e\_1$, et en déduire le type que doit avoir $e\_2$ comme l'image inverse de
 $\tau$ par $\sigma$, mais cette approche est nettement plus complexe et semble
 moins utile en pratique).
+
+#### Let-bindings
+
+Les let-bindings sont les endroits où le système passe de mode inférence au
+mode check : pour chaque variable, si elle est annotée, alors on vérifie que sa
+définition a le bon type, sinon on infère le type de sa définition.
+Dans le mesure ou les let-bindings sont récursifs, il faut attribuer un type
+par défaut aux variables non annotées pour typer les définitions. Ce type est
+choisi comme étant `?` (mais l'inférence ou le check du type de l'expression
+finale utilise le type inféré pour ces variables, et pas `?`).
+Cette règle est assez lourde, mais présente l'avantage d'être très générale. En
+particulier, elle permet de typer les let-bindings qui ne sont pas récursifs
+sans nécessiter d'annotation et sans perte de généralité.
+
+#### Typecase
+
+Le typage du typecase utilise l'« occurence typing », c'est-à-dire que pour
+typer l'expression `(x = e tin T) ? e1 : e2`, le type de `x` est raffiné
+dans chacune des branches.
+De plus, si le système arrive à déterminer que `x` est toujours de type `T` (ou
+`not T`), alors la branche inutilisée n'est pas typée. Cette caractéristique se
+justifie si l'on considère l'exemple présenté
+en \ref{typage::lambda-calcul::description-generale}. En effet, on veut que
+l'expression `(y = cond tin true) ? x + 1 : not x` soit bien typée sous les
+hypothèses `cond : true; x : Int` (resp. `cond: false; x : Bool`) alors que
+`not x` (resp. `x + 1`) ne l'est pas.
+Enfin, il n'est pas nécessaire d'inférer le même type pour les deux branches
+puisque le type final est l'union des types de chaque branche. Cette
+possibilité est nécessaire à cause du sous-typage (puisque le type obtenu pour
+une des branches peut être trop précis : par exemple, on veut accepter
+l'expression `(x = e tin T) ? 1 : 2` alors que la première branche a le type
+`1` et la seconde le type `2`).
+
+Même pour vérifier le type d'un typecase, il faut inférer le type
+de l'expression testée puisqu'on n'a pas d'information sur son type.
 
 \input{typage/lambda-inference-rules.tex}
