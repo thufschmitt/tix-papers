@@ -17,10 +17,10 @@
 ### Syntax and semantics
 \input{generated/context/nix/syntax-and-semantics}
 
-## Types ensemblistes
+## Set-theoretic types
 <!--  Présentation de l'interprétation ensembliste des types -->
 <!--  Justification informelle de pourquoi le système convient à Nix -->
-\input{contexte/types-ensemblistes}
+\input{generated/context/set-theoretic-types}
 
 # Nix-light <!--  TODO: find another name for this -->
 \label{sec:nix-light}
