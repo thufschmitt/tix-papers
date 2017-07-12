@@ -16,7 +16,7 @@
 
 ### Syntaxe et sémantique
 <!-- Expliquer au passage les points problématiques pour le typage -->
-\input{contexte/nix/syntaxe-et-semantique}
+\input{generated/contexte/nix/syntaxe-et-semantique}
 
 ## Types ensemblistes
 <!--  Présentation de l'interprétation ensembliste des types -->
