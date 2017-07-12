@@ -92,7 +92,7 @@ Il est de plus non typé (pas tant par choix que par manque de temps lors de sa
 conception − l'auteur original de Nix lui-même considère que « Nix won't be
 complete until it has static typing. » \autocite{nixIssue14}).
 
-Ajouter un système de types à ce langage a deux objectifs :
+Ajouter un système de types à ce langage a plusieurs objectifs :
 
 \begin{itemize}
   \item \texttt{nixpkgs}, le répertoire de paquets Nix comporte aujourd'hui
@@ -100,6 +100,11 @@ Ajouter un système de types à ce langage a deux objectifs :
     parfois très complexe.
     L'absence de typage commence à rendre toute modification non triviale sur
     ce dépôt très délicate et dangereuse.
+  \item En lien avec sa croissance rapide, le projet souffre d'un grave manque
+    de documentation (en particulier, de nombreuses structures internes
+    complexes à appréhender ne sont pas du tout documentées).
+    Un système de types réduirait ce manque en procurant gratuitement une
+    documentation minimale du code.
   \item Nix explore une piste extrêmement intéressante en appliquant à la
     gestion de systèmes des principes issus de la programmation. Ajouter un
     système de types ouvre une nouvelle piste extrêmement riche à cette
@@ -112,11 +117,13 @@ Le langage présente de nombreuses caractéristiques contraignant les
 possibilités de typage :
 
 \begin{itemize}
-  \item La présence de types à l'exécution nécessite de disposer de types union
-  \item Les enregistrements peuvent avoir leurs étiquettes définis
-    dynamiquement (l'étiquette n'est pas nécessairement une chaine de
-    caractères, mais peut être le résultat de l'évaluation d'une expression
-    arbitraire − dans la mesure où elle s'évalue vers une chaîne de
+  \item Il est possible de connaitre à l'execution le type d'une expression.
+    Cette fonctionnalité est utilisée concrètement, et nécessite de disposer de
+    types union pour être vraiment utile.
+  \item Les champs des enregistrements peuvent avoir leurs étiquettes définies
+    dynamiquement (elle n'est pas nécessairement une chaine de caractères
+    statique, mais peut être le résultat de l'évaluation d'une expression
+    arbitraire − dans la mesure où celle-ci s'évalue vers une chaîne de
     caractères).
   \item Le langage existe depuis dix ans et a évolué en l'absence de système de
     types. En conséquence, de nombreuses constructions idiomatiques sont
