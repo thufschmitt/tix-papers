@@ -10,16 +10,16 @@ On distingue deux productions de types : les types statiques (notés en lettres
 romaines $t, s, \ldots$) et les types graduels (en lettres grecques $\τ,
 \sigma, \ldots$).
 
-Ces types correspondent essentiellement aux types présentés dans @CL16, avec en
+Ces types correspondent essentiellement aux types présentés dans @CL17, avec en
 addition des types d'enregistrement et de liste similaire à ceux présents dans
 @Fri04.
 
 ### Sous-typage
 
-Comme dans @CL16, la relation de sous-typage $\subtype$ sur les types statiques
+Comme dans @CL17, la relation de sous-typage $\subtype$ sur les types statiques
 est étendue en une relation $\subtypeG$ sur les types graduels.
 En revanche, la relation de sous-typage n'est pas la même. En effet, la
-relation utilisée dans @CL16 (qui est la relation de sous-typage établie dans
+relation utilisée dans @CL17 (qui est la relation de sous-typage établie dans
 @Fri04) se base sur une interprétation ensemblistes des types comme ensemble de
 valeurs, qui utilisée directement pose dès problèmes de sûreté du typage avec
 une sémantique paresseuse.
@@ -45,4 +45,4 @@ l'interprétation stricte devient $\left(\llbracket A \rrbracket \cup \bot
 De cette nouvelle interprétation découle un nouvel algorithme de sous-typage.
 
 Cette interprétation et ses conséquences sont décrites dans l'article
-@CL17 (non publié encore à ce jour).
+@CP17 (non publié encore à ce jour).

@@ -150,7 +150,7 @@ des types flèche (syntaxiquement), mais sont tous les sous-types du type `Empty
 La définition du domaine et du codomaine d'un type de fonction est donc plus
 complexe.
 Nous reprenons les définitions des opérateurs $\dom$ et $\image$ définis dans
-@CL16, en donnant simplement les intuitions suivantes pour ces opérateurs :
+@CL17, en donnant simplement les intuitions suivantes pour ces opérateurs :
 $\dom(\tau)$ correspond au domaine des fonctions de type $\tau$ (en supposant
 que $\tau$ est un type de fonction), et $\tau \image \sigma$ correspond à
 l'image de l'ensemble des éléments de type $\sigma$ par les fonctions de type
