@@ -14,9 +14,8 @@
 -->
 \input{contexte/nix/presentation-generale}
 
-### Syntaxe et sémantique
-<!-- Expliquer au passage les points problématiques pour le typage -->
-\input{generated/contexte/nix/syntaxe-et-semantique}
+### Syntax and semantics
+\input{generated/context/nix/syntax-and-semantics}
 
 ## Types ensemblistes
 <!--  Présentation de l'interprétation ensembliste des types -->
