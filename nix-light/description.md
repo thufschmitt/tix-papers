@@ -132,6 +132,7 @@ figure \pref{nix-light::semantics}.
 La majorité de cette sémantique est très classique. Quelques points méritent
 cependant un peu plus d'attention :
 
+<!--- XXX: Should this really appear here ? --->
 - Contrairement à de nombreux langages (Perl, Python, …), un enregistrement
   littéral dans lequel un même label apparait plusieurs fois est invalide et
   son évaluation renvoie une erreur^[Le langage Nix offre ici un comportement
