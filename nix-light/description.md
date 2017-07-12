@@ -79,34 +79,37 @@ récursifs, l'argument est soit non-évalué, soit uniquement évalué en forme
 normale de tête.
 
 \newcommand{\var}{\mathcal{V}}
-Pour une variable (éventuellement annotée) `r`, on définit $\var(r)$ par
-$\var(x) = \var(x:\τ) = x$.
+Si `r` est un pattern de variable (correspondant à la règle de production
+`<variable-pattern>`, donc de la forme `x` ou `x:τ` où `x` est une variable et
+`τ` un type), on définit la variable représentée par `r` (notée $\var(r)$)
+comme $\var(x) = \var(x:\tau) = x$
 
 Pour un motif `p` et une valeur `v` (resp. une expression `e`), on définit
 $\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) l'ensemble des substitutions générées
 par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
 
 \begin{align*}
-  \sfrac{e}{x}    &= x := e \\
-  \sfrac{e}{p:\τ}  &= \sfrac{e}{p} \\
-  \sfrac{v}{q@x}  &= x := e; \sfrac{e}{q} \\
-  \sfrac{\{ s = e;\}}{\{ x \}}
-   &= \sfrac{r}{e} \text{\quad si } s = \var(r) \\
-  \sfrac{\{\cdots\}}{\{..\}} &= \varnothing\\
-  \sfrac{\{\}}{\{ r_1 ? c_1, \cdots, r_n ? c_n \}}
+  \sfrac{x}{e}    &= x := e \\
+  \sfrac{p:\τ}{e}  &= \sfrac{p}{e} \\
+  \sfrac{q@x}{v}  &= x := e; \sfrac{q}{e} \\
+  \sfrac{\{ r \}}{\{ x = e;\}}
+   &= \sfrac{r}{e} \text{\quad si } x = \var(r) \\
+  \sfrac{\{..\}}{\{\cdots\}} &= \varnothing\\
+  \sfrac{\{ r_1 ? c_1, \cdots, r_n ? c_n \}}{\{\}}
    &= \sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n} \\
-  \sfrac{\{\cdots\}}{\{ r_1 ? c_1, \cdots, r_n ? c_n, .. \}}
-   &= \sfrac{r_1}{c_1}; \cdots; \sfrac{r_n}{c_n} \\
-  \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}
-   {\{ r_1, \cdots; r_m \}}
-   &= \sfrac{r_1}{e_1}; \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{
-   \{ r_2, \cdots, r_m \}}
-  \text{ si } s_1 = \var(r_1) \\
-  \sfrac{\{ s_1 = e_1; \cdots; s_n = e_n \}}
-   {\{ r_1, \cdots, r_m, .. \}}
-   &= \sfrac{r_1}{e_1}; \sfrac{\{ s_2 = e_2; \cdots; s_n = e_n \}}{
-   \{ r_2, \cdots; r_m, .. \}}
-  \text{ si } s_1 = \var(r_1) \\
+  \sfrac{\{ r_1 ? c_1, \cdots, r_m ? c_m, .. \}}{%
+    \{ x_1 = e_1; \cdots; x_n = e_n \}}
+   &= \sfrac{r_1}{c_1}; \cdots; \sfrac{r_m}{c_m}
+    \text{ si } \forall i, j \in \{ 1 .. n \} \times \{ 1 .. m \},
+      x_i \neq \var(r_j) \\
+  \sfrac{\{ r_1, \cdots; r_m \}}{\{ x_1 = e_1; \cdots; x_n = e_n \}}
+   &= \sfrac{r_1}{e_1}; \sfrac{\{ r_2, \cdots, r_m \}}{%
+     \{ x_2 = e_2; \cdots; x_n = e_n \}}
+  \text{ si } x_1 = \var(r_1) \\
+  \sfrac{\{ r_1, \cdots, r_m, .. \}}{\{ x_1 = e_1; \cdots; x_n = e_n \}}
+   &= \sfrac{r_1}{e_1}; \sfrac{\{ r_2, \cdots; r_m, .. \}}{%
+     \{ x_2 = e_2; \cdots; x_n = e_n \}}
+  \text{ si } x_1 = \var(r_1) \\
 \end{align*}
 
 ##### Sémantique opérationnelle
