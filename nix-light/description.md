@@ -1,14 +1,5 @@
 #### Grammaire
 
-La grammaire de Nix-light est donnée en figure \pref{nix-light::grammar}.
-
-Dans toute la suite, on suppose que l'opérateur `<>` est commutatif. En
-conséquence, on s'autorise à réordonner arbitrairement les termes d'une
-expression de la forme `<e> <> ... <> <e>` (resp. d'un type de la forme `<t> <>
-... <> <t>` ou `<τ> <> ... <> <τ>`).
-On s'autorise de plus à écrire `LB x1 = e1; ...; xn = en RB` à la place de `LB
-x1 = e1 RB <> ... <> LB xn = en RB`, et de même pour les types enregistrement.
-
 Ce langage reprend essentiellement toutes les caractéristiques de Nix, mais en
 rendant syntaxiquement reconnaissable les éléments qui nécessitent un traitement
 spécial au typage.
@@ -27,6 +18,17 @@ pas être reconnue par le compilateur dans la mesure où celui-ci n'a pas
 d'information de type pour savoir que `f` doit être considérée comme un
 prédicat sur les types.
 
+La grammaire de Nix-light est donnée en figure \pref{nix-light::grammar}.
+La construction `<$\hat{t}$>` est similaire à la construction `<t>`, mais le
+seul type flèche autorisé à apparaitre dedans est le type `Empty -> Any`.
+L'opérateur `<>` définit la concaténation de records.
+Dans toute la suite, on suppose que cet opérateur est commutatif. En
+conséquence, on s'autorise à réordonner arbitrairement les termes d'une
+expression de la forme `<e> <> ... <> <e>` (resp. d'un type de la forme `<t> <>
+... <> <t>` ou `<τ> <> ... <> <τ>`).
+On s'autorise de plus à écrire `LB x1 = e1; ...; xn = en RB` à la place de `LB
+x1 = e1 RB <> ... <> LB xn = en RB`, et de même pour les types enregistrement.
+
 \begin{figure}
   \begin{lstlisting}
     <e> ::=
@@ -36,7 +38,7 @@ prédicat sur les types.
       | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
       | Cons (<e>, <e>)
       | { <x> = <e> } | {} | <e> <> ... <> <e>
-      | (<x> = <e> $\in$ <t>) ? <e> : <e>
+      | (<x> = <e> $\in$ <$\hat{t}$>) ? <e> : <e>
       | <e>:<τ>
 
     <c> ::= <s> | <i> | <b> | Nil
@@ -74,7 +76,7 @@ prédicat sur les types.
 ##### Pattern-matching
 
 Le pattern-matching dans Nix-light a une sémantique classique pour un langage à
-évaluation pareusse, avec cette simplification que, les motifs n'étant pas
+évaluation paresseuse, avec cette simplification que, les motifs n'étant pas
 récursifs, l'argument est soit non-évalué, soit uniquement évalué en forme
 normale de tête.
 
@@ -85,8 +87,8 @@ Si `r` est un pattern de variable (correspondant à la règle de production
 comme $\var(x) = \var(x:\tau) = x$
 
 Pour un motif `p` et une valeur `v` (resp. une expression `e`), on définit
-$\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) l'ensemble des substitutions générées
-par la confrontation de `v` (resp. `e`) à `p` de la façon suivante :
+$\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) la substitution générée par la
+confrontation de `v` (resp. `e`) à `p` de la façon suivante :
 
 \begin{align*}
   \sfrac{x}{e}    &= x := e \\
