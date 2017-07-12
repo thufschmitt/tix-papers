@@ -22,7 +22,7 @@ main.pdf: main.tex $(GENERATED_LATEX)
 	  -lualatex \
 	  -bibtex \
 	  -use-make \
-	  # -interaction=nonstopmode \
+	  -interaction=nonstopmode \
 	  $<
 
 generated/%.tex: %.md
