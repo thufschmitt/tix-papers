@@ -1,15 +1,20 @@
-Le langage Nix ayant évolué en l'absence de toute idée de typage, beaucoup de
-constructions qui nécessiteraient un traitement spécial de la part du sytème de
-type (en particulier les if-then-else qui peuvent discriminer selon le type ou
-certaines fonctions qui ne peuvent pas être typées telles quelles mais dont
-l'application est typable) ne sont pas syntaxiquement différenciées.
+Because the Nix language has grown away from any idea of typing, a lot of
+constructs that requires a special theatment from the type-system aren't
+syntactically distinct.
+In particular, the if-then-else's that discriminate on the type of a variable
+(e.g. `if isInt x then e else e'`) needs some special treatment although they
+are just some particular instances of a more general construct.
+Some builtin functions also can't be given an useful type, but their
+application may, hence it is useful to give them separate typing rules. For
+example, there is a `mapAttr` function which takes as argument a record `r` 
+and a function `f` and applies `f` to all the elements of `r`.
+This function alone can't be given any more interesting type than the one of a
+function that takes as argument a record and a function from `Any` (the
+supertype of all types) to `Any` and returns a record.
+However, the application of this function to a record and an function can be
+typed in a way more precise way.
 
-Ainsi, la fonction `hasAttr` qui prend en argument une chaîne de caractère `s`
-et un enregistrement `r` renvoie `true` si `s` est une étiquette de `s` n'a pas
-de type propre, seule son application `hasAttr s` peut être typée.
-
-Il est donc très difficile de raisonner directement sur ce langage, dans la
-mesure où les règles ne peuvent pas être uniquement dictées par la syntaxe.
-Nous avons donc choisis de ne pas travailler directement sur Nix, mais sur un
-langage plus simple vers lequel Nix (ou du moins un sous-ensemble de Nix) peut
-être compilé.
+Because of this, it is quite hard to reason on Nix, as the rules can't be
+simply syntax-directed.
+Thus, we decided not to work on Nix itself, but on a simpler language, to which
+Nix (or at least a large enough subset of it) can be compiled.
