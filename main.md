@@ -1,4 +1,4 @@
-# Contexte
+# Context
 <!-- État de l'art, motivation du stage -->
 
 ## Nix
