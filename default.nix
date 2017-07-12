@@ -7,9 +7,11 @@ stdenv.mkDerivation rec {
   version = "2017";
   buildInputs = [
       (texlive.combine {
-        inherit (texlive) scheme-medium syntax todo appendix paralist csvsimple;
+        inherit (texlive) scheme-medium syntax todo appendix paralist csvsimple
+        biblatex logreq xstring;
       })
       pandoc
+      biber
   ];
 
   src = ./.;

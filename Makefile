@@ -20,6 +20,7 @@ main.pdf: main.tex $(GENERATED_LATEX)
 	  -output-directory=out \
 	  -pdf \
 	  -lualatex \
+	  -bibtex \
 	  -use-make \
 	  # -interaction=nonstopmode \
 	  $<
@@ -28,6 +29,7 @@ generated/%.tex: %.md
 	mkdir -p $(shell dirname $@)
 	pandoc \
 	  --listings \
+	  --biblatex \
 	  $< \
 	  -o $@
 
