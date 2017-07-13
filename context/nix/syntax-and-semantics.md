@@ -115,6 +115,7 @@ has a particular form, that needs a particular treatement).
 <t> ::= <constant> | <t> $\rightarrow$ <t>
   | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
   | [<R>]
+  | { <ident> = <t>; $\cdots$; <ident> = <t>; _ = <t> }
   | <basetype>
 
 <R> ::= <t> | <R>+ | <R>* | <R>?
@@ -123,6 +124,7 @@ has a particular form, that needs a particular treatement).
 <τ> ::= <c> | <τ> $\rightarrow$ <τ>
   | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
   | [<ρ>] | [<ρ> ?? ]
+  | { <ident> = <τ>; $\cdots$; <ident> = <τ>; _ = <τ> }
   | <basetype> | ?
 
 <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
