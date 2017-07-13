@@ -121,11 +121,11 @@ has a particular form, that needs a particular treatement).
 <R> ::= <t> | <R>+ | <R>* | <R>?
   | <R> <R> | <R> ¦ <R>
 
-<τ> ::= <c> | <τ> $\rightarrow$ <τ>
+<τ> ::= <t> | <τ> $\rightarrow$ <τ>
   | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
   | [<ρ>] | [<ρ> ?? ]
   | { <ident> = <τ>; $\cdots$; <ident> = <τ>; _ = <τ> }
-  | <basetype> | ?
+  | ?
 
 <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
   | <ρ> <ρ> | <ρ> ¦ <ρ>
