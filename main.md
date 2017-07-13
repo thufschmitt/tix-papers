@@ -40,22 +40,22 @@
 <!--  Compilation -->
 \input{out/generated/nix-light/compilation.tex}
 
-# Typage
+# Typing
 
-## Types et sous-typage
+## Types and subtyping
 <!--  Présentation des types utilisés -->
 <!--  Discussion autour du sous-typage lazy -->
 <!--  Sous-typage graduel -->
 \input{out/generated/typing/types.tex}
 
-## Lambda-calcul
+## Lambda-calculus
 <!--  Typage du langage sans records et sans listes -->
 \input{out/generated/typing/lambda-calculus.tex}
 
-## Structures de données
+## Data structures
 <!--  Description du typage des deux structures de données de Nix -->
 
-### Listes
+### Lists
 <!--
   Typage des listes. Rien de très compliqué, mais les regexp-lists nécessitent
   peut-être un peu d'explication. À voir si on garde comme une sous-partie ou
@@ -68,9 +68,9 @@
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
 
-# Soundness du typage
+# Type soundness
 <!--  Difficulté de définir la soundness avec le type graduel -->
 <!--  Blablater sur la difficulté des preuves. -->
 
-# Implémentation
+# Implementation
 <!--  Tout ce qui concerne l'implémentation. Probablement des choses à dire -->
