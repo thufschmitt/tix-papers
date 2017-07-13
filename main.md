@@ -36,7 +36,7 @@
 <!--  Description du langage, grammaire + sémantique -->
 \input{generated/nix-light/description.tex}
 
-## De Nix à Nix-light
+## From Nix to Nix-light
 <!--  Compilation -->
 \input{generated/nix-light/compilation.tex}
 
@@ -62,7 +62,7 @@
   si on merge dans la section "lambda-calcul", vu que c'est ni central ni
   original (mais joli par contre)
 -->
-\label{typage/structures/listes}
+\label{typing::structures::listes}
 \input{generated/typage/listes.tex}
 
 ### Records
