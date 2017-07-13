@@ -1,33 +1,32 @@
-#### Grammaire
+#### Grammar
 
-Ce langage reprend essentiellement toutes les caractéristiques de Nix, mais en
-rendant syntaxiquement reconnaissable les éléments qui nécessitent un traitement
-spécial au typage.
+This language is really similar to Nix, but makes syntactically distinct all
+the elements which requires a special treatment from the typechecker.
 
-Ainsi, le if-then-else est remplacé par le plus général « typecase » de la
-forme `(x = e0 tin t) ? e1 : e2` (qui s'évalue en `e1` si `e0` s'évalue en une
-value de type `t` et en `e2` sinon). Le cas général `if e0 then e1 else e2`
-peut ainsi être compilé en `(x = e0 tin true) ? e1 : e2` (ou `x` n'apparait pas
-libre dans `e1` et `e2`), alors qu'un cas particulier comme
-`if isInt x then e1 else e2` sera compilé vers `(x = x tin Int) ? e1 : e2`.
-Cela permet de reléguer la reconnaissance des éléments particuliers à une phase
-de compilation préalable au typage, et permet du coup d'alléger le système de
-types. En contrepartie, cela diminue la puissance du système de types,
-puisqu'une expression comme `let f = isInt; in if f x then x else 1` ne pourra
-pas être reconnue par le compilateur dans la mesure où celui-ci n'a pas
-d'information de type pour savoir que `f` doit être considérée comme un
-prédicat sur les types.
+For example, the if-then-else is replaced by the more general "typecase" of the
+form `(x = e0 tin t) ? e1 : e2` (which evaluates to `e1` if `e0` evaluates to a
+value of type `t` and to `e2` otherwise).
+The general case `if e0 then e1 else e2` will be compiled to `(x = (e0 : Bool)
+tin true) ? e1 : e2` (where `x` is a fresh variable), whereas particular cases
+such as `if isInt x then e1 else e2` may be compiled to spcialized versions
+such as `(x = x tin Int) ? e1 : e2`.
+This lightens the type-system as both forms can be treated with the same rule.
+However, this loosens a little bit the expressivity, as an expression such as
+`let f = isInt in if f x then x else 1` won't be recognized by the compiler
+(because it has no type information, so can't see that `f` is the same
+predicate over types as `isInt` and thus should be treated the same way.
 
-La grammaire de Nix-light est donnée en figure \pref{nix-light::grammar}.
-La construction `<$\hat{t}$>` est similaire à la construction `<t>`, mais le
-seul type flèche autorisé à apparaitre dedans est le type `Empty -> Any`.
-L'opérateur `<>` définit la concaténation de records.
-Dans toute la suite, on suppose que cet opérateur est commutatif. En
-conséquence, on s'autorise à réordonner arbitrairement les termes d'une
-expression de la forme `<e> <> ... <> <e>` (resp. d'un type de la forme `<t> <>
-... <> <t>` ou `<τ> <> ... <> <τ>`).
-On s'autorise de plus à écrire `LB x1 = e1; ...; xn = en RB` à la place de `LB
-x1 = e1 RB <> ... <> LB xn = en RB`, et de même pour les types enregistrement.
+Nix-light's grammar is given in figure \pref{nix-light::grammar}.
+The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
+the same as `<t>`, except that the only arrow type that may appear in it is the
+type `Empty -> Any`.
+The `<>` operator defines the concatenation of records.
+In what follows, we assume that this operator is commutative. As consequence,
+we allow ourselves to reorder at will the terms of an expression of the form
+`<e> <> $\cdots$ <> <e>` (resp. of a type of the form `<t> <> $\cdots$ <> <t>`
+or `<τ> <> $\cdots$ <> <τ>`).
+Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
+`{ x1 = e1 } <> $\cdots$ <> { xn = en }` (and likewise for record types).
 
 \begin{figure}
   \begin{lstlisting}
@@ -71,26 +70,24 @@ x1 = e1 RB <> ... <> LB xn = en RB`, et de même pour les types enregistrement.
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
 
-#### Sémantique
+#### Semantic
 
 ##### Pattern-matching
 
-Le pattern-matching dans Nix-light a une sémantique classique pour un langage à
-évaluation paresseuse, avec cette simplification que, les motifs n'étant pas
-récursifs, l'argument est soit non-évalué, soit uniquement évalué en forme
-normale de tête.
+The pattern-matching in Nix-light has a rather classical semantic for a lazy
+language, with the simplification that as the patterns aren't recursive, the
+argument is either non-evaluated at all, either evaluated in head normal form.
 
 \newcommand{\var}{\mathcal{V}}
-Si `r` est un pattern de variable (correspondant à la règle de production
-`<variable-pattern>`, donc de la forme `x` ou `x:τ` où `x` est une variable et
-`τ` un type), on définit la variable représentée par `r` (notée $\var(r)$)
-comme $\var(x) = \var(x:\tau) = x$.
-`l` désigne une construction de la forme `r` ou `r ? c` (avec `r` un pattern de
-variable et `c` une constante).
+If `r` is a variable pattern − hence in the forme `x` or `x:τ` where `x` is an
+ident and `τ` a type − we define the variable represented by `r` (that we note
+$\var(r)$) as $\var(x) = \var(x:\τ) = x$.
+In what follows, `l` designs a record-pattern field (of the form `r` or `r?c`
+where `c` is a constant).
 
-Pour un motif `p` et une valeur `v` (resp. une expression `e`), on définit
-$\sfrac{p}{v}$ (resp. $\sfrac{p}{e}$) la substitution générée par la
-confrontation de `v` (resp. `e`) à `p` de la façon suivante :
+For a pattern `p` and a value `v` (resp. an expression `e`), we define the
+substitution generated by the matching of `v` (resp. `e`) against `p` (noted
+$\sfrac{p}{v}$) as follows:
 
 \begin{align*}
   \sfrac{x}{e}    &= x := e \\
@@ -124,34 +121,22 @@ confrontation de `v` (resp. `e`) à `p` de la façon suivante :
        \text{ if } \forall i \in \{1 .. n\}, x_i \neq \var(r_i) \\
 \end{align*}
 
-##### Sémantique opérationnelle
+##### Operational semantic
 
-La sémantique complète de Nix-light est donnée par la
-figure \pref{nix-light::semantics}.
+The full semantic is given at figure \pref{nix-light::semantics}.
 
-La majorité de cette sémantique est très classique. Quelques points méritent
-cependant un peu plus d'attention :
+The reduction rules should be self-explained.
+The only point of attention are tho two rules for the typecase, which involve a
+typing judgement (and thus make the semantics somehow typing dependant).
+<!---
+  XXX: Should we constrain again the allowed types to prevent evaluation issues?
 
-<!--- XXX: Should this really appear here ? --->
-- Contrairement à de nombreux langages (Perl, Python, …), un enregistrement
-  littéral dans lequel un même label apparait plusieurs fois est invalide et
-  son évaluation renvoie une erreur^[Le langage Nix offre ici un comportement
-  assez peu cohérent, dans la mesure où si deux champs sont définis
-  statiquement avec la même étiquette (par exemple `LB x = 1; x = 2; RB`),
-  alors l'expression sera considérée comme invalide durant une phase de test
-  avant l'évaluation − donc le programme ne sera pas évalué −, alors que si les
-  champs sont définis dynamiquement (par exemple `let x = "x"; in LB
-  DOLLARLBxRB = 1; DOLLARLBxRB = 2; RB`) la collision ne pourra être détectée
-  qu'à l'execution. D'un point de vue sémantique, cela signifie donc que la
-  première forme est une expression invalide, alors que la seconde peut être
-  vue comme une expression valide qui renvoie une erreur à l'exécution].
-
-- Déjà évoqué précédemment, le typecase est une construction suffisamment rare
-  pour méritée d'être citée.
-  Bien que cela ne soit pas explicité dans la grammaire pour des questions de
-  lisibilité, la syntaxe du type utilisé dans un typecase est limitée : le seul
-  type flèche qui peut y apparaitre est la flèche `Empty -> Any`.
-  En effet, autoriser des flèches arbitraires rendraient cette construction
-  indécidable pour le système de type dans certains cas.
+  The problem here is that the value is only in head normal form, while the
+  type may need to explore at an arbitrary depth.
+  Thus, we need either to specify complex rules for the evaluation or to
+  restrict the appearing types.
+--->
+<!--- TODO: Find a way to express the restriction that record fields need to be
+distincts --->
 
 \input{nix-light/semantics}
