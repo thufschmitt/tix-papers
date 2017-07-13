@@ -50,7 +50,7 @@
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
-\input{generated/typage/lambda-calcul.tex}
+\input{generated/typing/lambda-calculus.tex}
 
 ## Structures de données
 <!--  Description du typage des deux structures de données de Nix -->
