@@ -1,0 +1,52 @@
+\begin{figure}
+  \newcommand{\onerec}{\{..\}}
+  \begin{mathpar}
+    \inferrule{%
+      \Gamma \vdash e' : \τ \\
+    \Gamma \vdash e : \bigvee\limits_{i=1}^n s_i
+    }{%
+      \Gamma \vdash \left\{ e = e'; \right\} :
+    \bigvee\limits_{i=1}^n \left\{ s_i = \τ \right\}
+    }\lbl{RFinite}
+
+    \and\inferrule{%
+      \Gamma \vdash e' : \τ \\
+    \Gamma \vdash e : \sigma \\
+    \sigma \subtype \text{String}
+    }{%
+      \Gamma \vdash \left\{ e = e'; \right\} :
+    \left\{ \_ = \τ \vee \undefr \right\}
+    }\lbl{RInfinite}
+
+    \and\inferrule{%
+      \Gamma \vdash e_1 : \tau \\ \Gamma \vdash e_2 : \sigma \\
+    \tau \subtype \onerec{} \\
+    \sigma \subtype \onerec{} \\
+    \domr_\undefr(\tau) \cap \domr_\undefr(\sigma) = \varnothing
+    }{%
+      \Gamma \vdash e_1 \orthmerge e_2 : \tau \orthmerge \sigma
+    }\lbl{ROrthMerge}
+    \and\inferrule{%
+      \Gamma \vdash e_1 : \tau \\ \Gamma \vdash e_2 : \sigma \\
+    \tau \subtype \onerec{} \\
+    \sigma \subtype \onerec{}
+    }{%
+      \Gamma \vdash e_1 + e_2 : \tau + \sigma
+    }\lbl{RMerge}
+    % \and
+    % \inferrule{%
+    %   \Gamma \vdash e_1 : \τ \\ \Gamma \vdash e_2 : \bigvee\limits_{i=1}^n s_i
+    % }{%
+    %   \Gamma \vdash e_1 . e_2 : \left( \bigvee\limits_{i=1}^n \τ(s_i) \right) \backslash \undefr
+    % }
+    % \irlabel{RAccessFinite}
+    % \and
+    % \inferrule{%
+    %   \Gamma \vdash e_1 : \τ \\ \Gamma \vdash e_2 : \sigma \\ \sigma \subtype \ty{string}
+    % }{%
+    %   \Gamma \vdash e_1 . e_2 : \left( \deff(\τ) \vee \bigvee\limits_{s \in \dom(\τ)} \τ(s) \right) \backslash \undefr
+    % }
+    % \irlabel{RAccessInfinite}
+  \end{mathpar}
+  \caption{Typing rules for records\label{typing::records}}
+\end{figure}

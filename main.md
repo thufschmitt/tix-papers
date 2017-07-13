@@ -67,6 +67,7 @@
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
+\input{out/generated/typing/records.tex}
 
 ## About soundness
 <!--  Difficulté de définir la soundness avec le type graduel -->
