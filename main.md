@@ -68,7 +68,7 @@
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
 
-# Type soundness
+## About soundness
 <!--  Difficulté de définir la soundness avec le type graduel -->
 <!--  Blablater sur la difficulté des preuves. -->
 
