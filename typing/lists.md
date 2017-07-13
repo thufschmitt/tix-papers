@@ -24,7 +24,7 @@ types]:
 Those types are an encoding of Nix lists types which are the types of the form
 `[ ρ ]`.
 
-### Compilation
+#### Compilation
 
 It is quite naturally possible to go from list types in the Nix sense to list
 types in the Nix-light sense. The compilation rules ar available in
@@ -35,7 +35,7 @@ to state machines.
 
 \input{typing/lists-compilation}
 
-### Typage
+#### Typing
 
 The typing of lists is presented in figure \pref{typage::liste}.
 
