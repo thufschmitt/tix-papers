@@ -226,4 +226,4 @@ TSWLatexianTemp*
 *.pdf
 
 # Generated latex files
-generated
+out

@@ -15,12 +15,12 @@
 \input{contexte/nix/presentation-generale}
 
 ### Syntax and semantics
-\input{generated/context/nix/syntax-and-semantics}
+\input{out/generated/context/nix/syntax-and-semantics}
 
 ## Set-theoretic types
 <!--  Présentation de l'interprétation ensembliste des types -->
 <!--  Justification informelle de pourquoi le système convient à Nix -->
-\input{generated/context/set-theoretic-types}
+\input{out/generated/context/set-theoretic-types}
 
 # Nix-light <!--  TODO: find another name for this -->
 \label{sec:nix-light}
@@ -30,15 +30,15 @@
   Explication de pourquoi nix est trop permissif et pourquoi il vaut mieux
   bosser sur autre chose.
 -->
-\input{generated/nix-light/motivation.tex}
+\input{out/generated/nix-light/motivation.tex}
 
 ## Description
 <!--  Description du langage, grammaire + sémantique -->
-\input{generated/nix-light/description.tex}
+\input{out/generated/nix-light/description.tex}
 
 ## From Nix to Nix-light
 <!--  Compilation -->
-\input{generated/nix-light/compilation.tex}
+\input{out/generated/nix-light/compilation.tex}
 
 # Typage
 
@@ -46,11 +46,11 @@
 <!--  Présentation des types utilisés -->
 <!--  Discussion autour du sous-typage lazy -->
 <!--  Sous-typage graduel -->
-\input{generated/typing/types.tex}
+\input{out/generated/typing/types.tex}
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
-\input{generated/typing/lambda-calculus.tex}
+\input{out/generated/typing/lambda-calculus.tex}
 
 ## Structures de données
 <!--  Description du typage des deux structures de données de Nix -->
@@ -63,7 +63,7 @@
   original (mais joli par contre)
 -->
 \label{typing::structures::listes}
-\input{generated/typing/lists.tex}
+\input{out/generated/typing/lists.tex}
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->

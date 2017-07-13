@@ -5,7 +5,7 @@ VIEWER=evince
 
 .PHONY: clean main.pdf
 
-GENERATED_LATEX=$(shell find . -name '*.md' | sed 's_./\(.*\).md_generated/\1.tex_g')
+GENERATED_LATEX=$(shell find . -name '*.md' | sed 's_./\(.*\).md_out/generated/\1.tex_g')
 
 all: main.pdf
 
@@ -25,9 +25,10 @@ main.pdf: main.tex $(GENERATED_LATEX)
 	  -interaction=nonstopmode \
 	  $<
 
-generated/%.tex: %.md
+out/generated/%.tex: %.md
 	mkdir -p $(shell dirname $@)
 	pandoc \
+	  --from markdown-auto_identifiers \
 	  --listings \
 	  --biblatex \
 	  $< \
@@ -35,7 +36,6 @@ generated/%.tex: %.md
 
 clean:
 	rm -r out
-	rm -r generated
 
 # Fore some reasons that are far behind my understanding of make, The PHONY
 # rule doesn't work for the "%.pdf" rule, so let's use this old trick to
