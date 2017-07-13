@@ -46,7 +46,7 @@
 <!--  Présentation des types utilisés -->
 <!--  Discussion autour du sous-typage lazy -->
 <!--  Sous-typage graduel -->
-\input{generated/typage/types.tex}
+\input{generated/typing/types.tex}
 
 ## Lambda-calcul
 <!--  Typage du langage sans records et sans listes -->
