@@ -23,10 +23,9 @@ type `Empty -> Any`.
 The `<>` operator defines the concatenation of records.
 In what follows, we assume that this operator is commutative. As consequence,
 we allow ourselves to reorder at will the terms of an expression of the form
-`<e> <> $\cdots$ <> <e>` (resp. of a type of the form `<t> <> $\cdots$ <> <t>`
-or `<τ> <> $\cdots$ <> <τ>`).
+`<e> <> $\cdots$ <> <e>`.
 Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
-`{ x1 = e1 } <> $\cdots$ <> { xn = en }` (and likewise for record types).
+`{ x1 = e1 } <> $\cdots$ <> { xn = en }`.
 
 \begin{figure}
   \begin{lstlisting}
@@ -57,13 +56,13 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
     <t> ::= <c> | <t> $\rightarrow$ <t>
       | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
       | Cons(<t>, <t>) | let <x> = <t>; $\cdots$; <x> = <t> in <t>
-      | { <x> = <t> } | {} | { … } | <t> <> ... <> <t>
+      | { <x> = <t>; $\cdots$; <x> = <t>; _ = <t> }
       | <basetype>
 
     <τ> ::= <c> | <τ> $\rightarrow$ <τ>
       | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
       | Cons(<τ>, <τ>) | let <x> = <τ>; $\cdots$; <x> = <τ> in <τ>
-      | { <x> = <τ> } | {} | { … } | <τ> <> <τ>
+      | { <x> = <τ>; $\cdots$; <x> = <τ>; _ = <τ> }
       | <basetype> | ?
       | t
   \end{lstlisting}
