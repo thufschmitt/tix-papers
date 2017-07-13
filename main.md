@@ -63,7 +63,7 @@
   original (mais joli par contre)
 -->
 \label{typing::structures::listes}
-\input{generated/typage/listes.tex}
+\input{generated/typing/lists.tex}
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
