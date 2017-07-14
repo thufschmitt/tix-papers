@@ -26,7 +26,7 @@ labels.
 
 We use here an extension of this formalism to allow dynamic labels, which lets
 us nicely handle both use-cases. (we also slightly modify it to meet the
-requirements of lazy evaluation).
+requirements of lazy evaluation and gradual typing).
 \newcommand{\undefr}{\nabla}
 We assume the existence of a distinguished constant type `$\undefr$` which
 represent an absent field in a record type.
@@ -39,6 +39,11 @@ An optional field of type `τ` is a field of type `$\τ \vee \undefr$`.
 We write `x =? τ` as a shorthand for `x = $\τ \vee \undefr$`.
 
 In this formalism, $t(x)$ is the type associated to $x$ in the record type $t$.
+
+Record types are (as shown by @Cas15) unions of atomic record types.
+All the operations that we define on atomic record types may be extended to
+those unions.
+We also extend them to gradual types by identifying `?` and `{ _ = ? }`.
 
 The typing of records is done in three steps: we first define the typing of
 unary records, and we then define the typing of merge operations (in particular
@@ -96,5 +101,19 @@ set of all the fields whose type do not contain $\undefr$ (this operator is
 given by the interpretation of [@Cas15]). Then $\τ_1 \orthmerge \τ_2$ is
 defined as $\τ_1 + \τ_2$ if and only if $\domr_\undefr(\τ_1) \cap
 \domr_\undefr(\τ_2) = \varnothing$.
+
+#### Field access
+
+For a record type $\τ = \{ x_1 = \τ_1; \cdots; x_n = \τ_n; \_ = \τ_0 \}$, we
+refer to $\τ_0$ by $\defr(\τ)$.
+
+We have two rules depending on whether a default value is provided or not.
+\newcommand{\defr}{\operatorname{def}}
+
+For the case where a default value is provided, we distinguish the case where
+the name of the accessed field is statically known from the case where it isn't.
+Making such a distinction doesn't really make sense if no default value is
+provided, as when the accessed field is unknown there is no way to ensure that
+the accessed field indeed exists.
 
 \input{typing/record-typing-rules.tex}

@@ -33,20 +33,35 @@
     }{%
       \Gamma \vdash e_1 + e_2 : \tau + \sigma
     }\lbl{RMerge}
-    % \and
-    % \inferrule{%
-    %   \Gamma \vdash e_1 : \τ \\ \Gamma \vdash e_2 : \bigvee\limits_{i=1}^n s_i
-    % }{%
-    %   \Gamma \vdash e_1 . e_2 : \left( \bigvee\limits_{i=1}^n \τ(s_i) \right) \backslash \undefr
-    % }
-    % \irlabel{RAccessFinite}
-    % \and
-    % \inferrule{%
-    %   \Gamma \vdash e_1 : \τ \\ \Gamma \vdash e_2 : \sigma \\ \sigma \subtype \ty{string}
-    % }{%
-    %   \Gamma \vdash e_1 . e_2 : \left( \deff(\τ) \vee \bigvee\limits_{s \in \dom(\τ)} \τ(s) \right) \backslash \undefr
-    % }
-    % \irlabel{RAccessInfinite}
+
+    \and\inferrule{%
+      \Gamma \vdash e_1 : \τ \\
+      \Gamma \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
+      \τ \subtypeG \onerec \\
+      \bigvee\limits_{i=1}^n \τ(s_i) \wedge \undefr \subtype \Empty
+    }{%
+      \Gamma \vdash e_1 . e_2 : \bigvee\limits_{i=1}^n \τ(s_i)
+    }\lbl{RAccess}
+
+    \and\inferrule{%
+      \Gamma \vdash e_1 : \τ \\
+      \Gamma \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
+      \Gamma \vdash e_3 : \sigma
+    }{%
+      \Gamma \vdash e_1 . e_2 \text{ or } e_3 :
+      \left( \bigvee\limits_{i=1}^n \τ(s_i) \backslash \undefr \right) \vee \sigma
+    }\lbl{RGuardedAccessFinite}
+
+    \and\inferrule{%
+      \Gamma \vdash e_1 : \τ \\ \Gamma \vdash e_2 : \τ' \\
+      \τ' \subtype \ty{string} \\
+      \Gamma \vdash e_3 : \sigma
+    }{%
+      \Gamma \vdash e_1 . e_2 \text{ or } e_3 :
+      \left( \defr(\τ) \vee
+        \bigvee\limits_{s \in \dom(\τ)} \τ(s) \backslash \undefr \right)
+        \vee \sigma
+    }\lbl{RGuardedAccessInfinite}
   \end{mathpar}
   \caption{Typing rules for records\label{typing::records}}
 \end{figure}
