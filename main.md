@@ -76,3 +76,11 @@
 
 # Implementation
 <!--  Tout ce qui concerne l'implémentation. Probablement des choses à dire -->
+\input{out/generated/implem/intro.tex}
+
+## CDuce and subtyping
+\input{out/generated/implem/cduce.tex}
+
+## Adaptation of the type-system
+
+## Parametricity
