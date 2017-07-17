@@ -8,11 +8,11 @@
   raisonnablement
  -->
 
-### Présentation générale
+### General presentation
 <!--
   Explication de son utilisation et justification de la volonté de le typer
 -->
-\input{contexte/nix/presentation-generale}
+\input{out/generated/context/nix/general-presentation.tex}
 
 ### Syntax and semantics
 \input{out/generated/context/nix/syntax-and-semantics}
