@@ -23,48 +23,50 @@ type `Empty -> Any`.
 The `<>` operator defines the concatenation of records.
 In what follows, we assume that this operator is commutative. As consequence,
 we allow ourselves to reorder at will the terms of an expression of the form
-`<e> <> $\cdots$ <> <e>`.
+`<expr> <> $\cdots$ <> <expr>`.
 Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
 `{ x1 = e1 } <> $\cdots$ <> { xn = en }`.
 
 \begin{figure}
+  \small
   \begin{lstlisting}
-    <e> ::=
-        <x> | <c>
-      | <e>.<a> | <e>.<a> or <e>
-      | $\lambda$<p>.<e> | <e> <e>
-      | let <vr> = <e>; $\cdots{}$; <vr> = <e>; in <e>
-      | Cons (<e>, <e>)
-      | { <x> = <e> } | {} | <e> <> ... <> <e>
-      | (<x> = <e> $\in$ <$\hat{t}$>) ? <e> : <e>
-      | <e>:<τ>
+<expr> ::=
+    <ident> | <constant>
+  | <expr>.<access-path> | <expr>.<access-path> or <expr>
+  | $\lambda$<pattern>.<expr> | <expr> <expr>
+  | let <var-pattern> = <expr>; $\cdots{}$; <var-pattern> = <expr>; in <expr>
+  | Cons (<expr>, <expr>)
+  | { <ident> = <expr> } | {} | <expr> <> ... <> <expr>
+  | (<ident> = <expr> $\in$ <$\hat{t}$>) ? <expr> : <expr>
+  | <expr>:<τ>
 
-    <c> ::= <s> | <i> | <b> | Nil
+<constant> ::= <string> | <int> | <bool> | Nil
 
-    <p> ::= <rp> | <rp>@<x> | <vr>
+<pattern> ::= <record-pattern> | <record-pattern>@<ident>
+  | <var-pattern>
 
-    <rp> ::= <rp>:τ
-      | { <rpf>, $\cdots$, <rpf> }
-      | { <rpf>, $\cdots$, <rpf>, … }
+<record-pattern> ::= <record-pattern>:τ
+  | { <record-pattern-field>, $\cdots$, <record-pattern-field> }
+  | { <record-pattern-field>, $\cdots$, <record-pattern-field>, … }
 
-    <rpf> ::= <vr> | <vr> ? <c>
+<record-pattern-field> ::= <var-pattern> | <var-pattern> ? <constant>
 
-    <vr> ::= <x> | <x>:<τ>
+<var-pattern> ::= <ident> | <ident>:<τ>
 
-    <basetype> ::= Bool | Int | String | Any | Empty | Nil
+<basetype> ::= Bool | Int | String | Any | Empty | Nil
 
-    <t> ::= <c> | <t> $\rightarrow$ <t>
-      | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
-      | Cons(<t>, <t>) | let <x> = <t>; $\cdots$; <x> = <t> in <t>
-      | { <x> = <t>; $\cdots$; <x> = <t>; _ = <t> }
-      | <basetype>
+<t> ::= <constant> | <t> $\rightarrow$ <t>
+  | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
+  | Cons(<t>, <t>) | let <ident> = <t>; $\cdots$; <ident> = <t> in <t>
+  | { <ident> = <t>; $\cdots$; <ident> = <t>; _ = <t> }
+  | <basetype>
 
-    <τ> ::= <c> | <τ> $\rightarrow$ <τ>
-      | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
-      | Cons(<τ>, <τ>) | let <x> = <τ>; $\cdots$; <x> = <τ> in <τ>
-      | { <x> = <τ>; $\cdots$; <x> = <τ>; _ = <τ> }
-      | <basetype> | ?
-      | t
+<τ> ::= <constant> | <τ> $\rightarrow$ <τ>
+  | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
+  | Cons(<τ>, <τ>) | let <ident> = <τ>; $\cdots$; <ident> = <τ> in <τ>
+  | { <ident> = <τ>; $\cdots$; <ident> = <τ>; _ = <τ> }
+  | <basetype> | ?
+  | t
   \end{lstlisting}
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
