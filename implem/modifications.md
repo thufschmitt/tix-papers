@@ -1,8 +1,3 @@
-Some changes have been made to the type-system for the implementation that have
-not been presented until now for the sake of simplicity.
-
-### Modularity
-
 We here presented a fixed type-system. However several rules may be modified
 depending on the exact notion of safety we want to achieve.
 For example, we may consider that trying to access an undefined field of a
