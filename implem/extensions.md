@@ -1,9 +1,10 @@
 The language we until here referred to as Nix was only a subset of the actual
 Nix language.
 
-We here present some parts of the language that have been omitted until now.
+We here present some parts of the language that have been omitted until now and
+an informal typing for them.
 
-### The import statement
+### The import function
 
 The import statement^[Which is just a function in Nix, but with a very special
 semantic] allows importing other files. Its syntax is `import e` where `e`
@@ -38,3 +39,24 @@ We also add a reduction rule
 
 and the convention that variable substitutions don't propagate under the
 `import` operator.
+
+The typing rule for this operator is rather simple:
+
+\begin{displaymath}
+\inferrule{\tIC e : \τ}{\Gamma \tIC \operatorname{import}(e): \τ}
+\end{displaymath}
+
+### The with construct
+
+Nix accepts expressions of the form `with <expr>; <expr>`.
+The meaning of this is that, provided that the first expression evaluates to a
+record `{ x1 = e1; $\cdots$; xn = en }`, then the second one is evaluated with
+the content of the record in scope, i.e. with the new variables `x1`, \ldots,
+`xn` available with value respectivly `e1`, \ldots, `en`.
+Moreover, if a variable is already in the scope, then it can't be shadowed by a
+`with` construct.
+
+Given its weird semantic and the difficulty to type it (greatly improved by the
+high versatility of the records in Nix), this construct isn't presented at all
+here.
+It should be possible however to type it in some simple enough contexts.
