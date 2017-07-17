@@ -60,3 +60,30 @@ Given its weird semantic and the difficulty to type it (greatly improved by the
 high versatility of the records in Nix), this construct isn't presented at all
 here.
 It should be possible however to type it in some simple enough contexts.
+
+### Throw/assert and tryEval
+
+Nix has a notion of exceptions (although their exact nature isn't documented at
+all).
+In particular, ther exists a `throw` function (which raises an exception with a
+given message) and an `assert` construct (of the form `assert <expr>; <expr>`)
+which exists with an error if the first expression doesn't evaluates to `true`
+and evaluates the second one otherwise.
+The `throw` function can be directly compiled to a function of type
+`String -> Any` and `assert e1; e2`; can be compiled to
+`if e1 then e2 else throw "assertion failed`.
+
+The `tryEval` function implements a form of exception catching: if its argument
+raises an exception, it evaluates to `{ success = false; value = false; }`.
+Otherwise, if its arguments evaluates to a value `v`, it evaluates to
+`{ success = true; value = v; }`.
+As long as we don't try to track exceptions, a reasonable rule for this is:
+
+\begin{displaymath}
+  \inferrule{\Gamma \vdash e : \τ}{%
+    \Gamma \vdash \operatorname{tryEval}(e) : \{ success = \text{Bool}; value = \text{Bool} \vee \τ \}}
+\end{displaymath}
+
+(note that in presence of polymorphism, it would have been enough to type
+`tryEval` as a function of type
+`$\forall \alpha$. $\alpha$ -> { success = Bool; value = $\alpha$ | Bool}`).
