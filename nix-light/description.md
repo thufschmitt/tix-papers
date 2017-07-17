@@ -38,9 +38,15 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
   | Cons (<expr>, <expr>)
   | { <ident> = <expr> } | {} | <expr> <> ... <> <expr>
   | (<ident> = <expr> $\in$ <$\hat{t}$>) ? <expr> : <expr>
+  | <operator>
   | <expr>:<τ>
 
 <constant> ::= <string> | <int> | <bool> | Nil
+
+<operator> ::=
+  | <expr> <infix-op> <expr>
+
+<infix-op> ::= + | - | * | / | // | ++ | $\cdots$
 
 <pattern> ::= <record-pattern> | <record-pattern>@<ident>
   | <var-pattern>
