@@ -72,6 +72,7 @@
 ## About soundness
 <!--  Difficulté de définir la soundness avec le type graduel -->
 <!--  Blablater sur la difficulté des preuves. -->
+\input{out/generated/typing/about-soundness.tex}
 
 # Implementation
 <!--  Tout ce qui concerne l'implémentation. Probablement des choses à dire -->
