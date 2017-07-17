@@ -104,11 +104,11 @@ defined as $\τ_1 + \τ_2$ if and only if $\domr_\undefr(\τ_1) \cap
 
 #### Field access
 
+\newcommand{\defr}{\operatorname{def}}
 For a record type $\τ = \{ x_1 = \τ_1; \cdots; x_n = \τ_n; \_ = \τ_0 \}$, we
 refer to $\τ_0$ by $\defr(\τ)$.
 
 We have two rules depending on whether a default value is provided or not.
-\newcommand{\defr}{\operatorname{def}}
 
 For the case where a default value is provided, we distinguish the case where
 the name of the accessed field is statically known from the case where it isn't.
