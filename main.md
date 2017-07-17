@@ -82,5 +82,4 @@
 \input{out/generated/implem/cduce.tex}
 
 ## Adaptation of the type-system
-
-## Parametricity
+\input{out/generated/implem/modifications.tex}
