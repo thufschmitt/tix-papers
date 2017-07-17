@@ -1,6 +1,8 @@
-The langage we study is an extension of the Nix language, to which we add some
-type annotations.
-In all this document, every reference to Nix points to this extension.
+The language we study isn't exactly the Nix language, but a simplified version
+of it (ommiting some minor features without importance for the type system and
+some other that will be dicussed in part \ref{implem::extensions}), to which we
+add some type annotations.  In all this document, every reference to Nix points
+to this language.
 
 The full syntax is given in the figure \pref{nix::syntax}.
 Its semantic is informally described below (a complete semantic is given in
