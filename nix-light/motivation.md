@@ -1,7 +1,7 @@
 Because the Nix language has grown away from any idea of typing, a lot of
 constructs that requires a special theatment from the type-system aren't
 syntactically distinct.
-In particular, the if-then-else's that discriminate on the type of a variable
+In particular, the if construct's that discriminate on the type of a variable
 (e.g. `if isInt x then e else e'`) needs some special treatment although they
 are just some particular instances of a more general construct.
 Some builtin functions also can't be given an useful type, but their

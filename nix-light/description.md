@@ -3,7 +3,7 @@
 This language is really similar to Nix, but makes syntactically distinct all
 the elements which requires a special treatment from the typechecker.
 
-For example, the if-then-else is replaced by the more general "typecase" of the
+For example, the if construct is replaced by the more general "typecase" of the
 form `(x = e0 tin t) ? e1 : e2` (which evaluates to `e1` if `e0` evaluates to a
 value of type `t` and to `e2` otherwise).
 The general case `if e0 then e1 else e2` will be compiled to `(x = (e0 : Bool)
@@ -91,7 +91,7 @@ $\sfrac{p}{v}$) as follows:
 \begin{align*}
   \sfrac{x}{e}    &= x := e \\
   \sfrac{p:\τ}{e}  &= \sfrac{p}{e} \\
-  \sfrac{q@x}{v}  &= x := e; \sfrac{q}{e} \\
+  \sfrac{q@x}{v}  &= x := v; \sfrac{q}{v} \\
   \sfrac{\{..\}}{\{\cdots\}} &= \varnothing\\
   \sfrac{\{\}}{\{\}} &= \varnothing \\
   \sfrac{\{ r_1, l_1, \cdots, l_m\}}{\{ x_1 = e_1; \cdots; x_n = e_n; \}}
@@ -122,7 +122,7 @@ $\sfrac{p}{v}$) as follows:
 
 ##### Operational semantic
 
-The full semantic is given at figure \pref{nix-light::semantics}.
+The full semantic is given at the figure \pref{nix-light::semantics}.
 
 The reduction rules should be self-explained.
 The only point of attention are tho two rules for the typecase, which involve a

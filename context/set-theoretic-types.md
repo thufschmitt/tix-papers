@@ -1,7 +1,7 @@
 The characteristics of the language enforce several restrictions on the
 type-system. In particular :
 
-- Because of the hudge base of (untyped) existing code, the system needs to be
+- Because of the huge base of (untyped) existing code, the system needs to be
   flexible enough to accept as many expressions as possible, without
   sacrificing the security guaranties.
 

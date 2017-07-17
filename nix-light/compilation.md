@@ -7,7 +7,7 @@ compilation is covered by the section \ref{typing::structures::listes}).
 Both languages are quite similar, hence most transformations are simply a
 transposition of a given structure to the same structure in the other language.
 
-The if-then-else construct is compiled to a typecase, with two separate rules
+The if construct construct is compiled to a typecase, with two separate rules
 depending on the form of the form of the condition:
 
 - The general case is to compile `if e0 then e1 else e2` to `(x = (e0 : Bool)

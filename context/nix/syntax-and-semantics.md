@@ -9,9 +9,9 @@ Section \ref{sec:nix-light}).
 This language is a lambda calculus, with some additions, namely :
 
 - Constants, let-bindings (always recursive), some (hardcoded) infix operators
-  and if-then-else's
+  and if construct's.
 
-- Lists, defined by the `[<expr> $\cdots$ <expr>]` syntax
+- Lists, defined by the `[<expr> $\cdots$ <expr>]` syntax.
 
 - Records, defined by the `{ <record-field>; ... <record-field>; }` syntax.
   The labels of record fields may be dynamically defined as the result of
@@ -57,7 +57,7 @@ Another important class of functions is the set of functions that discriminate
 over a type, i.e. functions such as `isInt`, `isString`, `isBool`, and so on,
 which return `true` if their argument is an integer (resp. a string or a
 boolean), and `false` otherwise.
-When used with a if-then-else, those functions allow an expression to have a
+When used with a if construct, those functions allow an expression to have a
 different behaviour depending on the type of an expression. The type system
 must be able to express this feature.
 
