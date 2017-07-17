@@ -83,3 +83,7 @@
 
 ## Adaptation of the type-system
 \input{out/generated/implem/modifications.tex}
+
+## Extensions
+\input{out/generated/implem/extensions.tex}
+\label{implem::extensions}
