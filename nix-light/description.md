@@ -107,7 +107,7 @@ argument is either non-evaluated at all, either evaluated in head normal form.
 \newcommand{\var}{\mathcal{V}}
 If `r` is a variable pattern − hence in the forme `x` or `x:τ` where `x` is an
 ident and `τ` a type − we define the variable represented by `r` (that we note
-$\var(r)$) as $\var(x) = \var(x:\τ) = x$.
+$\var(r)$) as $\var(x) = \var(x:τ) = x$.
 In what follows, `l` designs a record-pattern field (of the form `r` or `r?c`
 where `c` is a constant).
 
@@ -117,7 +117,7 @@ $\sfrac{p}{v}$) as follows:
 
 \begin{align*}
   \sfrac{x}{e}    &= x := e \\
-  \sfrac{p:\τ}{e}  &= \sfrac{p}{e} \\
+  \sfrac{p:τ}{e}  &= \sfrac{p}{e} \\
   \sfrac{q@x}{v}  &= x := v; \sfrac{q}{v} \\
   \sfrac{\{..\}}{\{\cdots\}} &= \varnothing\\
   \sfrac{\{\}}{\{\}} &= \varnothing \\

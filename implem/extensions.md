@@ -43,7 +43,7 @@ and the convention that variable substitutions don't propagate under the
 The typing rule for this operator is rather simple:
 
 \begin{displaymath}
-\inferrule{\tIC e : \τ}{\Gamma \tIC \operatorname{import}(e): \τ}
+\inferrule{\tIC e : τ}{Γ \tIC \operatorname{import}(e): τ}
 \end{displaymath}
 
 ### The with construct
@@ -80,8 +80,8 @@ Otherwise, if its arguments evaluates to a value `v`, it evaluates to
 As long as we don't try to track exceptions, a reasonable rule for this is:
 
 \begin{displaymath}
-  \inferrule{\Gamma \vdash e : \τ}{%
-    \Gamma \vdash \operatorname{tryEval}(e) : \{ success = \text{Bool}; value = \text{Bool} \vee \τ \}}
+  \inferrule{Γ \vdash e : τ}{%
+    Γ \vdash \operatorname{tryEval}(e) : \{ success = \text{Bool}; value = \text{Bool} \vee τ \}}
 \end{displaymath}
 
 (note that in presence of polymorphism, it would have been enough to type

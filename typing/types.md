@@ -6,7 +6,7 @@ Their syntax is given alongside Nix-light's grammar in
 figure \pref{nix-light::grammar}.
 
 We distinguish two type productions: the static types (noted by roman letters:
-$t, s, \ldots$) and the gradual types (in greek letters: $\τ, \sigma, \ldots$).
+$t, s, \ldots$) and the gradual types (in greek letters: $τ, σ, \ldots$).
 
 Those productions essentially corresponds to the types presented by @CL17,
 with as addition the record and list types which are similar to the ones

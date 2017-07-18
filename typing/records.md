@@ -31,12 +31,12 @@ requirements of lazy evaluation and gradual typing).
 We assume the existence of a distinguished constant type `$\undefr$` which
 represent an absent field in a record type.
 
-We write `{ $x_1$ = $\τ_1$; $\cdots$; $x_n$ = $\τ_n$; }` as a shorthand for
-`{ $x_1$ = $\τ_1$; $\cdots$; $x_n$ = $\τ_n$; _ = $\undefr$ }` and
-`{ $x_1$ = $\τ_1$; $\cdots$; $x_n$ = $\τ_n$; ... }` for
-`{ $x_1$ = $\τ_1$; $\cdots$; $x_n$ = $\τ_n$; _ = Any }`
-An optional field of type `τ` is a field of type `$\τ \vee \undefr$`.
-We write `x =? τ` as a shorthand for `x = $\τ \vee \undefr$`.
+We write `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; }` as a shorthand for
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = $\undefr$ }` and
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; ... }` for
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any }`
+An optional field of type `τ` is a field of type `$τ \vee \undefr$`.
+We write `x =? τ` as a shorthand for `x = $τ \vee \undefr$`.
 
 In this formalism, $t(x)$ is the type associated to $x$ in the record type $t$.
 
@@ -71,26 +71,26 @@ They differ in how they behave when a field may be defined on both sides.
 Saying that the field $x$ may be defined in the record type $t$ means that
 $t(x) \wedge \undefr \not\subtype \Empty$.
 
-If $\τ_1$ and $\τ_2$ are atomic record types then $\τ_1 + \τ_2$ is defined by:
+If $τ_1$ and $τ_2$ are atomic record types then $τ_1 + τ_2$ is defined by:
 
 \begin{displaymath}
-  (\τ_1 + \τ_2)(x) =
+  (τ_1 + τ_2)(x) =
   \begin{cases}
-    \τ_1(x) &\quad \text{if } \τ_1(x) \wedge \undefr \subtype \Empty \\
-    (\τ_1(x)\backslash \undefr) \vee \τ_2(x) &\quad \text{otherwise}
+    τ_1(x) &\quad \text{if } τ_1(x) \wedge \undefr \subtype \Empty \\
+    (τ_1(x)\backslash \undefr) \vee τ_2(x) &\quad \text{otherwise}
   \end{cases}
 \end{displaymath}
 
 There are in fact three possible cases for this:
 
-- If $\τ_1(x)$ does not contain $\undefr$, the field is always defined in
-  $\τ_1$, and we take its type for $(\τ_1 + \τ_2)(x)$.
+- If $τ_1(x)$ does not contain $\undefr$, the field is always defined in
+  $τ_1$, and we take its type for $(τ_1 + τ_2)(x)$.
 
-- If $\τ_1(x)$ is  $\undefr$, then the field is always undefined in $\τ_1$ and
-  the type of $(\τ_1 + \τ_2)(x)$ is the type of $\τ_2(x)$.
+- If $τ_1(x)$ is  $\undefr$, then the field is always undefined in $τ_1$ and
+  the type of $(τ_1 + τ_2)(x)$ is the type of $τ_2(x)$.
 
-- Else, the field may be defined and $\τ_1(x) = \τ_x \vee \undefr$ for some
-  type $\τ_x$. The type of the result may be $\τ_x$
+- Else, the field may be defined and $τ_1(x) = τ_x \vee \undefr$ for some
+  type $τ_x$. The type of the result may be $τ_x$
 
 \newcommand{\orthmerge}{\diamond}
 \newcommand{\domr}{\operatorname{dom}}
@@ -98,15 +98,15 @@ The $\diamond$ operator is defined as the restriction of `+` to cases where the
 fields of both records do not overlap. More precisely,let
 $\domr_\undefr(\cdot)$ be the operator which to each record type associates the
 set of all the fields whose type do not contain $\undefr$ (this operator is
-given by the interpretation of [@Cas15]). Then $\τ_1 \orthmerge \τ_2$ is
-defined as $\τ_1 + \τ_2$ if and only if $\domr_\undefr(\τ_1) \cap
-\domr_\undefr(\τ_2) = \varnothing$.
+given by the interpretation of [@Cas15]). Then $τ_1 \orthmerge τ_2$ is
+defined as $τ_1 + τ_2$ if and only if $\domr_\undefr(τ_1) \cap
+\domr_\undefr(τ_2) = \varnothing$.
 
 #### Field access
 
 \newcommand{\defr}{\operatorname{def}}
-For a record type $\τ = \{ x_1 = \τ_1; \cdots; x_n = \τ_n; \_ = \τ_0 \}$, we
-refer to $\τ_0$ by $\defr(\τ)$.
+For a record type $τ = \{ x_1 = τ_1; \cdots; x_n = τ_n; \_ = τ_0 \}$, we
+refer to $τ_0$ by $\defr(τ)$.
 
 We have two rules depending on whether a default value is provided or not.
 

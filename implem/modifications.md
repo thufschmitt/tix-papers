@@ -10,24 +10,24 @@ figure \ref{implem::lax-records}:
 \begin{figure}
   \begin{mathpar}
     \inferrule{%
-      \Gamma \vdash e_1 : \τ \\
-      \Gamma \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
-      \τ \subtypeG \left\{ .. \right\} \\
+      Γ \vdash e_1 : τ \\
+      Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
+      τ \subtypeG \left\{ .. \right\} \\
     }{%
-      \Gamma \vdash e_1 . e_2 : \left(
-        \bigvee\limits_{i=1}^n \τ(s_i)
+      Γ \vdash e_1 . e_2 : \left(
+        \bigvee\limits_{i=1}^n τ(s_i)
       \right) \backslash \undefr
     }\lbl{RAccessFinite}
 
     \and\inferrule{%
-      \Gamma \vdash e_1 : \τ \\
-      \Gamma \vdash e_2 : \sigma \\
-      \sigma \subtype \text{String} \\
-      \τ \subtypeG \left\{ .. \right\} \\
+      Γ \vdash e_1 : τ \\
+      Γ \vdash e_2 : σ \\
+      σ \subtype \text{String} \\
+      τ \subtypeG \left\{ .. \right\} \\
     }{%
-        \Gamma \vdash e_1 . e_2 :
-        \left( \defr(\τ) \vee
-          \bigvee\limits_{s \in \dom(\τ)} \τ(s) \right) \backslash \undefr
+        Γ \vdash e_1 . e_2 :
+        \left( \defr(τ) \vee
+          \bigvee\limits_{s \in \dom(τ)} τ(s) \right) \backslash \undefr
     }\lbl{RAccessInfinite}
   \end{mathpar}
   \caption{More permissive rules for the typing of record access\label{implem::lax-records}}

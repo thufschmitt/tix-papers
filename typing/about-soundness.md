@@ -15,7 +15,7 @@ involved, or more clearly stated:
 
 > If a closed expression `e` can be checked to be well-typed of type `τ` and
 > the gradual type `?` does never appear in the typing derivation of
-> $\tcheck e:\τ$, then either `e` reduces to a value `v` of type `τ`, either
+> $\tcheck e:τ$, then either `e` reduces to a value `v` of type `τ`, either
 > any sequence of reductions starting from `e` is infinite.
 
 Even this property however is hard to prove.

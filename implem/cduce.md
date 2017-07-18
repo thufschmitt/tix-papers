@@ -34,14 +34,14 @@ intersection with any other basic type) and rewrite the types as follows:
   \interpr{c} &= c \\
   \interpr{\Empty} &= \Empty \\
   \interpr{\Any} &= \Any \\
-  \interpr{Cons(\τ, \sigma)} &= Cons(\interpr{\τ} \vee \bot, \interpr{\sigma} \vee \bot) \\
-  \interpr{\τ \rightarrow \sigma} &= (\interpr{\τ} \vee \bot) \rightarrow \sigma \\
-  \interpr{\τ \vee \sigma} &= \interpr{\τ} \vee \interpr{\sigma} \\
-  \interpr{\τ \wedge \sigma} &= \interpr{\τ} \wedge \interpr{\sigma} \\
+  \interpr{Cons(τ, σ)} &= Cons(\interpr{τ} \vee \bot, \interpr{σ} \vee \bot) \\
+  \interpr{τ \rightarrow σ} &= (\interpr{τ} \vee \bot) \rightarrow σ \\
+  \interpr{τ \vee σ} &= \interpr{τ} \vee \interpr{σ} \\
+  \interpr{τ \wedge σ} &= \interpr{τ} \wedge \interpr{σ} \\
   \interpr{\lnot t} &= \lnot (\interpr{t} \vee \bot) \\
-  \interpr{\{ x_1 = \τ_1; \cdots; x_n = \τ_n; \_ = \τ \}} &=
-    \{ x_1 = \interpr{\τ_1} \vee \bot; \cdots; x_n = \interpr{\τ_n} \vee \bot;
-      \_ = \interpr{\τ} \vee \bot \}
+  \interpr{\{ x_1 = τ_1; \cdots; x_n = τ_n; \_ = τ \}} &=
+    \{ x_1 = \interpr{τ_1} \vee \bot; \cdots; x_n = \interpr{τ_n} \vee \bot;
+      \_ = \interpr{τ} \vee \bot \}
 \end{align*}
 
 ### Gradual subtyping
@@ -50,8 +50,8 @@ The very definition of the gradual subtyping relation as given by @CL17 uses
 the static subtyping relation *via* an encoding of the types.
 This definition can be expressed as:
 
-> $\τ_1 \subtypeG \τ_2$ if $\τ_1^\Downarrow \subtype \τ_2^\Uparrow$
+> $τ_1 \subtypeG τ_2$ if $τ_1^\Downarrow \subtype τ_2^\Uparrow$
 
-Where $\τ^\Downarrow$ (resp. $\τ^\Uparrow$) is obtained by replacing every
-covariant occurrence of `?` in $\τ$ by $\Any$ (resp. $\Empty$) and every
+Where $τ^\Downarrow$ (resp. $τ^\Uparrow$) is obtained by replacing every
+covariant occurrence of `?` in $τ$ by $\Any$ (resp. $\Empty$) and every
 contravariant occurrence of `?` by $\Empty$ (resp. $\Any$).
