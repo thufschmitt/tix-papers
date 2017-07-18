@@ -34,8 +34,7 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
 \begin{figure}
   \small
   \begin{lstlisting}
-<expr> ::=
-    <ident> | <constant>
+<expr> ::= <ident> | <constant>
   | <expr>.<expr> | <expr>.<expr> or <expr>
   | $\lambda$<pattern>.<expr> | <expr> <expr>
   | let <var-pattern> = <expr>; $\cdots{}$; <var-pattern> = <expr>; in <expr>
@@ -65,24 +64,23 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
 
 <basetype> ::= Bool | Int | String | Any | Empty | Nil
 
-<t> ::= <constant> | <t> $\rightarrow$ <t>
+<t> ::= <constant> | <basetype>
   | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
+  | <t> $\rightarrow$ <t>
   | Cons(<t>, <t>) | let <ident> = <t>; $\cdots$; <ident> = <t> in <t>
   | { <ident> = <t>; $\cdots$; <ident> = <t>; _ = <t> }
-  | <basetype>
 
-<τ> ::= <constant> | <τ> $\rightarrow$ <τ>
+<τ> ::= <constant> | <basetype> | <t> | ?
   | <τ> $\vee$ <τ> | <τ> $\wedge$ <τ>
+  | <τ> $\rightarrow$ <τ>
   | Cons(<τ>, <τ>) | let <ident> = <τ>; $\cdots$; <ident> = <τ> in <τ>
   | { <ident> = <τ>; $\cdots$; <ident> = <τ>; _ = <τ> }
-  | <basetype> | ?
-  | t
 
-<$\hat{t}$> ::= <constant> | Empty $\rightarrow$ Any
+<$\hat{t}$> ::= <constant> | <basetype>
   | <$\hat{t}$> $\vee$ <$\hat{t}$> | <$\hat{t}$> $\wedge$ <$\hat{t}$> | $\lnot$ <$\hat{t}$>
+  | Empty $\rightarrow$ Any
   | Cons(Any, Any)
   | { <ident> = Any; $\cdots$; <ident> = Any; _ = Any$\vee \nabla$ }
-  | <basetype>
   \end{lstlisting}
   \caption{Nix-light grammar for expressions\label{nix-light::grammar}}
 \end{figure}
