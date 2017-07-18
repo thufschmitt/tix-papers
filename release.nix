@@ -1,0 +1,4 @@
+{
+  build = import ./default.nix;
+}
+
