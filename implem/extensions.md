@@ -34,7 +34,7 @@ Where "PARSE" is a (meta-)function which parses the file at the given location.
 We also add a reduction rule
 
 \begin{displaymath}
-  °import(e)° \rightsquigarrow °e°
+  °import(e)° \rightsquigarrow °e° \quad \text{ if \lstinline!e! has no free variable }
 \end{displaymath}
 
 and the convention that variable substitutions don't propagate under the
