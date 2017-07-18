@@ -18,8 +18,9 @@ predicate over types as `isInt` and thus should be treated the same way.
 
 Nix-light's grammar is given in figure \pref{nix-light::grammar}.
 The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
-the same as `<t>`, except that the only arrow type that may appear in it is the
-type `Empty -> Any`.
+a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
+like a "kind-case" which just checks for the head constuctor).
+
 The `<>` operator defines the concatenation of records.
 In what follows, we assume that this operator is commutative. As consequence,
 we allow ourselves to reorder at will the terms of an expression of the form
@@ -73,6 +74,13 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
   | { <ident> = <τ>; $\cdots$; <ident> = <τ>; _ = <τ> }
   | <basetype> | ?
   | t
+
+<$\hat{t}$> ::= <constant> | Empty $\rightarrow$ Any
+  | <$\hat{t}$> $\vee$ <$\hat{t}$> | <$\hat{t}$> $\wedge$ <$\hat{t}$> | $\lnot$ <$\hat{t}$>
+  | Cons(<Any>, <Any>)
+  | { <ident> = <Any>; $\cdots$; <ident> = <Any>; _ = <Any> }
+  | <basetype>
+
   \end{lstlisting}
   \caption{Grammaire de Nix-light\label{nix-light::grammar}}
 \end{figure}
