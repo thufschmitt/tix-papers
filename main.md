@@ -67,6 +67,7 @@
 
 ### Records
 <!--  Typage des records. Probablement plein de choses à dire ici. -->
+\label{typing::structures::records}
 \input{out/generated/typing/records.tex}
 
 ## About soundness

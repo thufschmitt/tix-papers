@@ -19,7 +19,9 @@ predicate over types as `isInt` and thus should be treated the same way.
 Nix-light's grammar is given in figure \pref{nix-light::grammar}.
 The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
 a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
-like a "kind-case" which just checks for the head constuctor).
+like a "kind-case" which just checks for the head constuctor). The type
+`Any$\vee \nabla$` represents an optional field (the reason for this notation
+is explained in Section \ref{typing::structures::records}).
 
 The `<>` operator defines the concatenation of records.
 In what follows, we assume that this operator is commutative. As consequence,
@@ -77,8 +79,8 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
 
 <$\hat{t}$> ::= <constant> | Empty $\rightarrow$ Any
   | <$\hat{t}$> $\vee$ <$\hat{t}$> | <$\hat{t}$> $\wedge$ <$\hat{t}$> | $\lnot$ <$\hat{t}$>
-  | Cons(<Any>, <Any>)
-  | { <ident> = <Any>; $\cdots$; <ident> = <Any>; _ = <Any> }
+  | Cons(Any, Any)
+  | { <ident> = Any; $\cdots$; <ident> = Any; _ = Any$\vee \nabla$ }
   | <basetype>
 
   \end{lstlisting}
