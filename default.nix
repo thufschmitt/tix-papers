@@ -14,7 +14,13 @@ stdenv.mkDerivation rec {
       biber
   ];
 
-  src = ./.;
+  src = builtins.filterSource (name: type:
+    let baseName = baseNameOf (toString name); in !(
+        (type == "directory" &&
+        (baseName == ".git" ||
+          baseName == "out"))))
+    ./.;
+
 
   installPhase = ''
     mkdir -p $out/nix-support

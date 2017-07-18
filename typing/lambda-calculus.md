@@ -91,7 +91,7 @@ The arguments have to be annotated explicitly (or `?` is assumed). Thus the
 inference of an abstraction is rather simple.
 
 The check is somehow more complex. The idea is that to check that an expression
-$\lambda p.e$ admits the type $\τ$ under the hypothesis $\Gamma$ we must check
+$λ p.e$ admits the type $\τ$ under the hypothesis $\Gamma$ we must check
 that each arrow type $\sigma_1 \rightarrow \sigma_2$ "contained" in $\τ$ is
 admitted by the expression, which means that under the hypothesis $\Gamma;
 \tmatch{\sigma_1}{p}$, $e$ admits the type $\sigma_2$.

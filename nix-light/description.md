@@ -36,7 +36,7 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
   \begin{lstlisting}
 <expr> ::= <ident> | <constant>
   | <expr>.<expr> | <expr>.<expr> or <expr>
-  | $\lambda$<pattern>.<expr> | <expr> <expr>
+  | λ <pattern>.<expr> | <expr> <expr>
   | let <var-pattern> = <expr>; $\cdots{}$; <var-pattern> = <expr>; in <expr>
   | Cons (<expr>, <expr>)
   | { <ident> = <expr> } | {} | <expr> <> ... <> <expr>

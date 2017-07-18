@@ -78,7 +78,7 @@ has a particular form, that needs a particular treatement).
   \begin{lstlisting}
 <expr> ::=
   <ident> | <constant>
-  | $\lambda$ <pattern>.<expr> | <expr> <expr>
+  | λ <pattern>.<expr> | <expr> <expr>
   | let <var-pattern> = <expr>; $\cdots$; <var-pattern> = <expr>; in <expr>
   | [ <expr> $\cdots$ <expr> ]
   | { <record-field>; $\cdots$; <record-field>; }

@@ -19,7 +19,7 @@ main.pdf: main.tex $(GENERATED_LATEX)
 	latexmk \
 	  -output-directory=out \
 	  -pdf \
-	  -lualatex \
+	  -xelatex \
 	  -bibtex \
 	  -use-make \
 	  -interaction=nonstopmode \

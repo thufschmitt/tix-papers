@@ -52,9 +52,9 @@
   literate={% replace strings with symbols
     {->}{{$\to$}}{1}
     {<>}{{$\diamond$}}{1}
-    {lambda}{{$\lambda$}}{1}
-    {tau}{{\ensuremath{\tau}}}{1}
-    {rho}{{\ensuremath{\rho}}}{1}
+    {λ}{{$\lambda$}}{1}
+    {τ}{{\ensuremath{\tau}}}{1}
+    {ρ}{{\ensuremath{\rho}}}{1}
     {tin}{{$\in$}}{1}
     {\&}{{$\wedge$}}{1}
     {AND}{{$\wedge$}}{1}
@@ -83,15 +83,14 @@
 
 \lstMakeShortInline{°}
 
-\usepackage{myunicode}
-
 % Some useful macros
 \catcode`τ=13
 \catcode`λ=13
+\catcode`ρ=13
 \catcode`Γ=13
 \newcommand{λ}{\ensuremath{\lambda}}
-\newcommand{τ}{\ensuremath{\tau}}
-\newcommand{τ}{\ensuremath{\tau}}
+\newcommand{τ}{tau}
+\newcommand{\τ}{\ensuremath{\tau}}
 \newcommand{\lbl}[1]{\text{(\emph{#1})}}
 % Subtyping
 \newcommand{\subtype}{\leq}
