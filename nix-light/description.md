@@ -62,7 +62,7 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
 
 <var-pattern> ::= <ident> | <ident>:<τ>
 
-<basetype> ::= Bool | Int | String | Any | Empty | Nil
+<basetype> ::= Bool | Int | String | Any | Empty
 
 <t> ::= <constant> | <basetype>
   | <t> $\vee$ <t> | <t> $\wedge$ <t> | $\lnot$ <t>
