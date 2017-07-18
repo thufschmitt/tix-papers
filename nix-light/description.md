@@ -16,7 +16,8 @@ However, this loosens a little bit the expressivity, as an expression such as
 (because it has no type information, so can't see that `f` is the same
 predicate over types as `isInt` and thus should be treated the same way.
 
-Nix-light's grammar is given in figure \pref{nix-light::grammar}.
+Nix-light's grammar is given in figures \pref{nix-light::grammar}
+and \pref{nix-light::grammar::values}.
 The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
 a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
 like a "kind-case" which just checks for the head constuctor). The type
@@ -82,9 +83,19 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
   | Cons(Any, Any)
   | { <ident> = Any; $\cdots$; <ident> = Any; _ = Any$\vee \nabla$ }
   | <basetype>
-
   \end{lstlisting}
-  \caption{Grammaire de Nix-light\label{nix-light::grammar}}
+  \caption{Nix-light grammar for expressions\label{nix-light::grammar}}
+\end{figure}
+
+\begin{figure}
+  \begin{lstlisting}
+<value> ::=
+  | <constant>
+  | Cons(<value>, <value>)
+  | { <ident> = <value>; $\cdots$; <ident> = <value>; }
+  | λ<pattern>.<expr>
+  \end{lstlisting}
+  \caption{Nix-light grammar for values\label{nix-light::grammar::values}}
 \end{figure}
 
 #### Semantic
