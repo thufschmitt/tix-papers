@@ -50,6 +50,16 @@ This language is a lambda calculus, with some additions, namely :
     Nix requires the name of the capture variable to be the same as the name of
     the field.
 
+- Type annotations (absent in the actual language but added for this work).
+    These annotations have been added as they are required by the typechecker.
+    There are two productions for types: the concrete types (noted `<t>`) and
+    the abstract types (noted <τ>). A distinction between both is mandatory
+    because the negation of a gradual type is not defined.
+    The meaning of the types will be presented in Section \ref{sec:typing}.
+
+    The constructions `<R>` and `<ρ>` represents type regular exepressions
+    which will be presented in Section \ref{typing::structures::listes}.
+
 In addition to those syntactic constructions, a lot of the expressivity of the
 language is hidden behind some predefined functions.
 For example, some functions do some advanced operations on records, like the
