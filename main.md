@@ -1,5 +1,4 @@
-# Context
-<!-- État de l'art, motivation du stage -->
+# Introduction
 
 ## Nix
 <!--
@@ -22,7 +21,7 @@
 <!--  Justification informelle de pourquoi le système convient à Nix -->
 \input{out/generated/context/set-theoretic-types}
 
-# Contribution
+## Contributions
 \input{out/generated/contributions.tex}
 
 # Nix-light <!--  TODO: find another name for this -->
