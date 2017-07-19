@@ -60,8 +60,8 @@ This language is a lambda calculus, with some additions, namely :
     The constructions `<R>` and `<ρ>` represents type regular exepressions
     which will be presented in Section \ref{typing::structures::listes}.
 
-In addition to those syntactic constructions, a lot of the expressivity of the
-language is hidden behind some predefined functions.
+In addition to those syntactic constructions, a lot of the expressiveness of
+the language resides in some predefined functions.
 For example, some functions do some advanced operations on records, like the
 `attNames` function, which when applied to a record returns the list of the
 labels of this record (as strings).
@@ -81,7 +81,7 @@ if isInt x then x else 1
 
 The type-system thus has to be aware of the fact that, in the `then` branch, the
 `x` variable has the type `Int` (and in particular recognize that the condition
-has a particular form, that needs a particular treatement).
+has a particular form, that needs a particular treatment).
 
 \begin{figure}
   \small
