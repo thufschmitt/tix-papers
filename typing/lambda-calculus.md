@@ -192,7 +192,7 @@ corresponding branch.
 This particular characteristic may seem undesirable (as it in particular that
 an expression may be well-typed while some of its sub-terms aren't), but the
 need for it is clear if we once again consider the example of
-section \label{typing::lambda-calculus::general-description}.
+section \ref{typing::lambda-calculus::general-description}.
 Indeed, we want the body of the function to be well-typed under the hypothesis
 `cond: True; x : Int`, while `not x` isn't (but is never reached under those
 hypothesis).
