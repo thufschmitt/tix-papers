@@ -22,6 +22,9 @@
 <!--  Justification informelle de pourquoi le système convient à Nix -->
 \input{out/generated/context/set-theoretic-types}
 
+# Contribution
+\input{out/generated/contributions.tex}
+
 # Nix-light <!--  TODO: find another name for this -->
 \label{sec:nix-light}
 
