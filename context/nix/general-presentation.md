@@ -26,47 +26,9 @@ get the system back to its original state.
 Nix proposes a radically different approach: From the point of view of the
 user, the configuration of the system is fully determined as the result of the
 evaluation of an expression in a pure functional language (also called Nix).
-Coupled with an on-disk memoïsation system, this approach brings several
-improvements. In particular:
-
-Reproducibility
-:   This declarative specification ensures that the configuration doesn't
-    depend of any previous state of the system.
-    Moreover, every "derivation" (the Nix equivalent of packages) is
-    instanciated in an isolated environment containing only its required
-    dependencies. This ensures the absence of implicit dependency which on some
-    other systems sometimes leads to reproducibility issues.
-
-Rollbacks for free
-:   Because of the way Nix works, an update isn't destructive, but it just
-    consists of instanciating the new configuration alongside previous ones,
-    and then make the current system point to it.
-    Rolling back to a previous configuration simply resorts to changing the
-    pointer of the current system.
-    Moreover, the memoïsation system is way more granular than most other
-    systems which allows for rollbacks (like e.g. Docker), so less has to be
-    rebuilt, and older generations takes much less disk space.
-    A garbage collector may be run to get rid of older generations.
-
-Atomic updates
-:   An update in Nix consists of two phases: first the new generation is built
-    (which may be interrupted and restarted without consequence as it doesn't
-    touch the actual system at all), and only after it is fully built, the
-    configuration becomes pointed by the current system, which is essentially
-    an atomic operation.
-    So there is no threat of having the system left in an inconsistent state
-
-Local environments
-:   Nix's way of working allows to install packages with a limited scope. For
-    example, it is trivial to allow users to install package in their own
-    profile, while still benefitting of all the sharing possibilities of Nix.
-
-    Furthermore, packages may be installed in an even more limited scope, like
-    being only available in a shell.
-    This feature is one of Nix's great strenghts as it allows configuring for
-    example the development environment for a software in one simple command,
-    and have all that is needed at hand (without having to globally install any
-    dependency).
+Coupled with an on-disk memoïsation system, this approach brings many
+improvements, like a better reproducibility, transparent rollbacks, atomic
+upgrades, …
 
 #### The Nix language
 
