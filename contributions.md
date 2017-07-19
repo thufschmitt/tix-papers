@@ -47,8 +47,8 @@ This works makes several technical contributions. In particular:
 - \vdots
 
 
-But besides these technical aspects the most important contribution of
-this work is, by far, that it brings together and integrates in a unique
+But besides these technical aspects, the most important contribution of
+this work is, by far, that it brings together and integrates into a unique
 system five different typing techniques that hitherto lived in
 isolation one from the other, that is:
 
@@ -70,14 +70,14 @@ and, last but surely not least, which was designed not having types in
 mind, far from that. The choice of the language dictated the adoption
 of the five characteristics above: gradual typing was the solution we
 chose to inject the flexibility needed to accept already existing code
-that would not fit any static typing dicipline; occurrence typing was
-needed to account for commong usage patterns in which programmer give
+that would not fit standard static typing discipline; occurrence typing was
+needed to account for common usage patterns in which programmers use
 distinct piece of codes according to dynamic type-checks of some
 expressions; set-theoretic types were chosen because they provide both
 intersection types (we need them to precisely type overloaded
-functions, that is, which typically appear when occurrenc typing is
-done on a parameter of a function) and union types (we need them to
-give maximum flexibility for occurrence typing, which can btypied by
+functions which, typically, appear when occurrence typing is
+performed on a parameter of a function) and union types (we need them to
+give maximum flexibility for occurrence typing, which can typed by
 calculating the least upper bound of the different alternatives);
 bidirectional typing was adopted to allow the programmer to specify
 overloaded types for function via a simple explicit annotation,
@@ -86,11 +86,11 @@ in CDuce; dynamic records were forced on us by the insanely great
 flexibility that Nix designer have decided to give to their language.
 
 Chosing an existing language also forced us to privilege practical
-aspects over theoretical types, and this has drawback as well as
+aspects over theoretical ones, and this has drawbacks as well as
 advantages. The main drawback is that we gave up having a system that
 is formally proved to be sound. For instance, we could have designed a
 type system in which record field selections are statically ensured
-always to suceed, but this would have meant to reject nearly all
+always to succeed, but this would have meant to reject nearly all
 programs that use dynamic labels (which is a lot); likewise, gradual
 typing is used to shunt the type system rather than to insert explicit
 casts that dynamically check the soundness of programs as [Siek&Taha] do: in that sense
