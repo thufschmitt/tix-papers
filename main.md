@@ -1,6 +1,6 @@
 # Introduction
 
-## Nix
+## Nix    {#subsec:nix}
 <!--
   Description de Nix et de toutes les horreurs qu'il contient
   Explication rapide de ce qui est nécessaire pour le typer à peu près
@@ -24,6 +24,9 @@
 ## Contributions
 \input{out/generated/contributions.tex}
 
+## Outline
+\input{out/generated/outline.tex}
+
 # Nix-light <!--  TODO: find another name for this -->
 \label{sec:nix-light}
 
@@ -43,6 +46,7 @@
 \input{out/generated/nix-light/compilation.tex}
 
 # Typing
+\label{sec:typing}
 
 ## Types and subtyping
 <!--  Présentation des types utilisés -->
@@ -79,6 +83,7 @@
 
 # Implementation
 <!--  Tout ce qui concerne l'implémentation. Probablement des choses à dire -->
+\label{sec:implementation}
 \input{out/generated/implem/intro.tex}
 
 ## CDuce and subtyping
