@@ -87,6 +87,7 @@ The type-system thus has to be aware of the fact that, in the `then` branch, the
 has a particular form, that needs a particular treatment).
 
 \begin{figure}
+  \newcommand{\imp}[1]{\texttt{\color{red}#1}}
   \small
   \begin{lstlisting}
 <expr> ::=
@@ -100,18 +101,18 @@ has a particular form, that needs a particular treatment).
   | <expr>.<acces-path>
   | <expr>.<acces-path> or <expr>
   | <expr> <infix-op> <expr>
-  | <expr> : <τ>
+  | //* \imp{<expr> : <τ> } *//
 
 <constant> ::= <string> | <integer> | <boolean> | <paths>
 
 <record-field> ::= inherit <ident> $\cdots$ <ident>
   | inherit (<expr>) <ident> <ident>
-  | <access-path> = <expr> | <access-path> : <τ> = <expr>
+  | <access-path> = <expr> | //* \imp{<access-path> : <τ> = <expr>}*//
 
 <pattern> ::= <record-pattern> | <record-pattern>@<ident>
   | <var-pattern>
 
-<var-pattern> ::= <ident> | <ident> : <τ>
+<var-pattern> ::= <ident> | //* \imp{<ident> : <τ>}*//
 
 <record-pattern> ::=
   | { <record-pattern-field>, $\cdots$, <record-pattern-field> }
@@ -124,7 +125,12 @@ has a particular form, that needs a particular treatment).
 <access-path-item> ::= <ident> | { <expr> }
 
 <infix-op> ::= + | - | * | / | // | ++ | $\cdots$
+  \end{lstlisting}
+  \caption{Syntax of the Nix language\label{nix::syntax}}
+\end{figure}
 
+\begin{figure}
+  \begin{lstlisting}
 <basetype> ::= Bool | Int | String | Any | Empty
 
 <t> ::= <constant> | <t> $\rightarrow$ <t>
@@ -145,5 +151,5 @@ has a particular form, that needs a particular treatment).
 <ρ> ::= <τ> | <ρ>+ | <ρ>* | <ρ>?
   | <ρ> <ρ> | <ρ> ¦ <ρ>
   \end{lstlisting}
-  \caption{Syntax of the Nix language\label{nix::syntax}}
+  \caption{Syntax of Nix types\label{nix::syntax}}
 \end{figure}
