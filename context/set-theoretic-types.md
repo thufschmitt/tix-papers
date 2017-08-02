@@ -9,8 +9,13 @@ type-system. In particular :
   operations on those records (adding or removing a field, merging records,
   etc..)
 
-- Because of the predicates on types, the type-system must have union types, as
-  well as being able to efficiently handle a typecase operation.
+- As shown above, the presence of expressions such as `if isInt x then x else 1`
+  requires the type-system to perform some occurrence typing.
+
+- Related to the occurrence typing, the type-system should also handle some
+  form of union types, so that an expression such as
+  `λx. if isInt x then x==1 else not x` may be typed (with a type such as
+  `Int $\vee$ Bool -> Bool`).
 
 Several existing type-systems already try to satisfy those requirements.
 The most famous one is probably the type-system of Typed Racket (@FH08), which
@@ -34,7 +39,7 @@ this subject.
 
 This system offers thus more flexibility than most alternatives (allowing in
 particular arbitrary intersection types, which are a must-have as they allow
-the overloading of functions^[A form of overloading has been recently added to
-Typed Racket, but not as powerful as the one that intersection types gives
-us]), although the (hopefully temporary) sacrifice of polymorphism is a huge
-price to pay.
+a precise typing of the overloading of functions^[A form of overloading has
+been recently added to Typed Racket, but not as powerful as the one that
+intersection types gives us]), although the (hopefully temporary) sacrifice of
+polymorphism is a huge price to pay.
