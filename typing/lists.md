@@ -1,6 +1,6 @@
-Unlike most languages, Nix-light doesn't have a "list" type. Lists are instead a
+Unlike most languages, Nix-light does not have a "list" type. Lists are instead a
 collection of types.
-Indeed, lists aren't monomorphic like they use to be but may contain elements
+Indeed, lists are not homogeneous like they use to be but may contain elements
 of arbitrary different types, so even assuming polymorphism, it would be
 impossible to express the type of lists as a parametrized type.
 
@@ -21,13 +21,13 @@ types]:
   | ?
 ```
 
-Those types are an encoding of Nix lists types which are the types of the form
+These types are an encoding of Nix lists types which are the types of the form
 `[ ρ ]`.
 
 #### Compilation
 
-It is quite naturally possible to go from list types in the Nix sense to list
-types in the Nix-light sense. The compilation rules ar available in
+It is possible to go from a list type `τ` in the Nix sense to a list type
+`(|τ|)` in the Nix-light sense. The compilation rules are available in
 \Cref{typage::listes::compilation}.
 
 This compilation is the transposition of the compilation of regular expressions
@@ -48,5 +48,5 @@ The typing of lists is presented in \Cref{typage::liste}.
       Γ \tIC \cons(e_1, e_2) : \cons(\tau_1, \tau_2)
     }\lbl{Cons}
   \end{displaymath}
-  \caption{Règle de typage des listes}\label{typage::liste}
+  \caption{Typing rules for lists}\label{typage::liste}
 \end{figure}
