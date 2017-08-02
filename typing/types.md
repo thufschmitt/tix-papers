@@ -18,8 +18,8 @@ Like in [@CL17], the subtyping relation $\subtype$ on static types is extended
 into a relation $\subtypeG$ on gradual types.
 However, the subtyping relation isn't the same. Indeed, the relation used in
 [@CL17] − which is the relation established in [@Fri04] − is based on an
-interpretation of types as sets of values, and as it is raises some safety
-issues on a lazy semantic.
+interpretation of types as sets of values, and used directly cause some safety
+problems on a lazy semantic.
 The reason for this is that the interpretation supposes fully evaluated values,
 while a lazy language manipulates possibly non-evaluated expressions, whose
 evaluation may never finish if forced. In particular, the `Empty` types behaves
@@ -29,7 +29,7 @@ themselves may appear inside values in a lazy setting.
 For example, the type `{ x = Empty }` would be inhabited in a strict semantic
 (so it would itself be a subtype of every other type, the same way as `Empty`
 itself), whereas in a lazy semantic such as the one of Nix-light, it is
-inhabited for example by `{ x = let y = y in y; }`.
+habited for example by `{ x = let y = y in y; }`.
 
 It is possible to modify this interpretation to take this difference into
 account, by adding at some places a special constant (noted $\bot$) to the
