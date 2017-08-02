@@ -54,12 +54,13 @@
 <!--  Sous-typage graduel -->
 \input{out/generated/typing/types.tex}
 
-## Lambda-calculus
+## Functional core
 <!--  Typage du langage sans records et sans listes -->
 \input{out/generated/typing/lambda-calculus.tex}
 
 ## Data structures
 <!--  Description du typage des deux structures de données de Nix -->
+\label{typing::structures}
 
 ### Lists
 <!--
