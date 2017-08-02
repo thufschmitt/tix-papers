@@ -51,8 +51,8 @@ The typing rule for this operator is rather simple:
 Nix accepts expressions of the form `with <expr>; <expr>`.
 The meaning of this is that, provided that the first expression evaluates to a
 record `{ x1 = e1; $\cdots$; xn = en }`, then the second one is evaluated with
-the content of the record in scope, i.e. with the new variables `x1`, \ldots,
-`xn` available with value respectivly `e1`, \ldots, `en`.
+the content of the record in scope, which is with the new variables `x1`,
+\ldots, `xn` available with value respectivly `e1`, \ldots, `en`.
 Moreover, if a variable is already in the scope, then it can't be shadowed by a
 `with` construct.
 

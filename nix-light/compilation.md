@@ -19,7 +19,7 @@ depending on the form of the form of the condition:
   Hence, the semantic coincides for well-typed terms.
 
 - If `e0` is of the form `isT x` where `isT` is a discriminant of the type `t`
-  (i.e. a builtin function that returns `true` if its argument is of type `t`
+  (i.e., a builtin function that returns `true` if its argument is of type `t`
   and `false` otherwise), then the expression will be compiled to
   `(x = x tin t) ? e1 : e2`.
   It is easy to check that this has the same semantics as the expression that

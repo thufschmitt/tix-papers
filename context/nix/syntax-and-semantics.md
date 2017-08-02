@@ -69,7 +69,7 @@ For example, some functions do some advanced operations on records, like the
 `attNames` function, which when applied to a record returns the list of the
 labels of this record (as strings).
 Another important class of functions is the set of functions that discriminate
-over a type, i.e. functions such as `isInt`, `isString`, `isBool`, and so on,
+over a type, that is functions such as `isInt`, `isString`, `isBool`, and so on,
 which return `true` if their argument is an integer (resp. a string or a
 boolean), and `false` otherwise.
 When used with a if construct, those functions allow an expression to have a

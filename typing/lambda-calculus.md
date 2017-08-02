@@ -2,7 +2,7 @@
 \label{typing::lambda-calculus::general-description}
 
 In this part, we consider a restriction of the language to a subset of itself
-consisting of a lambda-calculus with typecase (i.e. we exclude lists and
+consisting of a lambda-calculus with typecase (i.e., we exclude lists and
 records and all the related operations).
 
 The type-system is divided into two parts: an "inference" system and a "check"
