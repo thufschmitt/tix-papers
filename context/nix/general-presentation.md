@@ -38,14 +38,14 @@ This language is essentially a lazy lambda-calculus, with lists,
 records and a notion of type at runtime (with functions such as `isInt` which
 returns `true` if and only if its argument is an integer).
 Additionally, it is untyped (not really by choice, but more because of a lack
-of time at its beginning. The original author itself considers that "Nix won't
+of time at its beginning. The original author himself considers that "Nix won't
 be complete until it has static typing" [@nixIssue14].
 
-Adding a type-system to this language has several objectives:
-
+Adding a type-system to this language would be an improvement on several
+aspects:
 
 - \texttt{nixpkgs}, the Nix package collection is today several hundreds of
-  thousands of lines of code, which a sometimes very complex structure.
+  thousands of lines of code, with some really complex parts.
   The absence of typing makes every non-trivial modification particularly
   complicated and dangerous.
 
@@ -64,11 +64,13 @@ Adding a type-system to this language has several objectives:
 The language presents many characteristics that constraint a type-system for it:
 
 - It is possible to know at runtime the type of a value. This functionality is
-  used a lot in practice and requires a notion of union types to be useful.
+  used a lot in practice and requires a notion of union types to be useful as
+  we will see.
 
-- The fields of the records may have dynamically defined labels (i.e., they may
-  be defined as the result of the evaluation of an arbitrary expression −
-  provided it evaluates to a string).
+- The fields of the records may have dynamically defined labels (i.e., labels
+  which are defined as the result of the evaluation of an arbitrary expression
+  − provided it evaluates to a string).
 
-- The language has existed for ten years without a type-system. Hence, several
-  idiomatic constructs are hard to type.
+- The language has been existing for ten years without a type-system. This
+  naturally led to the introduction of several idiomatic constructs are hard to
+  type.
