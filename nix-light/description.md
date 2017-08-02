@@ -3,21 +3,38 @@
 This language is really similar to Nix, but makes syntactically distinct all
 the elements which requires a special treatment from the typechecker.
 
-For example, the if construct is replaced by the more general "typecase" of the
-form `(x = e0 tin t) ? e1 : e2` (which evaluates to `e1` if `e0` evaluates to a
-value of type `t` and to `e2` otherwise).
-The general case `if e0 then e1 else e2` will be compiled to `(x = (e0 : Bool)
-tin true) ? e1 : e2` (where `x` is a fresh variable), whereas particular cases
-such as `if isInt x then e1 else e2` may be compiled to spcialized versions
-such as `(x = x tin Int) ? e1 : e2`.
-This lightens the type-system as both forms can be treated with the same rule.
-However, this loosens a little bit the expressivity, as an expression such as
-`let f = isInt in if f x then x else 1` won't be recognized by the compiler
-(because it has no type information, so can't see that `f` is the same
-predicate over types as `isInt` and thus should be treated the same way.
+The differences are:
 
-Nix-light's grammar is given in \Cref{nix-light::grammar}
-and \Cref{nix-light::grammar::values}.
+- The if construct is replaced by the more general "typecase" construct of the
+  form `(x = e0 tin t) ? e1 : e2` (which evaluates to `e1` if `e0` evaluates to
+  a value of type `t` and to `e2` otherwise).
+  The general case `if e0 then e1 else e2` will be compiled to
+  `(x = (e0 : Bool) tin true) ? e1 : e2` (where `x` is a fresh variable),
+  whereas particular cases such as `if isInt x then e1 else e2` will be compiled
+  to specialized versions such as `(x = x tin Int) ? e1 : e2`.
+  This lightens the type-system as both forms can be treated with the same rule.
+  However, this reduces the expressiveness, as an expression such as `let f =
+  isInt in if f x then x else 1` will not be recognized by the compiler
+  (because it has no type information, so can not see that `f` is the same
+  predicate over types as `isInt` and thus should be treated the same
+  way)^[Typed racket [@FH08] does some tracking of type predicates in the
+  type-system itself by annotating arrows. This can also be achieved (and in a
+  less intrusive way) using this type-system and has in fact been implemented.
+  This will be discussed in \Cref{implem::extensions}].
+  <!--- TODO: This tracking isn't explained yet --->
+
+- The definition of records is simplified: Nix has a specific syntax to
+  define nested records (for example `{ x.y = 1; x.z = 2; }` is equivalent to
+  `{ x = { y = 1; z = 2; }; }`) which is absent in Nix-light.
+
+- Recursive record definitions are not allowed either, they have to be encoded
+  using a (recursive) let-binding.
+
+- List types are replaced by the `Nil` and `Cons($\cdot$, $\cdot$)`
+  constructors. The encoding is explained in \Cref{typing::structures::listes}.
+
+Nix-light's grammar is given in
+\Cref{nix-light::grammar,nix-light::grammar::values}.
 The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
 a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
 like a "kind-case" which just checks for the head constuctor). The type
