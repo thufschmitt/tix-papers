@@ -100,3 +100,4 @@
 
 # Appendix {-}
 \input{out/generated/appendix/nix-grammar}
+\input{out/generated/appendix/typecase-typing-rules.tex}
