@@ -28,7 +28,7 @@ Those types are an encoding of Nix lists types which are the types of the form
 
 It is quite naturally possible to go from list types in the Nix sense to list
 types in the Nix-light sense. The compilation rules ar available in
-figure \pref{typage::listes::compilation}.
+\Cref{typage::listes::compilation}.
 
 This compilation is the transposition of the compilation of regular expressions
 to state machines.
@@ -37,7 +37,7 @@ to state machines.
 
 #### Typing
 
-The typing of lists is presented in figure \pref{typage::liste}.
+The typing of lists is presented in \Cref{typage::liste}.
 
 \begin{figure}
   \begin{displaymath}

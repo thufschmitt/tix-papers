@@ -50,7 +50,7 @@ unary records, and we then define the typing of merge operations (in particular
 the `<>` operator) to type more complex records. Finally, we define the typing
 of field access.
 
-The rules are given in figure \pref{typing::records}.
+The rules are given in \Cref{typing::records}.
 
 #### Unary records
 

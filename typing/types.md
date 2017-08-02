@@ -3,7 +3,7 @@
 The types are inspired by the set-theoretic types used in the CDuce language
 and described by @Fri04.
 Their syntax is given alongside Nix-light's grammar in
-figure \pref{nix-light::grammar}.
+\Cref{nix-light::grammar}.
 
 We distinguish two type productions: the static types (noted by roman letters:
 $t, s, \ldots$) and the gradual types (in greek letters: $τ, σ, \ldots$).

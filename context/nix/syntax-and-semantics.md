@@ -1,12 +1,12 @@
 The language we study isn't exactly the Nix language, but a simplified version
 of it (ommiting some minor features without importance for the type system and
-some other that will be dicussed in part \ref{implem::extensions}), to which we
+some other that will be dicussed in \Cref{implem::extensions}), to which we
 add some type annotations.  In all this document, every reference to Nix points
 to this language.
 
-The full syntax is given in the figure \pref{nix::syntax}.
+The full syntax is given in the \Cref{nix::syntax}.
 Its semantic is informally described below (a complete semantic is given in
-Section \ref{sec:nix-light}).
+\Cref{sec:nix-light}).
 
 This language is a lambda calculus, with some additions, namely :
 
@@ -55,10 +55,10 @@ This language is a lambda calculus, with some additions, namely :
     There are two productions for types: the concrete types (noted `<t>`) and
     the abstract types (noted <τ>). A distinction between both is mandatory
     because the negation of a gradual type is not defined.
-    The meaning of the types will be presented in Section \ref{sec:typing}.
+    The meaning of the types will be presented in \Cref{sec:typing}.
 
     The constructions `<R>` and `<ρ>` represents type regular exepressions
-    which will be presented in Section \ref{typing::structures::listes}.
+    which will be presented in \Cref{typing::structures::listes}.
 
 In addition to those syntactic constructions, a lot of the expressiveness of
 the language resides in some predefined functions.

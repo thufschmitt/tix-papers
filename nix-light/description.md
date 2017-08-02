@@ -16,13 +16,13 @@ However, this loosens a little bit the expressivity, as an expression such as
 (because it has no type information, so can't see that `f` is the same
 predicate over types as `isInt` and thus should be treated the same way.
 
-Nix-light's grammar is given in figures \pref{nix-light::grammar}
-and \pref{nix-light::grammar::values}.
+Nix-light's grammar is given in \Cref{nix-light::grammar}
+and \Cref{nix-light::grammar::values}.
 The construct `<$\hat{t}$>` (defining the types that appears in a typecase) is
 a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
 like a "kind-case" which just checks for the head constuctor). The type
 `Any$\vee \nabla$` represents an optional field (the reason for this notation
-is explained in Section \ref{typing::structures::records}).
+is explained in \Cref{typing::structures::records}).
 
 The `<>` operator defines the concatenation of records.
 In what follows, we assume that this operator is commutative. As consequence,
@@ -149,7 +149,7 @@ $\sfrac{p}{v}$) as follows:
 
 ##### Operational semantic
 
-The full semantic is given at the figure \pref{nix-light::semantics}.
+The full semantic is given at the \Cref{nix-light::semantics}.
 
 The reduction rules should be self-explained.
 The only point of attention are tho two rules for the typecase, which involve a

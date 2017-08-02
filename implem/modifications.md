@@ -5,7 +5,7 @@ record is an invalid operation that our type-system has to catch, or that it is
 a valid operation that raises a runtime error.
 We here adopted the first point of view, but taking the second one is possible
 by replacing the *RAccess* rule with the two rules from
-figure \ref{implem::lax-records}:
+\Cref{implem::lax-records}:
 
 \begin{figure}
   \begin{mathpar}

@@ -1,8 +1,8 @@
 #### Compilation
 
 The program is compiled according to the rules of the
-figure \pref{nix-light::compilation} (except for the type annotations whose
-compilation is covered by the section \ref{typing::structures::listes}).
+\Cref{nix-light::compilation} (except for the type annotations whose
+compilation is covered by the \Cref{typing::structures::listes}).
 
 Both languages are quite similar, hence most transformations are simply a
 transposition of a given structure to the same structure in the other language.

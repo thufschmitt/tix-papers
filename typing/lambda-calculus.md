@@ -77,7 +77,7 @@ The notation $Γ \tIC e : τ$ means either $Γ \tinfer e : τ$ or
 $Γ \tcheck e : τ$ (but always the same in a given inference rule).
 
 The rules for both systems are given in the
-figure \pref{typing::lambda-calculus}.
+\Cref{typing::lambda-calculus}.
 
 #### Constants and variables
 
@@ -125,7 +125,7 @@ where $\sqcup$ is itself defined as
 @Fri04 shows that $τ$ can always be expressed in previous form (in fact this
 possibility is fundamental for the sybtyping algorithm as shown by @Cas15).
 
-In the example of section \ref{typing::lambda-calculus::general-description}
+In the example of \Cref{typing::lambda-calculus::general-description}
 the type $τ$ is equal to `(true -> Int -> Int) AND (false -> Bool -> Bool)`,
 so $\A(\tau)$ is the set $\{$ `true -> Int -> Int`; `false -> Bool -> Bool` $\}$.
 
@@ -192,7 +192,7 @@ corresponding branch.
 This particular characteristic may seem undesirable (as it in particular that
 an expression may be well-typed while some of its sub-terms aren't), but the
 need for it is clear if we once again consider the example of
-section \ref{typing::lambda-calculus::general-description}.
+\Cref{typing::lambda-calculus::general-description}.
 Indeed, we want the body of the function to be well-typed under the hypothesis
 `cond: True; x : Int`, while `not x` isn't (but is never reached under those
 hypothesis).
