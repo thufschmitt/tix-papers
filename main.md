@@ -95,3 +95,8 @@
 ## Extensions
 \input{out/generated/implem/extensions.tex}
 \label{implem::extensions}
+
+\appendix
+
+# Appendix {-}
+\input{out/generated/appendix/nix-grammar}
