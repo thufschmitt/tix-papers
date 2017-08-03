@@ -41,13 +41,6 @@ like a "kind-case" which just checks for the head constuctor). The type
 `Any$\vee \nabla$` represents an optional field (the reason for this notation
 is explained in \Cref{typing::structures::records}).
 
-The `<>` operator defines the concatenation of records.
-In what follows, we assume that this operator is commutative. As consequence,
-we allow ourselves to reorder at will the terms of an expression of the form
-`<expr> <> $\cdots$ <> <expr>`.
-Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
-`{ x1 = e1 } <> $\cdots$ <> { xn = en }`.
-
 \begin{figure}
   \small
   \begin{lstlisting}
@@ -56,7 +49,7 @@ Moreover, we often write `{ x1 = e1; $\cdots$; xn = en }` as a shortcut for
   | λ <pattern>.<expr> | <expr> <expr>
   | let <var-pattern> = <expr>; $\cdots{}$; <var-pattern> = <expr>; in <expr>
   | Cons (<expr>, <expr>)
-  | { <ident> = <expr> } | {} | <expr> <> ... <> <expr>
+  | { <ident> = <expr>; ...; <ident> = <expr> }
   | (<ident> = <expr> $\in$ <$\hat{t}$>) ? <expr> : <expr>
   | <operator>
   | <expr>:<τ>

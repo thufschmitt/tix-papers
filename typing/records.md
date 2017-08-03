@@ -46,9 +46,8 @@ those unions.
 We also extend them to gradual types by identifying `?` and `{ _ = ? }`.
 
 The typing of records is done in three steps: we first define the typing of
-unary records, and we then define the typing of merge operations (in particular
-the `<>` operator) to type more complex records. Finally, we define the typing
-of field access.
+literal records, and we then define the typing of merge operation to type more
+complex records. Finally, we define the typing of field access.
 
 The rules are given in \Cref{typing::records}.
 
@@ -58,16 +57,13 @@ We have two rules for the unary records, corresponding to the two use-cases of
 records:
 
 - The *RFinite* rule handles the case of static records.
-  Their type is just defined as the union of all possible record types.
 
-- The *RInfinite* rule handles the case of dynamic maps. In this case, we don't
-  try to track all the elements of the record, we just give it the type we
-  would assign e.g. to a `Map` in OCaml.
+- The *IRInfinite* and *CRInfinite* rules handle the case of dynamic maps. In
+  this case, we don't try to track all the elements of the record, we just give
+  it the type we would assign e.g. to a `Map` in OCaml.
 
 #### Concatenation of records
 
-We consider two distinct merge operations `+` and `<>`.
-They differ in how they behave when a field may be defined on both sides.
 Saying that the field $x$ may be defined in the record type $t$ means that
 $t(x) \wedge \undefr \not\subtype \Empty$.
 
@@ -92,15 +88,7 @@ There are in fact three possible cases for this:
 - Else, the field may be defined and $τ_1(x) = τ_x \vee \undefr$ for some
   type $τ_x$. The type of the result may be $τ_x$
 
-\newcommand{\orthmerge}{\diamond}
 \newcommand{\domr}{\operatorname{dom}}
-The $\diamond$ operator is defined as the restriction of `+` to cases where the
-fields of both records do not overlap. More precisely,let
-$\domr_\undefr(\cdot)$ be the operator which to each record type associates the
-set of all the fields whose type do not contain $\undefr$ (this operator is
-given by the interpretation of [@Cas15]). Then $τ_1 \orthmerge τ_2$ is
-defined as $τ_1 + τ_2$ if and only if $\domr_\undefr(τ_1) \cap
-\domr_\undefr(τ_2) = \varnothing$.
 
 #### Field access
 
@@ -108,7 +96,8 @@ defined as $τ_1 + τ_2$ if and only if $\domr_\undefr(τ_1) \cap
 For a record type $τ = \{ x_1 = τ_1; \cdots; x_n = τ_n; \_ = τ_0 \}$, we
 refer to $τ_0$ by $\defr(τ)$.
 
-We have two rules depending on whether a default value is provided or not.
+We have two set of rules depending on whether a default value is provided or
+not.
 
 For the case where a default value is provided, we distinguish the case where
 the name of the accessed field is statically known from the case where it isn't.

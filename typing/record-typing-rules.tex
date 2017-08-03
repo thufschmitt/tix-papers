@@ -6,54 +6,56 @@
   \newcommand{\onerec}{\{..\}}
   \begin{mathpar}
     \inferrule{%
-      Γ \vdash e' : τ \\
-    Γ \vdash e : \bigvee\limits_{i=1}^n s_i
+      \forall i \in I, Γ \tinfer e_i : s_i \\
+      \forall i \in I, Γ \tIC e'_i : τ_i \\
+      \forall (i, i') \in I^2, i \neq i' \Rightarrow s_i \neq s_{i'}
     }{%
-      Γ \vdash \left\{ e = e'; \right\} :
-    \bigvee\limits_{i=1}^n \left\{ s_i = τ \right\}
+      Γ \tIC \left\{ \seq{e_i = e'_i;}{i\in I} \right\} :
+        \left\{ s_i = τ_i \right\}
     }\lbl{RFinite}
 
     \and\inferrule{%
-      Γ \vdash e' : τ \\
-    Γ \vdash e : σ \\
-    σ \subtype \text{String}
+      \forall i \in I, Γ \tinfer e_i : τ_i \\
+      \forall i \in I, Γ \tinfer e'_i : σ_i \\
+      \forall i \in I, τ_i \subtype \text{String}
     }{%
-      Γ \vdash \left\{ e = e'; \right\} :
-    \left\{ \_ = τ \vee \undefr \right\}
-    }\lbl{RInfinite}
+      Γ \tinfer \left\{ \seq{e_i = e'_i;}{i \in I} \right\} :
+    \left\{ \_ = \left(\bigvee\limits_{i \in I} σ_i \right) \vee \undefr \right\}
+    }\lbl{IRInfinite}
 
     \and\inferrule{%
-      Γ \vdash e_1 : \tau \\ Γ \vdash e_2 : σ \\
-    \tau \subtype \onerec{} \\
-    σ \subtype \onerec{} \\
-    \domr_\undefr(\tau) \cap \domr_\undefr(σ) = \varnothing
+      \forall i \in I, Γ \tinfer e_i : τ_i \\
+      \forall i \in I, Γ \tcheck e'_i : σ \\
+      \forall i \in I, τ_i \subtype \text{String}
     }{%
-      Γ \vdash e_1 \orthmerge e_2 : \tau \orthmerge σ
-    }\lbl{ROrthMerge}
+      Γ \tcheck \left\{ \seq{e_i = e'_i;}{i \in I} \right\} :
+    \left\{ \_ = σ \vee \undefr \right\}
+    }\lbl{CRInfinite}
+
     \and\inferrule{%
-      Γ \vdash e_1 : \tau \\ Γ \vdash e_2 : σ \\
+      Γ \tinfer e_1 : \tau \\ Γ \tinfer e_2 : σ \\
     \tau \subtype \onerec{} \\
     σ \subtype \onerec{}
     }{%
-      Γ \vdash e_1 + e_2 : \tau + σ
+      Γ \tIC e_1 + e_2 : \tau + σ
     }\lbl{RMerge}
 
     \and\inferrule{%
-      Γ \vdash e_1 : τ \\
-      Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
+      Γ \tinfer e_1 : τ \\
+      Γ \tinfer e_2 : s \\
       τ \subtypeG \onerec \\
-      \bigvee\limits_{i=1}^n τ(s_i) \wedge \undefr \subtype \Empty
+      τ(s) \wedge \undefr \subtype \Empty
     }{%
-      Γ \vdash e_1 . e_2 : \bigvee\limits_{i=1}^n τ(s_i)
-    }\lbl{RAccess}
+      Γ \tIC e_1 . e_2 : τ(s)
+    }\lbl{RAccessFinite}
 
     \and\inferrule{%
       Γ \vdash e_1 : τ \\
-      Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
+      Γ \vdash e_2 : s \\
       Γ \vdash e_3 : σ
     }{%
       Γ \vdash e_1 . e_2 \text{ or } e_3 :
-      \left( \bigvee\limits_{i=1}^n τ(s_i) \backslash \undefr \right) \vee σ
+      \left( τ(s) \backslash \undefr \right) \vee σ
     }\lbl{RGuardedAccessFinite}
 
     \and\inferrule{%
