@@ -50,24 +50,44 @@
     }\lbl{RAccessFinite}
 
     \and\inferrule{%
-      Γ \vdash e_1 : τ \\
-      Γ \vdash e_2 : s \\
-      Γ \vdash e_3 : σ
+      Γ \tinfer e_1 : τ \\
+      Γ \tinfer e_2 : s \\
+      Γ \tinfer e_3 : σ
     }{%
-      Γ \vdash e_1 . e_2 \text{ or } e_3 :
+      Γ \tinfer e_1 . e_2 \text{ or } e_3 :
       \left( τ(s) \backslash \undefr \right) \vee σ
-    }\lbl{RGuardedAccessFinite}
+    }\lbl{IRGuardedAccessFinite}
 
     \and\inferrule{%
-      Γ \vdash e_1 : τ \\ Γ \vdash e_2 : τ' \\
-      τ' \subtype \text{string} \\
-      Γ \vdash e_3 : σ
+      Γ \tinfer e_1 : τ \\
+      Γ \tinfer e_2 : s \\
+      Γ \tcheck e_3 : σ \\
+      τ(s)\backslash \undefr \subtype σ
     }{%
-      Γ \vdash e_1 . e_2 \text{ or } e_3 :
+      Γ \tcheck e_1 . e_2 \text{ or } e_3 : σ
+    }\lbl{CRGuardedAccessFinite}
+
+    \and\inferrule{%
+      Γ \tinfer e_1 : τ \\ Γ \tinfer e_2 : τ' \\
+      τ' \subtype \text{string} \\
+      Γ \tinfer e_3 : σ
+    }{%
+      Γ \tinfer e_1 . e_2 \text{ or } e_3 :
       \left( \defr(τ) \vee
         \bigvee\limits_{s \in \dom(τ)} τ(s) \backslash \undefr \right)
         \vee σ
-    }\lbl{RGuardedAccessInfinite}
+    }\lbl{IRGuardedAccessInfinite}
+
+    \and\inferrule{%
+      Γ \tinfer e_1 : τ \\ Γ \tinfer e_2 : τ' \\
+      τ' \subtype \text{string} \\
+      Γ \tcheck e_3 : σ \\
+      \left( \defr(τ) \vee
+        \bigvee\limits_{s \in \dom(τ)} τ(s) \backslash \undefr \right)
+        \subtype σ
+    }{%
+      Γ \tcheck e_1 . e_2 \text{ or } e_3 : σ
+    }\lbl{CRGuardedAccessInfinite}
   \end{mathpar}
   \caption{Typing rules for records\label{typing::records}}
 \end{figure}
