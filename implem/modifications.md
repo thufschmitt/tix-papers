@@ -1,37 +1,15 @@
 We here presented a fixed type-system. However several rules may be modified
 depending on the exact notion of safety we want to achieve.
-For example, we may consider that trying to access an undefined field of a
-record is an invalid operation that our type-system has to catch, or that it is
-a valid operation that raises a runtime error.
-We here adopted the first point of view, but taking the second one is possible
-by replacing the *RAccess* rule with the two rules from
-\Cref{implem::lax-records}:
 
-\begin{figure}
-  \begin{mathpar}
-    \inferrule{%
-      Γ \vdash e_1 : τ \\
-      Γ \vdash e_2 : \bigvee\limits_{i=1}^n s_i \\
-      τ \subtypeG \left\{ .. \right\} \\
-    }{%
-      Γ \vdash e_1 . e_2 : \left(
-        \bigvee\limits_{i=1}^n τ(s_i)
-      \right) \backslash \undefr
-    }\lbl{RAccessFinite}
+In particular, we may decide to get rid of the implicit gradual typing (the
+fact that an unannotated variable in a pattern is given the type `?`), and
+decide that an unannotated variable will be typed with the type `Any`.
+This forces the programmer to explicitly annotate the places where he wants the
+gradual typing to occur (in fact this forces the programmer to annotate almost
+every variable as the type-system does no unification).
 
-    \and\inferrule{%
-      Γ \vdash e_1 : τ \\
-      Γ \vdash e_2 : σ \\
-      σ \subtype \text{String} \\
-      τ \subtypeG \left\{ .. \right\} \\
-    }{%
-        Γ \vdash e_1 . e_2 :
-        \left( \defr(τ) \vee
-          \bigvee\limits_{s \in \dom(τ)} τ(s) \right) \backslash \undefr
-    }\lbl{RAccessInfinite}
-  \end{mathpar}
-  \caption{More permissive rules for the typing of record access\label{implem::lax-records}}
-\end{figure}
-
-The same can also be done for the definition of records (considering that the
-same field appearing twice is a runtime error not covered by the typechecker).
+We could even go further by locally disabling the gradual typing. In this case,
+the gradual type becomes a new distinguished type constant. We still need to
+provide a pair of explicit cast functions (a function `fromGrad : ? -> Empty`
+and a function `toGrad : Any -> ?`, both implemented as the identity) in order
+to be able to use gradual values from the outside world.
