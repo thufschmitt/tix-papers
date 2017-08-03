@@ -1,4 +1,10 @@
-# Introduction
+\input{out/generated/synthesis.tex}
+
+# Outline {-}
+\input{out/generated/outline.tex}
+
+# Background
+\label{sec:background}
 
 ## Nix    {#subsec:nix}
 <!--
@@ -20,12 +26,6 @@
 <!--  Présentation de l'interprétation ensembliste des types -->
 <!--  Justification informelle de pourquoi le système convient à Nix -->
 \input{out/generated/context/set-theoretic-types}
-
-## Contributions
-\input{out/generated/contributions.tex}
-
-## Outline
-\input{out/generated/outline.tex}
 
 # Nix-light <!--  TODO: find another name for this -->
 \label{sec:nix-light}
