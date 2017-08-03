@@ -96,7 +96,7 @@ If $τ_1$ and $τ_2$ are atomic record types then $τ_1 + τ_2$ is defined by:
 There are in fact three possible cases in this formula:
 
 - If $τ_1(x)$ does not contain $\undefr$, the field is defined in
-  $τ_1$, and we take its type for $(τ_1 + τ_2)(x)$,
+  $τ_1$, and we take its type $τ_1(x)$ for $(τ_1 + τ_2)(x)$,
 
 - if $τ_1(x)$ is  $\undefr$, then the field is undefined in $τ_1$ and
   the type of $(τ_1 + τ_2)(x)$ is the type of $τ_2(x)$,
