@@ -4,6 +4,35 @@ Nix language.
 We here present some parts of the language that have been omitted until now and
 an informal typing for them.
 
+### Special operators on lists and records
+
+We quickly talked in \Cref{sec:nix-light} of the `mapAttrs` function which can
+not be given a generic enough type by itself but needs to be considered as a
+special operator with a custom typing rule.
+Several other functions go into this category. Even the `map` function on lists
+can not be typed in a useful way with heterogeneous lists.
+
+Here is for example a possible pair of rules fore the `mapAttrs` function
+with atomic record types (the real rules need of course to be extended to
+arbitrary record types):
+
+\begin{mathpar}
+  \newcommand{\mapA}{\operatorname{mapAttrs}}
+  \inferrule{
+    Γ \tinfer e : \left\{ \seq{s_i = τ_i;}{i \in I} \right\} \\
+    Γ \tinfer f : τ_f \\
+    \forall i \in I, τ_f \image τ_i = σ_i \\
+  }{
+    Γ \tinfer \mapA(f, e) : \left\{ \seq{s_i = σ_i;}{i \in I} \right\}
+  }
+  \and\inferrule{
+    Γ \tinfer e : \left\{ \seq{s_i = τ_i;}{i \in I} \right\} \\
+    \forall i \in I, Γ \tcheck f : τ_i \rightarrow σ_i \\
+  }{
+    Γ \tcheck \mapA(f, e) : \left\{ \seq{s_i = σ_i;}{i \in I} \right\}
+  }
+\end{mathpar}
+
 ### The import function
 
 The import statement^[Which is just a function in Nix, but with a very special
