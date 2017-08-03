@@ -1,5 +1,4 @@
-The language we until here referred to as Nix was only a subset of the actual
-Nix language.
+The language we studied was only a subset of the actual Nix language.
 
 We here present some parts of the language that have been omitted until now and
 an informal typing for them.
