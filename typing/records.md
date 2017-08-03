@@ -34,13 +34,15 @@ represent an absent field in a record type.
 We write `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; }` as a shorthand for
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = $\undefr$ }` and
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; ... }` for
-`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any }`
-An optional field of type `τ` is a field of type `$τ \vee \undefr$`.
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any }`.
+An optional field of type `τ` is a field of type `$τ \vee \undefr$` (i.e., a
+field which may either of type `τ` or undefined).
 We write `x =? τ` as a shorthand for `x = $τ \vee \undefr$`.
 
 In this formalism, $t(x)$ is the type associated to $x$ in the record type $t$.
 
-Record types are (as shown by @Cas15) unions of atomic record types.
+Record types are (as shown by @Cas15) unions of atomic record types (types of
+the form `{ $s_1$ = $τ_1$; ...; $s_n$ = $τ_n$; _ = τ }`).
 All the operations that we define on atomic record types may be extended to
 those unions.
 We also extend them to gradual types by identifying `?` and `{ _ = ? }`.
@@ -51,21 +53,35 @@ complex records. Finally, we define the typing of field access.
 
 The rules are given in \Cref{typing::records}.
 
-#### Unary records
+#### Literal records
 
-We have two rules for the unary records, corresponding to the two use-cases of
-records:
+We have two rules for the literal records, corresponding to the two use-cases
+of records:
 
 - The *RFinite* rule handles the case of static records.
 
 - The *IRInfinite* and *CRInfinite* rules handle the case of dynamic maps. In
-  this case, we don't try to track all the elements of the record, we just give
-  it the type we would assign e.g. to a `Map` in OCaml.
+    this case, we don't try to track all the elements of the record, we just give
+    it the type we would assign e.g. to a `Map` in OCaml.
+
+    In this case, we decided to give up safety for more comfort: as a literal
+    record in Nix must have all its labels different^[This is unlike most other
+    dynamic programming languages such as Perl or Python. In those languages, a
+    field may be defined twice in a literal record, in which case the last
+    declaration has precedence over the others], a really safe version of
+    the rules would forbid the definition of any non-trivial record with a
+    dynamic label (a definition such as `{ e = 1; e' = 2; }` could not be
+    accepted as in the general case it is not possible to prove that `e` and
+    `e'` can't take the same value).
+    We allow this in our system − although the implementation may emit a
+    warning.
 
 #### Concatenation of records
 
-Saying that the field $x$ may be defined in the record type $t$ means that
-$t(x) \wedge \undefr \not\subtype \Empty$.
+We define the concatenation $r_1 + r_2$ of two record types:
+
+We say that the field $x$ may be defined in the record type $t$ if
+$t(x) \wedge \undefr \not\subtype \Empty$ (i.e., if it is not undefined).
 
 If $τ_1$ and $τ_2$ are atomic record types then $τ_1 + τ_2$ is defined by:
 
@@ -77,18 +93,18 @@ If $τ_1$ and $τ_2$ are atomic record types then $τ_1 + τ_2$ is defined by:
   \end{cases}
 \end{displaymath}
 
-There are in fact three possible cases for this:
+There are in fact three possible cases in this formula:
 
-- If $τ_1(x)$ does not contain $\undefr$, the field is always defined in
-  $τ_1$, and we take its type for $(τ_1 + τ_2)(x)$.
+- If $τ_1(x)$ does not contain $\undefr$, the field is defined in
+  $τ_1$, and we take its type for $(τ_1 + τ_2)(x)$,
 
-- If $τ_1(x)$ is  $\undefr$, then the field is always undefined in $τ_1$ and
-  the type of $(τ_1 + τ_2)(x)$ is the type of $τ_2(x)$.
+- if $τ_1(x)$ is  $\undefr$, then the field is undefined in $τ_1$ and
+  the type of $(τ_1 + τ_2)(x)$ is the type of $τ_2(x)$,
 
-- Else, the field may be defined and $τ_1(x) = τ_x \vee \undefr$ for some
-  type $τ_x$. The type of the result may be $τ_x$
+- else, the field may be defined and $τ_1(x) = τ_x \vee \undefr$ for some
+  type $τ_x$. The type of the result may be $τ_x$ or $τ_2(x)$.
 
-\newcommand{\domr}{\operatorname{dom}}
+This definition is naturally extended to arbitrary record types.
 
 #### Field access
 
@@ -103,6 +119,8 @@ For the case where a default value is provided, we distinguish the case where
 the name of the accessed field is statically known from the case where it isn't.
 Making such a distinction doesn't really make sense if no default value is
 provided, as when the accessed field is unknown there is no way to ensure that
-the accessed field indeed exists.
+the accessed field indeed exists. We could also here accept some unsoundness
+and allow this type of access like we do for literal records, but this pattern
+seems less used in practice so it is better not to add unnecessary unsoundness.
 
 \input{typing/record-typing-rules.tex}
