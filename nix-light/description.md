@@ -99,8 +99,8 @@ is explained in \Cref{typing::structures::records}).
   \begin{lstlisting}
 <value> ::=
   | <constant>
-  | Cons(<value>, <value>)
-  | { <ident> = <value>; $\cdots$; <ident> = <value>; }
+  | Cons(<expr>, <expr>)
+  | { <ident> = <expr>; $\cdots$; <ident> = <expr>; }
   | λ<pattern>.<expr>
   \end{lstlisting}
   \caption{Nix-light grammar for values\label{nix-light::grammar::values}}
