@@ -22,6 +22,8 @@
 \usepackage{unicode-math}
 \setmainfont{TeX Gyre Termes}
 \newfontfamily\listingfont{SourceCodePro-Regular.otf}[Path = ./fonts/]
+\newfontfamily\listingitfont{SourceCodePro-It.otf}[Path = ./fonts/]
+\newfontfamily\listingboldfont{SourceCodePro-Semibold.otf}[Path = ./fonts/]
 \setmathfont{texgyrebonum-math.otf}
 \setmathfont[Path= ./fonts/, range=\mathit]{SourceSansPro-Regular.otf}
 
@@ -43,8 +45,10 @@
 \definecolor{lstbg}{rgb}{0, 0, 0.3}
 \lstdefinelanguage{NLight}{%
   morekeywords={let,in,if,then,else,or,Cons,Nil},
-  morekeywords={[2]Int,true,false,Bool,String,t, Empty, Any},   % types go here
+  keywordstyle={\listingboldfont},
   otherkeywords={:,;,=,[,],\{,\},...}, % operators go here
+  morekeywords={[2]Int,true,false,Bool,String,t, Empty, Any},   % types go here
+  keywordstyle={[2]\listingitfont},
   literate={% replace strings with symbols
     {->}{{$\to$}}{1}
     {λ}{{$\lambda$}}{1}
@@ -62,9 +66,6 @@
     {(||}{{\ensuremath{\llparenthesis}}}{1} % chktex 9
     {||)}{{\ensuremath{\rrparenthesis}}}{1} % chktex 9
   },
-  basicstyle={\sffamily},
-  keywordstyle={\bfseries},
-  keywordstyle={[2]\itshape}, % style for types
   keepspaces,
   mathescape % optional
 }[keywords,comments,strings]
