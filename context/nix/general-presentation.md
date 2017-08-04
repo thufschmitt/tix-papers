@@ -1,9 +1,9 @@
 #### The package manager
 
-Nix \cite{phdeelco} is a package manager for Unix-like systems which tries to
-apply to package management some concepts coming from the world of programing
-languages (functional ones in particular).
-
+Nix \cite{phdeelco} − described as "the purely functional package manager" − is
+a package manager for Unix-like systems.
+It features a radically new approach to package management, taking most of its
+inspiration from functional languages:
 Conventional package managers (such as APT, Yum, or Pacman) treat the file
 system as one giant shared mutable data structure.
 Installing or removing a package means updating this structure in-place.
@@ -26,20 +26,21 @@ get the system back to its original state.
 Nix proposes a radically different approach: From the point of view of the
 user, the configuration of the system is fully determined as the result of the
 evaluation of an expression in a pure functional language (also called Nix).
-Coupled with an on-disk memoïsation system, this approach brings many
+Coupled with an on-disk memoization system, this approach brings many
 improvements, like a better reproducibility, transparent rollbacks, atomic
 upgrades, …
 
 #### The Nix language
 
-A huge part of the system relies on the language used to describe the system.
+A huge part of the relevance of this approach relies on the language used to
+describe the system.
 
 This language is essentially a lazy lambda-calculus, with lists,
 records and a notion of type at runtime (with functions such as `isInt` which
 returns `true` if and only if its argument is an integer).
 Additionally, it is untyped (not really by choice, but more because of a lack
-of time at its beginning. The original author himself considers that "Nix won't
-be complete until it has static typing" [@nixIssue14].
+of time at its beginning − the original author himself considers that "Nix
+won't be complete until it has static typing" [@nixIssue14]).
 
 Adding a type-system to this language would be an improvement on several
 aspects:
