@@ -13,12 +13,12 @@ entirely described by the result of the evaluation of an expression in a
 
 The Nix language is not statically typed. The aim of this internship is to
 design and implement a type-system for this language.
-The goal of this type-system is the same as Typed Racket by @FH08 : adding some
+The goal of this type-system is the same as Typed Racket by @FH08: adding some
 guaranties to possibly already existing code, while being the least intrusive
 possible.
 This means that we have to adapt the specificities of the language and the
-existing idioms instead of enforcing some constructs that would be easier to
-type.
+existing idioms instead of enforcing some new constructs that would be easier
+to type.
 
 The lack of a type-system is an issue that is often pointed out, but no one has
 so far attempted to design it (mostly because retro-fitting a type-system to an
@@ -99,20 +99,20 @@ The developments made on the theoretical side make the use of the type-system
 more expressive and easier to use thanks to the bidirectional typing, and
 proved its flexibility by showing that it can easily be adapted to a
 call-by-name semantics.
-The extension of the gradual typing of @CL17 to a more advanced type-system
-also serves as a proof of the accuracy of this approach.
+The use of the gradual typing of @CL17 in a more complex type-system also
+serves as a proof of the accuracy of this approach.
 
 ## Summary and future work {-}
 
 The type-system we designed covers most of the original requirements for the
-original practical problem, and was an occasion for developing the framework of
-the set-theoretic type-systems.
+original practical problem, and was an opportunity for developing the framework
+of the set-theoretic type-systems.
 
 A logical next step is to develop the implementation further to make it usable
 at large. This would prove the relevance of this approach for concrete
 applications.
 
 An annoying lack that would deserve to be filled is the absence of polymorphism
-in the type system. This wass essentially due to the fact that the gradual
+in the type system. This was essentially due to the fact that the gradual
 typing system of @CL17 was set in a monomorphic type-system. However, a recent
 extension by @Call18 adds polymorphism to this system, which may be used here.
