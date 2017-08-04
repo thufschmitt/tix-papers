@@ -38,14 +38,15 @@
   }\lbl{Capp}
 
   \and\inferrule{%
-    \forall i \in \{ 1 \ldots n \},
-      Γ; x_1 : ?; \cdots; x_n : ?; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tinfer e_i : \tau_i \\
-    \forall i \in \{ 1 \ldots m \},
-      Γ; x_1 : ?; \cdots; x_n : ?; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tcheck e'_i : \tau'_i \\
-    Γ; x_1 : \tau_1; \cdots; x_n : \tau_n; x'_1 : \tau'_1; \cdots; x'_m : \tau'_m \tIC e : \tau
+    \forall i \in I,
+      Γ; \seq{x_{i'}: ?;}{i' \in I}; \seq{x_j : τ_j}{j \in J} \tinfer e_i : τ_i \\
+    \forall j \in J,
+      Γ; \seq{x_i: ?;}{i \in I}; \seq{x_{j'}: τ_{j'}}{j' \in J} \tcheck e_j : τ_j \\
+    Γ; \seq{x_i: τ_i}{i \in I}; \seq{x_j : τ_j}{j \in J} \tIC e : τ
   }{%
-    Γ \tIC \text{let } x_1 = e_1; \cdots; x_n = e_n; x'_1 : \tau'_1 = e'_1; \cdots; x'_m : \tau'_m = e'_m;
-      \text{ in } e : \tau
+    Γ \tIC \text{let } \seq{x_i = e_i;}{i \in I};
+                       \seq{x_j : τ_j = e_j;}{j \in J}
+    \text{ in } e : τ
   }\lbl{Let}
 
   \and\inferrule{%
