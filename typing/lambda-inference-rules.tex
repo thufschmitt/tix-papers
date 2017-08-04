@@ -50,16 +50,16 @@
 
   \and\inferrule{%
     Γ \tinfer e : \tau \\
-    \tau \not\subtype \lnot t \Rightarrow Γ; x : \tau \wedge t \tinfer e_1 : σ_1 \\
-    \tau \not\subtype t \Rightarrow Γ; x : \tau \wedge \lnot t \tinfer e_2 : σ_2 \\
+    \tau \notsubtype \lnot t \Rightarrow Γ; x : \tau \wedge t \tinfer e_1 : σ_1 \\
+    \tau \notsubtype t \Rightarrow Γ; x : \tau \wedge \lnot t \tinfer e_2 : σ_2 \\
   }{%
     Γ \tinfer (x = e \in t) ? e_1 : e_2 : σ_1 \vee σ_2
   }\lbl{ITcase}
 
   \and\inferrule{%
     Γ \tinfer e : \tau \\
-    \tau \not\subtype \lnot t \Rightarrow Γ; x : \tau \wedge t \tcheck e_1 : σ \\
-    \tau \not\subtype t \Rightarrow Γ; x : \tau \wedge \lnot t \tcheck e_2 : σ \\
+    \tau \notsubtype \lnot t \Rightarrow Γ; x : \tau \wedge t \tcheck e_1 : σ \\
+    \tau \notsubtype t \Rightarrow Γ; x : \tau \wedge \lnot t \tcheck e_2 : σ \\
   }{%
     Γ \tcheck (x = e \in t) ? e_1 : e_2 : σ
   }\lbl{CTcase}

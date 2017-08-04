@@ -10,14 +10,20 @@
 \usepackage{hyperref}
 \usepackage{cleveref}
 
+% Some math caracters (\{ll,rr}bracket in particular)
+\usepackage{stmaryrd}
+% Who could live without those ?
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
 % To get a proper text encoding with xelatex
-\usepackage{fontspec}
-\setmainfont{Crimson-Roman.otf}[
-  Path =./fonts/,
-  BoldFont = Crimson-Bold.otf,
-  ItalicFont = Crimson-Italic.otf,
-  BoldItalicFont = Crimson-BoldItalic.otf
-]
+\usepackage{mathspec}
+\usepackage{unicode-math}
+\setmainfont{TeX Gyre Termes}
+\newfontfamily\listingfont{SourceCodePro-Regular.otf}[Path = ./fonts/]
+\setmathfont{texgyrebonum-math.otf}
+\setmathfont[Path= ./fonts/, range=\mathit]{SourceSansPro-Regular.otf}
 
 % For pandoc's pleasure
 \providecommand{\tightlist}{%
@@ -27,13 +33,6 @@
 \usepackage{mathpartir}
 % The labels of those rules
 \newcommand{\irlabel}[1]{\text{\emph{(#1)}}}
-
-% Some math caracters (\{ll,rr}bracket in particular)
-\usepackage{stmaryrd}
-% Who could live without those ?
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
 
 \usepackage{xfrac}
 
@@ -74,7 +73,7 @@
   breaklines=true,
   mathescape=true,
   language=NLight,
-  basicstyle=\color{lstbg}
+  basicstyle=\color{lstbg}\listingfont
 }
 
 \lstMakeShortInline{°}
@@ -93,6 +92,7 @@
 \newcommand{\seq}[2]{\overline{#1}^{#2}}
 % Subtyping
 \newcommand{\subtype}{\leq}
+\newcommand{\notsubtype}{\not\leq}
 \newcommand{\subtypeG}{\tilde\subtype}
 % Builtin types
 \DeclareMathOperator\Empty{Empty}
@@ -112,6 +112,7 @@ and Mathieu \textsc{Boespflug} (Tweag)}
 
 \begin{document}
 \maketitle
+% \mathversion{default}
 
 % \tableofcontents
 

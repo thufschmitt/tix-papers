@@ -81,7 +81,7 @@ of records:
 We define the concatenation $r_1 + r_2$ of two record types:
 
 We say that the field $x$ may be defined in the record type $t$ if
-$t(x) \wedge \undefr \not\subtype \Empty$ (i.e., if it is not undefined).
+$t(x) \wedge \undefr \notsubtype \Empty$ (i.e., if it is not undefined).
 
 If $τ_1$ and $τ_2$ are atomic record types then $τ_1 + τ_2$ is defined by:
 

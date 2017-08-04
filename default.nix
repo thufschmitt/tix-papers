@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
       (texlive.combine {
         inherit (texlive) scheme-medium syntax todo appendix paralist csvsimple
-        biblatex logreq xstring cleveref;
+        biblatex logreq xstring cleveref filehook;
       })
       pandoc
       biber
