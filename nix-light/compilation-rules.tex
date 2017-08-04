@@ -8,7 +8,7 @@
       °let v1 = (|e1|); $\cdots$; vn = (|en|); in (|e|)°\\
     °(|[ e1 $\cdots$ en ]|)° &= °[(|e1|) $\cdots$ (|en|)]°\\
     °(|{ record }|)° &= °TODO°\\
-    °(|rec { record }|)° &= °TODO°\\
+    °(|rec { record }|)° &= °(| derec { record } |)°\\
     °(|if isT x then e1 else e2|)° &= °(x = x tin T) ? (|e1|) : (|e2|)°\\
     °(|if e0 then e1 else e2|)° &=
       °(x = ((|e0|) : Bool) tin true) ? (|e1|) : (|e2|)°\\

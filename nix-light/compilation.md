@@ -51,4 +51,17 @@ The compilation of records is slightly complex, for two reasons:
     restrictive, we at least do not introduce an incorrect behaviour for well
     typed programs.
 
+\newcommand{\derec}{\operatorname{derec}}
+A recursive record definition `rec { x1 = e1; ...; xn = en; }` is translated to
+a non-recursive one by the $\derec$ function defined as:
+
+\begin{displaymath}
+  \derec\left(\text{ rec }\left\{ \seq{x_i = e_i }{i \in I} \right\}\right) =
+    \text{let } \seq{x'_i = e'_i}{i \in I} \text{ in }
+    \left\{ \seq{x_i = x'_i}{i \in I} \right\}
+\end{displaymath}
+
+Where the $x'_i$'s are fresh variables and each $e'_i$ is equal to
+$e_i\left[\seq{x_i := x'_i}{i \in I}\right]$.
+
 \input{nix-light/compilation-rules}
