@@ -47,7 +47,7 @@ Bool` (and thus the intersection of both).
 For the restriction of the language that we consider here, the only possible
 patterns are `<var>` and `<var>:τ`.
 
-\newcommand{\accept}[1]{\lbag{}#1\rbag{}}
+\newcommand{\accept}[1]{\left\langle#1\right\rangle}
 \newcommand{\tmatch}[2]{\sfrac{#2}{#1}}
 
 We define two operators $\accept{p}$ and $\tmatch{τ}{p}$ which corresponds
