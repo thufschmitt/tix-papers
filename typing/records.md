@@ -123,4 +123,43 @@ the accessed field indeed exists. We could also here accept some unsoundness
 and allow this type of access like we do for literal records, but this pattern
 seems less used in practice so it is better not to add unnecessary unsoundness.
 
+#### Record patterns
+
+We also extend the language of patterns to include the record-related ones from
+the rules of \Cref{nix-light::grammar}.
+We thus also extend the $\accept{p}$ and $\tmatch{τ}{p}$ operators.
+For the definition of $\accept{p}$, we need to propagate the type informations
+down the pattern because of the rule stating that a non-annotated variable is
+given the type `?`.
+Indeed, having a general rule $\accept{p:τ} = \accept{p} \wedge τ$ would not
+fit our needs because for example, the accepted type for the pattern
+`{ x } : { x = Int }` would be `{ x = ? AND Int }` while we want it to be
+`{ x = Int }`. So we need a rule implying that the accepting type of
+`{ x } : { x = Int }` is the accepted type of `{ x : Int }`. This is what the
+rules of \Cref{typing::records::accept} state.
+The extension of the $\tmatch{τ}{p}$ operator is given in \Cref{typing::records::tmatch}.
+
+\begin{figure}
+  \begin{align*}
+    \accept{ r ? c } &= \accept{r} \\
+    \accept{ \left\{ \seq{ l_i, }{i \in I} \right\}} &=
+      \left\{ \seq{ \var(l_i) = \accept{l_i}}{i \in I} \right\} \\
+    \accept{\left\{ \seq{ l_i }{i \in I}\right\}
+      : \left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
+      \accept{\left\{ \seq{ l_i : τ_i }{i \in I} \right\}} \\
+  \end{align*}
+  \caption{Extension of the $\accept{\cdot}$ operator for record patterns\label{typing::records::accept}}
+\end{figure}
+\begin{figure}
+  \begin{align*}
+    \tmatch{ x ? c }{τ} &= x : ? \vee \Bt(c) \\
+    \tmatch{ x : τ ? c }{τ} &= x : τ \vee \Bt(c) \\
+    \tmatch{ \left\{ \seq{ l_i}{i \in I}, \seq{ r_j ? c_j}{j \in J} \right\}}{\left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
+      \seq{ \tmatch{l_i}{τ_i} }{i \in I} &\quad\text{if } \forall i \in I, x_i = \var(l_i)\\
+    \tmatch{ \left\{ \seq{ l_i}{i \in I}, \seq{ r_j ? c_j}{j \in J}, ..\right\}}{\left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
+      \seq{ \tmatch{l_i}{τ_i} }{i \in I} &\quad\text{if } \forall i \in I, x_i = \var(l_i)\\
+  \end{align*}
+  \caption{Extension of the $\tmatch{τ}{p}$ operator for record patterns\label{typing::records::tmatch}}
+\end{figure}
+
 \input{typing/record-typing-rules.tex}
