@@ -102,4 +102,5 @@
 # Appendix {-}
 \input{out/generated/appendix/nix-grammar}
 \input{out/generated/appendix/nix-light-grammar}
+\input{out/generated/appendix/compilation}
 \input{out/generated/appendix/typecase-typing-rules.tex}

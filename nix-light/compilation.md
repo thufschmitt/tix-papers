@@ -51,17 +51,21 @@ The compilation of records is slightly complex, for two reasons:
     restrictive, we at least do not introduce an incorrect behaviour for well
     typed programs.
 
+\newcommand{\flatten}{\operatorname{flatten}}
+We define a function $\flatten$ to transform a non recursive record
+`{ ap1 = e1; ...; apn = en }` into a record without the nested records syntax
+(which we call a "flattened" record definition).
+Its definition is given in the \Cref{compilation::flatten}.
+
+The definition is quite contrived but is simply the generalisation of the
+idea that we want to transform `{ x.y = 1; x.z = 2; }` into
+`{ x = { y = 1; z = 2 }; }`
+
 \newcommand{\derec}{\operatorname{derec}}
-A recursive record definition `rec { x1 = e1; ...; xn = en; }` is translated to
-a non-recursive one by the $\derec$ function defined as:
-
-\begin{displaymath}
-  \derec\left(\text{ rec }\left\{ \seq{x_i = e_i }{i \in I} \right\}\right) =
-    \text{let } \seq{x'_i = e'_i}{i \in I} \text{ in }
-    \left\{ \seq{x_i = x'_i}{i \in I} \right\}
-\end{displaymath}
-
-Where the $x'_i$'s are fresh variables and each $e'_i$ is equal to
-$e_i\left[\seq{x_i := x'_i}{i \in I}\right]$.
+To translate a recursive record definition, we first flatten it using the
+$\flatten$ function defined above.
+A flattened recursive record definition `rec { x1 = e1; ...; xn = en; }` is
+then translated to a non-recursive one by the $\derec$ function defined in
+\Cref{compilation::derec}
 
 \input{nix-light/compilation-rules}
