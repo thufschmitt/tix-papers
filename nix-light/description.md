@@ -21,7 +21,6 @@ The differences are:
   type-system itself by annotating arrows. This can also be achieved (and in a
   less intrusive way) using this type-system and has in fact been implemented.
   This will be discussed in \Cref{implem::extensions}].
-  <!--- TODO: This tracking isn't explained yet --->
 
 - The definition of records is simplified: Nix has a specific syntax to
   define nested records (for example `{ x.y = 1; x.z = 2; }` is equivalent to

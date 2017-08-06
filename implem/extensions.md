@@ -32,6 +32,53 @@ arbitrary record types):
   }
 \end{mathpar}
 
+### Tracking of the predicates on types
+
+In the formalism we present here, we compile the if constructs differently
+depending on their form using a hardcoded list of predicates on types.
+This is not fully satisfactory as this only works at a syntactic-only level,
+and won't even detect some simple modifications such as the aliasing of a
+predicate. So `if isInt x then x+1 else 1` will typecheck (under the hypothesis
+that `x` is defined of course), while `let f = isInt; in if f x then x+1 else x`
+will not.
+
+It is possible to get more flexibility by recognizing that the notion of a
+predicate on a type `t` is a function of type
+`(t -> true) AND ($\lnot$t -> false)`.
+We can thus modify the Nix-light language by replacing the typecase and
+replacing it with a if construct, and replace the typecase rules by the
+following ones:
+
+\begin{mathpar}
+  \inferrule{
+    Γ \tinfer x : τ_x \\
+    Γ \tinfer f : (τ \rightarrow true) \wedge (\lnot τ \rightarrow false) \\
+    τ_x \notsubtype \lnot τ \Rightarrow Γ; x : τ \wedge τ_x \tinfer e_1 : σ_1 \\
+    τ_x \notsubtype τ \Rightarrow Γ; x : \lnot τ \wedge τ_x \tinfer e_2 : σ_2
+  }{
+    Γ \tinfer \text{if } f x \text{ then } e_1 \text{ else } e_2 : σ_1 \vee σ_2
+  }
+
+\and\inferrule{
+  Γ \tinfer e_0 : τ \\
+    τ \notsubtype \text{true} \Rightarrow Γ \vdash e_1 : σ_1 \\
+    τ \notsubtype \text{false} \Rightarrow Γ \vdash e_2 : σ_2 \\
+    e_0 \text{ not of the form } f x \text { with } f \text{ a predicate on types}
+}{
+  Γ \tinfer \text{if } f x \text{ then } e_1 \text{ else } e_2 : σ_1 \vee σ_2
+}
+\end{mathpar}
+
+The (theoretical) drawback of this approach is that instead of having a clean
+set of typing rules with one unified rule for the typecase and putting the
+ad-hoc part (the recognition of some special if constructs) into the
+preliminary compilation phase, we need to have a new ad-hoc rule for the
+if-then-else's (so the system is slightly more difficult to understand and
+modify).
+
+This has however been implemented as it gives much more flexibility to the
+system.
+
 ### The import function
 
 The import statement^[Which is just a function in Nix, but with a very special
