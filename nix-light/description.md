@@ -39,6 +39,9 @@ a non-recursive version of `<t>` (so the typecase is in reallity more somethifg
 like a "kind-case" which just checks for the head constuctor). The type
 `Any$\vee \nabla$` represents an optional field (the reason for this notation
 is explained in \Cref{typing::structures::records}).
+Like in Nix, we impose an additional constraint on records which is that in a
+record `{ x1 = e1; ...; xn = en }`, the labels `x1`, \ldots, `xn` must be
+pairwise distinct.
 
 #### Semantic
 
@@ -99,7 +102,5 @@ typing judgement (and thus make the semantics typing dependent). This typing
 judgement is however very simple at it simply checks the toplevel constructor
 of the given value. Its definition is given in annex at the
 \Cref{nix-light::typecase-typing}.
-<!--- TODO: Find a way to express the restriction that record fields need to be
-distincts --->
 
 \input{nix-light/semantics}
