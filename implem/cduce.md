@@ -26,23 +26,10 @@ The idea is to encode directly into the types the differences in the
 set-theoretic interpretation: instead of giving ourselves a distinguished
 element $\bot$ of the domain and adding it to some of the sets representing the
 types, we give ourselves a distinguished type $\bot$ (which has an empty
-intersection with any other basic type) and rewrite the types as follows:
+intersection with any other basic type) and rewrite the types as shown in
+\Cref{implem::lazy-rewriting}
 
 \newcommand{\interpr}[1]{\llbracket #1 \rrbracket}
-\begin{align*}
-  \interpr{b} &= b \\
-  \interpr{c} &= c \\
-  \interpr{\Empty} &= \Empty \\
-  \interpr{\Any} &= \Any \\
-  \interpr{Cons(τ, σ)} &= Cons(\interpr{τ} \vee \bot, \interpr{σ} \vee \bot) \\
-  \interpr{τ \rightarrow σ} &= (\interpr{τ} \vee \bot) \rightarrow σ \\
-  \interpr{τ \vee σ} &= \interpr{τ} \vee \interpr{σ} \\
-  \interpr{τ \wedge σ} &= \interpr{τ} \wedge \interpr{σ} \\
-  \interpr{\lnot t} &= \lnot (\interpr{t} \vee \bot) \\
-  \interpr{\{ x_1 = τ_1; \cdots; x_n = τ_n; \_ = τ \}} &=
-    \{ x_1 = \interpr{τ_1} \vee \bot; \cdots; x_n = \interpr{τ_n} \vee \bot;
-      \_ = \interpr{τ} \vee \bot \}
-\end{align*}
 
 ### Gradual subtyping
 

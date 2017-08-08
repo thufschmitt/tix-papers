@@ -104,3 +104,5 @@
 \input{out/generated/appendix/nix-light-grammar}
 \input{out/generated/appendix/compilation}
 \input{out/generated/appendix/typecase-typing-rules.tex}
+\input{out/generated/appendix/typecase-typing-rules.tex}
+\input{out/generated/appendix/implem.tex}
