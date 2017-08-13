@@ -2,30 +2,30 @@ The language we study is not the whole Nix language, but a simplified version
 of it (ommiting some minor features without importance for the type system and
 some other that will be dicussed in \Cref{implem::extensions}), to which we
 add type annotations. In this document, every reference to Nix is intended to
-refer to this variation of the language.
+refer to this variant of the language.
 
-The full syntax is given in appendix in the \Cref{nix::syntax,nix::types}.
+The full syntax is given in appendix in the \Cref{nix::syntax,nix::types}
+(whith the added type annotations highlighted in red).
 Its semantic is informally described below (the formal semantic is given in
 \Cref{sec:nix-light}).
 
-This language is lazily-evaluated a lambda calculus, with some additions,
+This language is a lazily-evaluated lambda calculus, with some additions,
 namely:
 
 - Constants, let-bindings (always recursive), some (hardcoded) infix operators
   and if construct's.
 
-- Lists, defined by the `[<expr> $\cdots$ <expr>]` syntax.
+- Lists, constructed by the `[<expr> $\cdots$ <expr>]` syntax.
 
 - Records, defined by the `{ <record-field>; ... <record-field>; }` syntax.
   The labels of record fields may be dynamically defined as the result of
-  arbitrary expressions (the only limitation being that those expressions must
+  arbitrary expressions (the only limitation being that these expressions must
   evaluate to string values).
-  In any case, all the labels have to be distinct in order for the record to be
-  well-defined.
+  All the labels must be distinct in order for the record to be well-defined.
   The records may be recursively defined (using the `rec` keyword), in which
   case, fields may depend one from another.
-  For example, the expression `rec { x = 1; y = x; }` is equivalent to `{ x =
-  1; y = 1; }`.
+  For example, the expression `rec { x = 1; y = x; }` is equivalent to
+  `{ x = 1; y = 1; }`.
 
 - A syntax for accessing record fields, of the form `<expr>.<access-path>`.
     Like for the definition of record litterals, the field names may be arbitrary
@@ -44,7 +44,7 @@ namely:
     or
     `{ <pattern-field>, $\cdots$, <pattern-field>, "..." }`, with the
     `<pattern-field>` construct of the form `<ident>` or `<ident> ? <expr>`
-    (which specifies a default value in case the field is absent).
+    (the latter specifying a default value in case the field is absent).
 
     Contrary to most languages where the capture variable may be different
     from the name of the field (for example in OCaml, a pattern matching e
@@ -55,18 +55,20 @@ namely:
 
 - Type annotations (absent in the actual language but added for this work).
     These annotations have been added as they are required by the typechecker.
-    There are two productions for types: the concrete types (noted `<t>`) and
-    the abstract types (noted `<τ>`). A distinction between both is mandatory
-    because the negation of a gradual type is not defined.
+    There are two productions for types: the static types (noted `<t>`) and
+    the gradual types (noted `<τ>`).
     The meaning of the types will be presented in \Cref{sec:typing}.
 
     The constructions `<R>` and `<ρ>` represents type regular exepressions
     which will be presented in \Cref{typing::structures::listes}.
 
+    The construction `<constant>` (for a type) represents singleton types: For
+    a constant `c`, The type `c` is the type whose sole value is `c`.
+
 In addition to these syntactic constructions, a lot of the expressiveness of
 the language resides in some predefined functions.
-For example, some functions do some advanced operations on records, like the
-`attNames` function, which when applied to a record returns the list of the
+For example, some functions perform some advanced operations on records, like
+the `attNames` function, which when applied to a record returns the list of the
 labels of this record (as strings).
 Another important class of functions is the set of functions that discriminate
 over a type, that is functions such as `isInt`, `isString`, `isBool`, and so on,
@@ -84,4 +86,6 @@ if isInt x then x else 1
 
 The type-system thus has to be aware of the fact that, in the `then` branch, the
 `x` variable has the type `Int` (and in particular recognize that the condition
-has a particular form, that needs a particular treatment).
+has a particular form, that needs a special treatment). This type-system
+feature originally found in Typed Racket [@FH08] is known as "occurence
+typing".
