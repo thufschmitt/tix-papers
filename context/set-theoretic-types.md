@@ -2,8 +2,8 @@ The characteristics of the language enforce several restrictions on the
 type-system. In particular :
 
 - Because of the huge base of (untyped) existing code, the system needs to be
-  flexible enough to accept as many expressions as possible, without
-  sacrificing the security guaranties.
+  flexible enough to accept as many expressions as possible, possibly
+  sacrificing some security guaranties.
 
 - It has to handle anonymous records with dynamic labels, as well as several
   operations on those records (adding or removing a field, merging records,
@@ -17,8 +17,8 @@ type-system. In particular :
   `λx. if isInt x then x==1 else not x` may be typed (with a type such as
   `Int $\vee$ Bool -> Bool`).
 
-Several existing type-systems already try to satisfy those requirements.
-The most famous one is probably the type-system of Typed Racket (@FH08), which
+Several existing type-systems already try to satisfy these requirements.
+The most well-known one is probably the type-system of Typed Racket (@FH08), which
 already implements at an industrial level most of what is needed in the context
 of the Scheme language.
 
@@ -31,11 +31,11 @@ values, which provides a natural interpretation for union, intersection or
 difference (as the corresponding operations on the underlying sets).
 This interpretation also provides a natural definition of a subtyping relation
 which corresponds to the inclusion relation on the interpretations as sets.
-Moreover, all those operations are decidable.
+Moreover, this relation is decidable.
 The work of @CL17 adds gradual typing to this system, which solves even more
-efficiently the first point. Unfortunately, this graduallity forbids us from
-using polymorphism, but a recent extension (@Call18) opens new perspectives on
-this subject.
+efficiently the requirement for a flexible type system. Unfortunately, this
+graduality forbids us from using polymorphism, but a recent extension (@Call18)
+opens new perspectives on this subject.
 
 This system offers thus more flexibility than most alternatives (allowing in
 particular arbitrary intersection types, which are a must-have as they allow
