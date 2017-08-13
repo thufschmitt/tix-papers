@@ -4,7 +4,7 @@ Nix \cite{phdeelco} − described as "the purely functional package manager" �
 a package manager for Unix-like systems.
 It features a radically new approach to package management, taking most of its
 inspiration from functional languages:
-Conventional package managers (such as APT, Yum, or Pacman) treat the file
+conventional package managers (such as APT, Yum, or Pacman) treat the file
 system as one giant shared mutable data structure.
 Installing or removing a package means updating this structure in-place.
 Such modifications are really hard to control − especially given the fact that
@@ -13,17 +13,17 @@ notoriously hard to understand^[An ANR project has been recently funded to
 check bash scripts for this exact use-case − see
 https://www.irif.fr/~treinen/colis/].
 
-In practice, this model presents several problems. For example, updates can't
+In practice, this model presents several problems. For example, updates can not
 be made atomic, so the state is incoherent during updates, and an unexpected
 interruption (electric failure, user interrupt, \ldots) can leave the system in
-a state where it isn't able to even boot.
+a state where it is not even able to boot.
 Moreover, the state of the system is hardly reproducible: several machines with
 the same set of installed packages may be in totally different states
 (depending on the exact sequence of actions that led to having that given set
 of packages). In particular, installing and then uninstalling a package may not
 get the system back to its original state.
 
-Nix proposes a radically different approach: From the point of view of the
+Nix proposes a radically different approach: from the point of view of the
 user, the configuration of the system is fully determined as the result of the
 evaluation of an expression in a pure functional language (also called Nix).
 Coupled with an on-disk memoization system, this approach brings many
@@ -50,9 +50,9 @@ aspects:
   The absence of typing makes every non-trivial modification particularly
   complicated and dangerous.
 
-- Related to its very fast grow, the project suffers from a huge lack of
+- Partly because of its very fast grow, the project suffers from a huge lack of
   documentation. In particular, a lot of complex internal abstractions are used
-  but undocumented at all.
+  but not documented at all.
   A type-system would reduce the impact of this problem.
 
 - Nix explores some really interesting ideas by applying to system management
@@ -62,10 +62,10 @@ aspects:
   without any interaction with the "package management" part, it offers an
   opportunity for such an extension.
 
-The language presents many characteristics that constraint a type-system for it:
+The language presents many characteristics that constrain a type-system for it:
 
 - It is possible to know at runtime the type of a value. This functionality is
-  used a lot in practice and requires a notion of union types to be useful as
+  used a lot in practice and requires a notion of union types to be useful, as
   we will see.
 
 - The fields of the records may have dynamically defined labels (i.e., labels
@@ -73,5 +73,5 @@ The language presents many characteristics that constraint a type-system for it:
   − provided it evaluates to a string).
 
 - The language has been existing for ten years without a type-system. This
-  naturally led to the introduction of several idiomatic constructs are hard to
+  naturally led to the introduction of several programing patterns are hard to
   type.
