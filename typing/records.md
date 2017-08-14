@@ -134,6 +134,11 @@ the accessed field indeed exists. We could also here accept some unsoundness
 and allow this type of access like we do for literal records, but this pattern
 seems less used in practice so it is better not to add unnecessary unsoundness.
 
+When the name of the accessed field is unknown, the return type is the union of
+all the types contained in the record and of the type of the default value,
+minus the $\undefr$ type as if the field is undefined then the default value is
+returned instead.
+
 #### Record patterns
 
 We also extend the language of patterns to include the record-related ones from
