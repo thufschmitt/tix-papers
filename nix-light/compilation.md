@@ -1,17 +1,21 @@
 #### Compilation
 
 A Nix program `p` is compiled to a Nix-light program `(|p|)` according to the
-rules of the \Cref{nix-light::compilation} (except for the type annotations
-whose compilation is covered in \Cref{typing::structures::listes}).
+rules of \Cref{nix-light::compilation} (except for the type annotations).
+The type annotations are exactly the same in Nix and Nix-light, and the
+compilation is just an identity mapping, except for the lists types which
+differ. The syntax of regular expression lists as well as their compilation to
+a combination of `Cons` and `Nil` types is covered by @Fri04 (the basic idea of
+this compilation is reminded in \Cref{typing::structures::listes}).
 
 Both languages are quite similar, hence most transformations are simply a
 transposition of a given structure to the same structure in the other language.
 
-The if construct construct is compiled to a typecase, with two separate rules
+The if construct is compiled to a typecase, with two separate rules
 depending on the form of the form of the condition:
 
 - The general case is to compile `if e0 then e1 else e2` to
-  `(x = (e0 : Bool) tin true) ? e1 : e2`.
+  `(x = (e0 : Bool) tin true) ? e1 : e2` with `x` a fresh variable.
   The semantics of the target expression is defined on a larger domain than the
   one we expect from the source one, as it is defined even if `e0` evaluates to
   something other than a boolean. However, the type annotation `e0 : Bool`
@@ -47,7 +51,7 @@ The compilation of records is slightly complex, for two reasons:
 
     The solution we use here is to always assume that they are different.
     If the type-checker confirms this, then everything is fine.
-    Otherwise, the program won't correctly typecheck, so while this is too
+    Otherwise, the program will not correctly typecheck, so while this is too
     restrictive, we at least do not introduce an incorrect behaviour for well
     typed programs.
 

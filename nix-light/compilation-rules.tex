@@ -13,8 +13,8 @@
     °(|if e0 then e1 else e2|)° &=
       °(x = ((|e0|) : Bool) tin true) ? (|e1|) : (|e2|)°\\
     &{\itshape
-      si °e0° n'est pas de la forme précédente ;
-      avec °x° libre dans °e1° et °e2°}\\
+      if °e0° is not of the form °isT y°;
+      with °x° a fresh variable \\
     °(|e.apf1. $\cdots$ . apfn|)° &= °(|e|).(||apf1||). $\cdots$ .(||apfn||)°\\
     °(|e1.ap or e2|)° &= °(|e1.ap|) or (|e2|)°\\
     °(|e1 op e2|)° &= °(|e1|) op (|e2|)°\\
@@ -23,5 +23,5 @@
     °(||DOLLAR{e}||)° &= °(|e|)°\\
     °(||x||)° &= °"x"°
   \end{tabular}
-  \caption{Semantics of the compilation from Nix to Nix-light}\label{nix-light::compilation}
+  \caption{Compilation from Nix to Nix-light}\label{nix-light::compilation}
 \end{figure}
