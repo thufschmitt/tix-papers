@@ -46,7 +46,7 @@
 \lstdefinelanguage{NLight}{%
   morekeywords={let,in,if,then,else,or,Cons,Nil},
   keywordstyle={\listingboldfont},
-  otherkeywords={:,;,=,[,],\{,\},...}, % operators go here
+  otherkeywords={:,;,=,[,],\{,\},..}, % operators go here
   morekeywords={[2]Int,true,false,Bool,String,t, Empty, Any},   % types go here
   keywordstyle={[2]\listingitfont},
   literate={% replace strings with symbols
@@ -68,10 +68,12 @@
     {||)}{{\ensuremath{\rrparenthesis}}}{1} % chktex 9
   },
   keepspaces,
+  morecomment=[l]»,
   mathescape % optional
 }[keywords,comments,strings]
 \lstset{%
   escapeinside={//*}{*//},
+  commentstyle=\color{black},
   breaklines=true,
   mathescape=true,
   language=NLight,

@@ -1,0 +1,7 @@
+» cat /tmp/test.nix 
+let
+  f /*: (true -> Int -> Int) | (false -> Bool -> Bool) */ = cond: x:
+  if cond then x+1 else __not x;
+in f
+» ./_build/install/default/bin/tix /tmp/test.nix 
+(`false -> Bool -> Bool) | (`true -> Int -> Int)

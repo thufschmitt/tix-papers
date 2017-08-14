@@ -1,0 +1,10 @@
+» cat /tmp/test.nix 
+let
+  f = { x /*: Bool */, y /*: Int */}:
+  if x then
+    y
+    else x;
+  r = { y = true; };
+in f r
+» ./_build/install/default/bin/tix /tmp/test.nix 
+error: This expression has type { y=1 } while a subtype of { x=Bool y=Int } was expected at file /tmp/test.nix, line 7, character 6

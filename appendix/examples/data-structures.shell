@@ -1,0 +1,6 @@
+» cat examples/data-structures.nix 
+let
+  r = { x = true; y = r; z = [ 1 2 r ]; };
+in r
+» ./_build/install/default/bin/tix examples/data-structures.nix
+{ x=`true y='? z=[ 1 2 '? ] }

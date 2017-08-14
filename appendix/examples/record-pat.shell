@@ -1,0 +1,9 @@
+» cat examples/record-pattern.nix
+let
+  f = { x /*: Bool */, y}:
+  if x then
+    y
+    else x;
+in f
+» ./_build/install/default/bin/tix examples/record-pattern.nix
+{ x=Bool y='? } -> Bool | '?

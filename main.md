@@ -62,6 +62,9 @@
 <!--  Description du typage des deux structures de données de Nix -->
 \label{typing::structures}
 
+We now extends our core calculus with the two builtins data structures of Nix
+(lists and records).
+
 ### Lists
 <!--
   Typage des listes. Rien de très compliqué, mais les regexp-lists nécessitent
@@ -108,3 +111,4 @@
 \input{out/generated/appendix/typecase-typing-rules.tex}
 \input{appendix/record-typing.tex}
 \input{out/generated/appendix/implem.tex}
+\input{out/generated/appendix/examples.tex}
