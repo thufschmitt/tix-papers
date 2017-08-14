@@ -150,27 +150,4 @@ fit our needs because for example, the accepted type for the pattern
 rules of \Cref{typing::records::accept} state.
 The extension of the $\tmatch{τ}{p}$ operator is given in \Cref{typing::records::tmatch}.
 
-\begin{figure}
-  \begin{align*}
-    \accept{ r ? c } &= \accept{r} \\
-    \accept{ \left\{ \seq{ l_i, }{i \in I} \right\}} &=
-      \left\{ \seq{ \var(l_i) = \accept{l_i}}{i \in I} \right\} \\
-    \accept{\left\{ \seq{ l_i }{i \in I}\right\}
-      : \left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
-      \accept{\left\{ \seq{ l_i : τ_i }{i \in I} \right\}} \\
-  \end{align*}
-  \caption{Extension of the $\accept{\cdot}$ operator for record patterns\label{typing::records::accept}}
-\end{figure}
-\begin{figure}
-  \begin{align*}
-    \tmatch{ x ? c }{τ} &= x : ? \vee \Bt(c) \\
-    \tmatch{ x : τ ? c }{τ} &= x : τ \vee \Bt(c) \\
-    \tmatch{ \left\{ \seq{ l_i}{i \in I}, \seq{ r_j ? c_j}{j \in J} \right\}}{\left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
-      \seq{ \tmatch{l_i}{τ_i} }{i \in I} &\quad\text{if } \forall i \in I, x_i = \var(l_i)\\
-    \tmatch{ \left\{ \seq{ l_i}{i \in I}, \seq{ r_j ? c_j}{j \in J}, ..\right\}}{\left\{\seq{x_i = τ_i}{i \in I}\right\}} &=
-      \seq{ \tmatch{l_i}{τ_i} }{i \in I} &\quad\text{if } \forall i \in I, x_i = \var(l_i)\\
-  \end{align*}
-  \caption{Extension of the $\tmatch{τ}{p}$ operator for record patterns\label{typing::records::tmatch}}
-\end{figure}
-
 \input{typing/record-typing-rules.tex}

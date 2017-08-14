@@ -26,3 +26,30 @@
   \caption{Definition of the $\derec$ function on records\label{compilation::derec}}
 \end{figure}
 
+\begin{figure}[H]
+  \begin{tabular}{ll}
+    °(|x|)° &= °x° \\
+    °(|c|)° &= °c°\\
+    °(|λp.e|)° &= °λ(|p|).(|e|)°\\
+    °(|e1 e2|)° &= °(|e1|) (|e2|)°\\
+    °(|let v1 = e1; $\cdots$; vn = en; in e|)° &=
+      °let v1 = (|e1|); $\cdots$; vn = (|en|); in (|e|)°\\
+    °(|[ e1 $\cdots$ en ]|)° &= °[(|e1|) $\cdots$ (|en|)]°\\
+    °(|{ ap1 = e1; ...; apn = en }|)° &= °$\flatten$({ (|ap1|) = (|e1|); ...; (|apn|) = (|en|) })°\\
+    °(|rec { record }|)° &= °$\derec$((|{ record }|))°\\
+    °(|if isT x then e1 else e2|)° &= °(x = x tin T) ? (|e1|) : (|e2|)°\\
+    °(|if e0 then e1 else e2|)° &=
+      °(x = ((|e0|) : Bool) tin true) ? (|e1|) : (|e2|)°\\
+    &{\itshape
+      if °e0° is not of the form °isT y°;
+      with °x° a fresh variable \\
+    °(|e.apf1. $\cdots$ . apfn|)° &= °(|e|).(||apf1||). $\cdots$ .(||apfn||)°\\
+    °(|e1.ap or e2|)° &= °(|e1.ap|) or (|e2|)°\\
+    °(|e1 op e2|)° &= °(|e1|) op (|e2|)°\\
+    °(|e : τ|)° &= °(|e|) : (|τ|)°\\
+
+    °(||DOLLAR{e}||)° &= °(|e|)°\\
+    °(||x||)° &= °"x"°
+  \end{tabular}
+  \caption{Compilation from Nix to Nix-light}\label{nix-light::compilation}
+\end{figure}

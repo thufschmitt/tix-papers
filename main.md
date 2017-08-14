@@ -97,12 +97,14 @@
 \input{out/generated/implem/extensions.tex}
 \label{implem::extensions}
 
+\printbibliography{}
 \appendix
 
 # Appendix {-}
 \input{out/generated/appendix/nix-grammar}
 \input{out/generated/appendix/nix-light-grammar}
+\input{appendix/nix-light-semantics.tex}
 \input{out/generated/appendix/compilation}
 \input{out/generated/appendix/typecase-typing-rules.tex}
-\input{out/generated/appendix/typecase-typing-rules.tex}
+\input{appendix/record-typing.tex}
 \input{out/generated/appendix/implem.tex}

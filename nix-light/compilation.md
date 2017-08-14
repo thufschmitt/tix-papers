@@ -21,6 +21,7 @@ depending on the form of the form of the condition:
   something other than a boolean. However, the type annotation `e0 : Bool`
   enforces that (if the expression is well-typed) `e0` evaluates to a boolean.
   Hence, the semantic coincides for well-typed terms.
+  <!-- TODO: if e1 | e2 then ... -->
 
 - If `e0` is of the form `isT x` where `isT` is a discriminant of the type `t`
   (i.e., a builtin function that returns `true` if its argument is of type `t`
@@ -71,5 +72,3 @@ $\flatten$ function defined above.
 A flattened recursive record definition `rec { x1 = e1; ...; xn = en; }` is
 then translated to a non-recursive one by the $\derec$ function defined in
 \Cref{compilation::derec}
-
-\input{nix-light/compilation-rules}

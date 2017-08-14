@@ -84,5 +84,3 @@ typing judgement (and thus make the semantics typing dependent). This typing
 judgement is however very simple at it simply checks the toplevel constructor
 of the given value. Its definition is given in annex at the
 \Cref{nix-light::typecase-typing}.
-
-\input{nix-light/semantics}
