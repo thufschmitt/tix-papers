@@ -37,6 +37,8 @@
   °{ x = e; $\cdots$ }.x or e'° &\leadsto °e° \\
   °{ x1 = e1; $\cdots$; xn = en }.x or e'° &\leadsto °e'°
       \quad if $x \notin \left\{ x1, \cdots, xn \right\}$ \\
+  °Head(Cons(e1, e2))° &\leadsto °e1° \\
+  °Tail(Cons(e1, e2))° &\leadsto °e2° \\
   °e : τ° &\leadsto °e°
   \end{tabular}
   \caption{Nix-light operational semantics\label{nix-light::semantics}}

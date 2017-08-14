@@ -15,6 +15,7 @@
 
 <operator> ::=
   | <expr> <infix-op> <expr>
+  | Head(<expr>) | Tail(<expr>)
 
 <infix-op> ::= + | - | * | / | // | ++ | $\cdots$
 
