@@ -1,14 +1,14 @@
 \newcommand{\cduce}{CDuce}
 Instead of implementing our own implementation of types and of the subtyping
-algorithm, we reused the one used in the implementation of the \cduce
+algorithm, we reused those of the implementation of the \cduce{}
 language[@Ball03].
 
-\cduce is a language specialized in the manipulation of XML documents which
+\cduce{} is a language specialized in the manipulation of XML documents which
 features a type-system based on the set-theoretic types of @Fri04 (on which
 this work is itself based).
 Although its type-system is obviously not the same as the one presented here,
 its types form a supertype of ours (with the exception of the gradual type
-which is absent in \cduce but may be encoded as a distinguished type constant),
+which is absent in \cduce{} but may be encoded as a distinguished type constant),
 so we could reuse its representation.
 
 We also wanted to reuse its subtyping algorithm (since implementing it would
