@@ -1,4 +1,4 @@
-We here presented a fixed type-system. However several rules may be modified
+We here presented a particular type-system. However several rules may be modified
 depending on the exact notion of safety we want to achieve.
 
 In particular, we may decide to get rid of the implicit gradual typing (the
@@ -8,8 +8,8 @@ This forces the programmer to explicitly annotate the places where he wants the
 gradual typing to occur (in fact this forces the programmer to annotate almost
 every variable as the type-system does no unification).
 
-We could even go further by locally disabling the gradual typing. In this case,
-the gradual type becomes a new distinguished type constant. We still need to
-provide a pair of explicit cast functions (a function `fromGrad : ? -> Empty`
-and a function `toGrad : Any -> ?`, both implemented as the identity) in order
-to be able to use gradual values from the outside world.
+We could even decide to go further by locally disabling the gradual typing. In
+this case, the gradual type could become a new distinguished type constant. We
+still need to provide a pair of explicit cast functions (a function `fromGrad :
+? -> Empty` and a function `toGrad : Any -> ?`, both implemented as the
+identity) in order to be able to use gradual values from the outside world.
