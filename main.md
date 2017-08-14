@@ -100,6 +100,9 @@ We now extends our core calculus with the two builtins data structures of Nix
 \input{out/generated/implem/extensions.tex}
 \label{implem::extensions}
 
+# Conclusion {-}
+\input{out/generated/conclusion.tex}
+
 \printbibliography{}
 \appendix
 
