@@ -1,4 +1,31 @@
 \begin{figure}
+  \begin{align*}
+    \sfrac{x}{e}    &= x := e \\
+    \sfrac{p:τ}{e}  &= \sfrac{p}{e} \\
+    \sfrac{q@x}{v}  &= x := v; \sfrac{q}{v} \\
+    \sfrac{\{..\}}{\{\cdots\}} &= \varnothing\\
+    \sfrac{\{\}}{\{\}} &= \varnothing \\
+    \sfrac{\{ l, \seq{l_i,}{i \in I}\}}{\{ x = e; \seq{x_j = e_j;}{j \in J} \}}
+      &= \sfrac{l}{e};
+        \sfrac{\{ \seq{l_i,}{i \in I}\}}{\{ \seq{x_j = e_j;}{j \in J}\}}
+        \quad\text{ if } x = \var(l) \\
+    \sfrac{\{ l, \seq{l_i,}{i \in I}, l_m, .. \}}{\{ x = e; \seq{x_j = e_j;}{j \in J}\}}
+      &= \sfrac{l}{e};
+        \sfrac{\{ \seq{l_i,}{i \in I}, .. \}}{\{ \seq{x_j = e_j;}{j \in J}\}}
+        \quad\text{ if } x = \var(l) \\
+    \sfrac{\{ r ? c, \seq{l_i,}{i \in I} \}}{\{ \seq{x_j = e_j;}{j \in J} \}}
+      &= \sfrac{r}{c};
+        \sfrac{\{ \seq{l_i,}{i \in I} \}}{\{ \seq{x_j = e_j;}{j \in J} \}}
+        \quad\text{ if } \forall j \in J, x_j \neq \var(r) \\
+    \sfrac{\{ r ? c, \seq{l_i,}{i \in I}, .. \}}{\{ \seq{x_j = e_j;}{j \in J} \}}
+      &= \sfrac{r}{c};
+        \sfrac{\{ \seq{l_i,}{i \in I}, .. \}}{\{ \seq{x_j = e_j;}{j \in J} \}}
+        \quad\text{ if } \forall j \in J, x_j \neq \var(r)
+  \end{align*}
+  \caption{Semantic of the pattern-matching in Nix-light\label{nix-light::pattern-matching}}
+\end{figure}
+
+\begin{figure}
   \center
   \def\leadsto{\ensuremath{\rightsquigarrow}}
   \begin{tabular}{rl}
