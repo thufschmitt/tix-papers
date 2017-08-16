@@ -60,7 +60,7 @@ The compilation of records is slightly complex, for two reasons:
 We define a function $\flatten$ to transform a non recursive record
 `{ ap1 = e1; ...; apn = en }` into a record without the nested records syntax
 (which we call a "flattened" record definition).
-Its definition is given in the \Cref{compilation::flatten}.
+Its definition is given in \Cref{compilation::flatten}.
 
 The definition is quite contrived but is simply the generalisation of the
 idea that we want to transform `{ x.y = 1; x.z = 2; }` into

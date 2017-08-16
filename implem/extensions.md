@@ -34,10 +34,10 @@ arbitrary record types):
 
 ### Tracking of the predicates on types
 
-In the formalism we present here, we compile the if constructs differently
+In the formalism we present here, we compile the `if` constructs differently
 depending on their form using a hardcoded list of predicates on types.
-This is not fully satisfactory as this only works at a syntactic-level only,
-and well not even detect some simple modifications such as the aliasing of a
+This is not fully satisfactory as this only works at a syntactic-level,
+and will not even detect some simple modifications such as the aliasing of a
 predicate. So `if isInt x then x+1 else 1` will typecheck (under the hypothesis
 that `x` is defined of course), while `let f = isInt; in if f x then x+1 else x`
 will not.

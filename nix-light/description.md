@@ -1,11 +1,11 @@
 #### Grammar
 
 Nix-light is similar to Nix, but makes syntactically distinct all the elements
-which requires a special treatment from the typechecker.
+which require a special treatment from the typechecker.
 
 The differences are:
 
-- The if construct is replaced by the more general "typecase" construct of the
+- The `if` construct is replaced by the more general "typecase" construct of the
   form `(x = e0 tin t) ? e1 : e2` (which evaluates to `e1` if `e0` evaluates to
   a value of type `t` and to `e2` otherwise).
   The general case `if e0 then e1 else e2` will be compiled to
@@ -23,7 +23,7 @@ The differences are:
   This will be discussed in \Cref{implem::extensions}].
 
     The binding in `(x = e0 tin t) ? e1 : e2` is necessary to allow occurence
-    typing (because we must refine the type of a variable, so we can't do
+    typing (because we must refine the type of a variable, so we can not do
     anything on `e0` directly).
 
 - The definition of records is simplified: Nix has a specific syntax to
@@ -51,7 +51,7 @@ pairwise distinct.
 
 ##### Pattern-matching
 
-The pattern-matching in Nix-light has a rather classical semantic for a lazy
+Pattern-matching in Nix-light has a rather classical semantic for a lazy
 language, with the simplification that as patterns are not recursive, the
 argument is either non-evaluated at all, or evaluated in head normal form.
 
@@ -79,8 +79,8 @@ substitution `x1 := e1; ...; xn := en`.
 The full semantic is given in \Cref{nix-light::semantics}.
 
 The reduction rules should be self-explanatory.
-The only worth mentioning are the two rules for the typecase, which involve a
-typing judgement (and thus make the semantics typing dependent). This typing
-judgement is however very simple at it simply checks the toplevel constructor
-of the given value. Its definition is given in annex at the
+The only rules worth mentioning are the two rules for the typecase, which
+involve a typing judgement (and thus make the semantics typing dependent). This
+typing judgement is however very simple at it simply checks the toplevel
+constructor of the given value. Its definition is given in annex in
 \Cref{nix-light::typecase-typing}.

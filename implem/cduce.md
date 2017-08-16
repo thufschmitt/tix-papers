@@ -40,5 +40,5 @@ This definition can be expressed as:
 > $τ_1 \subtypeG τ_2$ if $τ_1^\Downarrow \subtype τ_2^\Uparrow$
 
 Where $τ^\Downarrow$ (resp. $τ^\Uparrow$) is obtained by replacing every
-covariant occurrence of `?` in $τ$ by $\Any$ (resp. $\Empty$) and every
-contravariant occurrence of `?` by $\Empty$ (resp. $\Any$).
+covariant occurrence of `?` in $τ$ by `Any` (resp. `Empty`) and every
+contravariant occurrence of `?` by `Empty` (resp. `Any`).

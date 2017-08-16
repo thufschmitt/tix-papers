@@ -25,7 +25,7 @@ In Nix, there are two main uses of records
 labels.
 
 We use here an extension of this formalism to allow dynamic labels, which lets
-us nicely handle both use-cases. (we also slightly modify it to meet the
+us nicely handle both use-case. (we also slightly modify it to meet the
 requirements of lazy evaluation and gradual typing).
 \newcommand{\undefr}{\nabla}
 We assume the existence of a distinguished constant type `$\undefr$` which
@@ -35,6 +35,11 @@ We write `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; }` as a shorthand for
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = $\undefr$ }` and
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; .. }` for
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any }`.
+The former corresponds to a *closed* record type (i.e., a record of this type
+will have *exactly* the listed fields with the given types) while the latter
+corresponds to an *open* record type (i.e., a record of this type will have *at
+least* the listed fields with the given types).
+
 An optional field of type `τ` is a field of type `$τ \vee \undefr$` (i.e., a
 field which may be either of type `τ` or undefined).
 We write `x =? τ` as a shorthand for `x = $τ \vee \undefr$`.
@@ -65,7 +70,7 @@ of records:
   absence of dynamic labels.
 
 - The *IRInfinite* and *CRInfinite* rules handle the case of dynamic maps. In
-    this case, we don't try to track all the elements of the record, we just
+    this case, we do not try to track all the elements of the record, we just
     give it the type we would assign e.g. to a `Map` in OCaml, which is the
     type of a record whose elements are all of the same type and are all
     optional. We take $\bigvee\limits_{i\in I} σ_i$ as the type of the elements
@@ -132,7 +137,7 @@ Making such a distinction does not really make sense if no default value is
 provided, as when the accessed field is unknown there is no way to ensure that
 the accessed field indeed exists. We could also here accept some unsoundness
 and allow this type of access like we do for literal records, but this pattern
-seems less used in practice so it is better not to add unnecessary unsoundness.
+seems less used in practice so we prefer not to add unnecessary unsoundness.
 
 When the name of the accessed field is unknown, the return type is the union of
 all the types contained in the record and of the type of the default value,

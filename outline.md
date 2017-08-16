@@ -1,6 +1,6 @@
 We present in \Cref{sec:background} the background for our work: Nix (the
 package manager and the language) which is the object of our work, and the
-set-theoretic types framework in which the resulting type-system takes place.
+set-theoretic types framework in which the resulting type-system is developped.
 The Nix language is difficult to reason about because of its flexibility.
 Because of this, we will not work directly on it, but we designed a simplified
 version called Nix-light, which will serve as a basis for all the work.

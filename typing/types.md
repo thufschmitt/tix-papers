@@ -7,20 +7,20 @@ Their syntax is given alongside Nix-light's grammar in
 
 We distinguish two type productions: the static types (noted by roman letters:
 $t, s, \ldots$) and the gradual types (in greek letters: $τ, σ, \ldots$).
-These productions essentially corresponds to the types presented by @CL17,
+These productions essentially correspond to the types presented by @CL17,
 with as addition the record and list types which are similar to the ones
 presented in [@Fri04].
 
 A type `t` is interpreted as the set of all the values of type `t`.
 The union ($\vee$), intersection ($\wedge$) and difference ($\backslash$)
-connectives corresponds respectively to the set-theoretic union ($\cup$),
+connectives correspond respectively to the set-theoretic union ($\cup$),
 intersection ($\cap$) and difference ($\backslash$). So an expression of type
 `t1 OR t2` is an expression that can be either of type `t1` or of type `t2`; an
 expression of type `t1 AND t2` is an expression that is both of type `t1` and
 of type `t2` and an expression of type `t1 \ t2` is an expression that is of
 type `t1` but not of type `t2`.
 
-Following the work of @Fri04, the types also contain singleton types (i.e., for
+Following the work of @Fri04, the types also include singleton types (i.e., for
 every constant `c`, there exists a type `c` such that `c` is the only value of
 type `c`).
 For example, the type `Bool` is not a builtin type, but is the type `true OR
@@ -49,7 +49,7 @@ inhabited for example by `{ x = let y = y in y; }`.
 It is possible to modify this interpretation to take this difference into
 account, by adding at some places a special constant (noted $\bot$) to the
 interpretation of the types.
-For example, let's assume for a moment that our types contains a product
+For example, assume for a moment that our types contain a product
 constructor $\cdot \times \cdot$.
 The interpretation $\llbracket A \times B \rrbracket$ of the type $A \times B$
 is $\llbracket A \rrbracket \times \llbracket B \rrbracket$ in the

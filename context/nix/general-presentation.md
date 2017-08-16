@@ -8,7 +8,7 @@ conventional package managers (such as APT, Yum, or Pacman) treat the file
 system as one giant shared mutable data structure.
 Installing or removing a package means updating this structure in-place.
 Such modifications are really hard to control − especially given the fact that
-parts of those are often delegated to shell scripts whose semantic is
+parts of them are often delegated to shell scripts whose semantic is
 notoriously hard to understand^[An ANR project has been recently funded to
 check bash scripts for this exact use-case − see
 https://www.irif.fr/~treinen/colis/].
@@ -19,15 +19,15 @@ interruption (electric failure, user interrupt, \ldots) can leave the system in
 a state where it is not even able to boot.
 Moreover, the state of the system is hardly reproducible: several machines with
 the same set of installed packages may be in totally different states
-(depending on the exact sequence of actions that led to having that given set
-of packages). In particular, installing and then uninstalling a package may not
+depending on the exact sequence of actions that led to having that given set
+of packages. In particular, installing and then uninstalling a package may not
 get the system back to its original state.
 
 Nix proposes a radically different approach: from the point of view of the
 user, the configuration of the system is fully determined as the result of the
 evaluation of an expression in a pure functional language (also called Nix).
 Coupled with an on-disk memoization system, this approach brings many
-improvements, like a better reproducibility, transparent rollbacks, atomic
+improvements, like better reproducibility, transparent rollbacks, atomic
 upgrades, …
 
 #### The Nix language
