@@ -1,4 +1,4 @@
-\begin{figure}
+\begin{figure}[H]
   \begin{align*}
     \accept{ r ? c } &= \accept{r} \\
     \accept{ \left\{ \seq{ l_i, }{i \in I} \right\}} &=
@@ -9,7 +9,7 @@
   \end{align*}
   \caption{Extension of the $\accept{\cdot}$ operator for record patterns\label{typing::records::accept}}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
   \begin{align*}
     \tmatch{ x ? c }{τ} &= x : ? \vee \Bt(c) \\
     \tmatch{ x : τ ? c }{τ} &= x : τ \vee \Bt(c) \\
