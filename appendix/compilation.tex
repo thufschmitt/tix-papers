@@ -31,21 +31,22 @@
     °(|x|)° &= °x° \\
     °(|c|)° &= °c°\\
     °(|λp.e|)° &= °λ(|p|).(|e|)°\\
-    °(|e1 e2|)° &= °(|e1|) (|e2|)°\\
-    °(|let v1 = e1; $\cdots$; vn = en; in e|)° &=
-      °let v1 = (|e1|); $\cdots$; vn = (|en|); in (|e|)°\\
-    °(|[ e1 $\cdots$ en ]|)° &= °[(|e1|) $\cdots$ (|en|)]°\\
-    °(|{ ap1 = e1; ...; apn = en }|)° &= °$\flatten$({ (|ap1|) = (|e1|); ...; (|apn|) = (|en|) })°\\
+    °(|$e_1$ $e_2$|)° &= °(|$e_1$|) (|$e_2$|)°\\
+    °(|let $v_1$ = $e_1$; $\cdots$; $v_n$ = $e_n$; in e|)° &=
+      °let $v_1$ = (|$e_1$|); $\cdots$; $v_n$ = (|$e_n$|); in (|e|)°\\
+    °(|[ $e_1$ $\cdots$ $e_n$ ]|)° &= °[(|$e_1$|) $\cdots$ (|$e_n$|)]°\\
+    °(|{ $ap_1$ = $e_1$; ...; $ap_n$ = $e_n$ }|)°
+      &= °$\flatten$({ (|$ap_1$|) = (|$e_1$|); ...; (|$ap_n$|) = (|$e_n$|) })°\\
     °(|rec { record }|)° &= °$\derec$((|{ record }|))°\\
-    °(|if isT x then e1 else e2|)° &= °(x = x tin T) ? (|e1|) : (|e2|)°\\
-    °(|if e0 then e1 else e2|)° &=
-      °(x = ((|e0|) : Bool) tin true) ? (|e1|) : (|e2|)°\\
+    °(|if isT x then $e_1$ else $e_2$|)° &= °(x = x tin T) ? (|$e_1$|) : (|$e_2$|)°\\
+    °(|if $e_0$ then $e_1$ else $e_2$|)° &=
+      °(x = ((|$e_0$|) : Bool) tin true) ? (|$e_1$|) : (|$e_2$|)°\\
     &{\itshape
-      if °e0° is not of the form °isT y°;
+      if °$e_0$° is not of the form °isT y°;
       with °x° a fresh variable} \\
-    °(|e.apf1. $\cdots$ . apfn|)° &= °(|e|).(||apf1||). $\cdots$ .(||apfn||)°\\
-    °(|e1.ap or e2|)° &= °(|e1.ap|) or (|e2|)°\\
-    °(|e1 op e2|)° &= °(|e1|) op (|e2|)°\\
+    °(|e.$apf_1$. $\cdots$ . $apf_n$|)° &= °(|e|).(||$apf_1$||). $\cdots$ .(||$apf_n$||)°\\
+    °(|$e_1$.ap or $e_2$|)° &= °(|$e_1$.ap|) or (|$e_2$|)°\\
+    °(|$e_1$ op $e_2$|)° &= °(|$e_1$|) op (|$e_2$|)°\\
     °(|e : τ|)° &= °(|e|) : (|τ|)°\\
 
     °(||DOLLAR{e}||)° &= °(|e|)°\\
@@ -56,10 +57,10 @@
 
 \begin{figure}[H]
   \begin{tabular}{ll}
-    °if e1|e2 then $e_{if}$ else $e_{then}$°
-      &$\rightarrow$ °if e1 then $e_{if}$ else (if e2 then $e_{if}$ else $e_{then}$)° \\
-    °if e1&e2 then $e_{if}$ else $e_{then}$°
-      &$\rightarrow$ °if e1 then (if e2 then $e_{if}$ else $e_{then}$) else $e_{if}$° \\
+    °if $e_1$|$e_2$ then $e_{if}$ else $e_{then}$°
+      &$\rightarrow$ °if $e_1$ then $e_{if}$ else (if $e_2$ then $e_{if}$ else $e_{then}$)° \\
+    °if $e_1$&$e_2$ then $e_{if}$ else $e_{then}$°
+      &$\rightarrow$ °if $e_1$ then (if $e_2$ then $e_{if}$ else $e_{then}$) else $e_{if}$° \\
     °if not e then $e_{if}$ else $e_{then}$°
       &$\rightarrow$ °if e then $e_{then}$ else $e_{if}$°
   \end{tabular}
