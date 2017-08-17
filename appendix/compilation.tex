@@ -53,3 +53,15 @@
   \end{tabular}
   \caption{Compilation from Nix to Nix-light}\label{nix-light::compilation}
 \end{figure}
+
+\begin{figure}[H]
+  \begin{tabular}{ll}
+    °if e1|e2 then $e_{if}$ else $e_{then}$°
+      &$\rightarrow$ °if e1 then $e_{if}$ else (if e2 then $e_{if}$ else $e_{then}$)° \\
+    °if e1&e2 then $e_{if}$ else $e_{then}$°
+      &$\rightarrow$ °if e1 then (if e2 then $e_{if}$ else $e_{then}$) else $e_{if}$° \\
+    °if not e then $e_{if}$ else $e_{then}$°
+      &$\rightarrow$ °if e then $e_{then}$ else $e_{if}$°
+  \end{tabular}
+  \caption{Preprocessing of Nix conditionals}\label{nix-light::preprocessing}
+\end{figure}

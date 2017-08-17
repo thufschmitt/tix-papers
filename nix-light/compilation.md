@@ -72,3 +72,18 @@ $\flatten$ function defined above.
 A flattened recursive record definition `rec { x1 = e1; ...; xn = en; }` is
 then translated to a non-recursive one by the $\derec$ function defined in
 \Cref{compilation::derec}
+
+The source Nix program is preprocessed before this compilation to make the
+compilation of conditionals more precise: we want for example the expression
+`if (isInt x | isBool x) then x else false` (where `|` is the boolean
+disjunction) to be given the type `Int OR Bool`, but the compilation process
+will compile it as `(y = (isInt x | isBool x) tin true) ? x : false`, so we
+will not be able to perform occurrence typing on `x`.
+A simple pre-processing however is sufficient here, as this expression is
+semantically equivalent to
+`if isInt x then x else (if isBool x then x else false)`, and the latter will
+be compiled to the Nix-light expression
+`(x = x tin Int) ? x : ((x = x tin Bool) ? x : false)`, on which we will be
+able to perform occurrence typing for `x`.
+This pre-processing can be done for any boolean combination of expressions in
+the `if` clause thanks to the rewriting rules of \Cref{nix-light::preprocessing}
