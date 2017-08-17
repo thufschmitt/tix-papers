@@ -14,17 +14,6 @@
      distinct).
     \caption{Definition of the $\flatten$ function on records\label{compilation::flatten}}
 \end{figure}
-\begin{figure}[H]
-  \begin{displaymath}
-    \derec\left(\text{ rec }\left\{ \seq{x_i = e_i }{i \in I} \right\}\right) =
-      \text{let } \seq{x'_i = e'_i}{i \in I} \text{ in }
-      \left\{ \seq{x_i = x'_i}{i \in I} \right\}
-  \end{displaymath}
-
-  \center Where the $x'_i$'s are fresh variables and each $e'_i$ is equal to
-  $e_i\left[\seq{x_i := x'_i}{i \in I}\right]$.
-  \caption{Definition of the $\derec$ function on records\label{compilation::derec}}
-\end{figure}
 
 \begin{figure}[H]
   \begin{tabular}{ll}

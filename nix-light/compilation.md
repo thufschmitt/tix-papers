@@ -70,8 +70,12 @@ idea that we want to transform `{ x.y = 1; x.z = 2; }` into
 To translate a recursive record definition, we first flatten it using the
 $\flatten$ function defined above.
 A flattened recursive record definition `rec { x1 = e1; ...; xn = en; }` is
-then translated to a non-recursive one by the $\derec$ function defined in
-\Cref{compilation::derec}
+then translated to a non-recursive one by the $\derec$ function defined as
+\begin{displaymath}
+  \derec\left(\text{ rec }\left\{ \seq{x_i = e_i }{i \in I} \right\}\right) =
+    \text{let } \seq{x_i = e_i}{i \in I} \text{ in }
+    \left\{ \seq{x_i = x_i}{i \in I} \right\}
+\end{displaymath}
 
 The source Nix program is preprocessed before this compilation to make the
 compilation of conditionals more precise: we want for example the expression
