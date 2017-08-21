@@ -1,5 +1,4 @@
-\newcommand{\cduce}{CDuce}
-Instead of implementing our own implementation of types and of the subtyping
+Instead of working our own implementation of types and of the subtyping
 algorithm, we reused those of the implementation of the \cduce{}
 language[@Ball03].
 
@@ -8,8 +7,8 @@ features a type-system based on the set-theoretic types of @Fri04 (on which
 this work is itself based).
 Although its type-system is obviously not the same as the one presented here,
 its types form a supertype of ours (with the exception of the gradual type
-which is absent in \cduce{} but may be encoded as a distinguished type constant),
-so we could reuse its representation.
+which is absent in \cduce{} but may be encoded), so we could reuse its
+representation.
 
 We also wanted to reuse its subtyping algorithm (since implementing it would
 have taken way too much time), but this was more difficult, as it implements a

@@ -9,7 +9,7 @@ types].
 The regular expressions `ρ` describe the types of the elements of the list the
 same way as a textual regular expression describes a family of characters
 sequence.
-For example, `[ Int* ]` is the type of (possibly empty )lists whose elements
+For example, `[ Int* ]` is the type of (possibly empty) lists whose elements
 are of type `Int`, `[ Bool Int* ]` the type of lists containing a boolean and
 then an arbitrary number of integers and `[ (Bool+ | (Int String*)) Int? ]` is
 the type of lists that contain either at least one boolean, or an integer

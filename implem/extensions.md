@@ -45,9 +45,9 @@ will not.
 It is possible to get more flexibility by recognizing that the notion of a
 predicate on a type `t` is a function of type
 `(t -> true) AND ($\lnot$t -> false)`.
-We can thus modify the Nix-light language by replacing the typecase and
-replacing it with an if construct, and replace the typecase rules by the
-following ones:
+We can thus modify the Nix-light language by removing the typecase and
+replacing it with an if construct, and replace the associated typing rules by
+the following ones:
 
 \begin{mathpar}
   \inferrule{
@@ -113,10 +113,10 @@ Otherwise, if its arguments evaluates to a value `v`, it evaluates to
 As long as we do not try to track exceptions, a reasonable rule for this is:
 
 \begin{displaymath}
-  \inferrule{Γ \vdash e : τ}{%
-    Γ \vdash \operatorname{tryEval}(e) : \{ success = \text{Bool}; value = \text{Bool} \vee τ \}}
+  \inferrule{Γ \tIC e : τ}{%
+    Γ \tIC \operatorname{tryEval}(e) : \{ success = \text{Bool}; value = \text{false} \vee τ \}}
 \end{displaymath}
 
 (note that in presence of polymorphism, it would have been enough to type
 `tryEval` as a function of type
-`$\forall \alpha$. $\alpha$ -> { success = Bool; value = $\alpha$ | Bool}`).
+`$\forall \alpha$. $\alpha$ -> { success = Bool; value = $\alpha$ $\vee$ false}`).

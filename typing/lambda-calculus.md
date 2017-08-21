@@ -6,7 +6,7 @@ consisting of a lambda-calculus with typecase (i.e., we exclude lists and
 records and all the related operations which will be dealt with in
 \Cref{typing::structures}).
 
-The type-system is divided into two parts: an "inference" system and a "check"
+The type-system is divided into two parts: an *inference* system and a *check*
 one.
 The first one corresponds to classical bottom-up type inference while the
 second one is a top-down system which does not do any inference but only tries
@@ -128,8 +128,8 @@ then $\A(\tau)$ is defined as
 where $\sqcup$ is itself defined as
 
 \begin{displaymath}
-  \{ σ_i \rightarrow \tau_i \| i \in I \} \sqcup \{ σ_j \rightarrow \tau_j \| j \in J \} =
-    \{ (σ_i \wedge σ_j) \rightarrow (\tau_i \vee \tau_j) \| i \in I, j \in J \}
+  \{ σ_i \rightarrow \tau_i | i \in I \} \sqcup \{ σ_j \rightarrow \tau_j | j \in J \} =
+    \{ (σ_i \wedge σ_j) \rightarrow (\tau_i \vee \tau_j) | i \in I, j \in J \}
 \end{displaymath}
 
 @Fri04 shows that $τ$ can always be expressed in the form of the

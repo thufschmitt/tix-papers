@@ -17,14 +17,13 @@ type-system. In particular :
   `λx. if isInt x then x==1 else not x` can be typed (with type
   `Int $\vee$ Bool -> Bool`).
 
-Several existing type-systems already try to satisfy these requirements.
-The most well-known one is probably the type-system of Typed Racket (@FH08), which
+Several existing type-systems already try to satisfy these requirements.  The
+most well-known one is probably the type-system of Typed Racket (@FH08), which
 already implements at an industrial level most of what is needed in the context
 of the Scheme language.
 
-The approach we choose here is based on the work of Alain Frisch and Giuseppe
-Castagna on set-theoretic types (@Fri04 and @Cas15), with extensions brought by
-Kim Nguyễn (@phdkim) and Giuseppe Castagna and Victor Lanvin (@CL17).
+The approach we choose here is based on the work of @Fri04 and @Cas15 on
+set-theoretic types, with extensions brought by @phdkim and @CL17.
 
 The system is based on a set-theoretic interpretation of types as a sets of
 values, which provides a natural interpretation for union, intersection or

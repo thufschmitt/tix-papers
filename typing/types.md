@@ -1,6 +1,6 @@
 ### Presentation of the types
 
-The types are inspired by the set-theoretic types used in the CDuce language
+The types are inspired by the set-theoretic types used in the \cduce{} language
 and described by @Fri04.
 Their syntax is given alongside Nix-light's grammar in
 \Cref{nix-light::grammar}.
@@ -38,12 +38,12 @@ problems on a lazy semantic.
 The reason for this is that the interpretation supposes fully evaluated values,
 while a lazy language manipulates possibly non-evaluated expressions, whose
 evaluation may never finish if forced. In particular, the `Empty` types behaves
-differently: there exists no value of this type (so its interpretation as set
+differently: there exists no value of this type (so its interpretation as a set
 is naturally the empty set), but there may be expressions of this type, which
 themselves may appear inside values in a lazy setting.
-For example, the type `{ x = Empty }` would be not inhabited in a strict semantic
-(so it would itself be a subtype of every other type, the same way as `Empty`
-itself), whereas in a lazy semantic such as the one of Nix-light, it is
+For example, the type `{ x = Empty }` would not be inhabited in a strict
+semantic (so it would itself be a subtype of every other type, the same way as
+`Empty` itself), whereas in a lazy semantic such as the one of Nix-light, it is
 inhabited for example by `{ x = let y = y in y; }`.
 
 It is possible to modify this interpretation to take this difference into
@@ -58,3 +58,5 @@ interpretation of @Fri04.  Here, it becomes $\left(\llbracket A \rrbracket \cup
 
 This new interpretation (which is described by @CP17) entails a new subtyping
 algorithm that fits the requirements of a lazy semantic.
+It is this relation (that we note $\subtype$) that we use and extend to the
+gradual subtyping relation $\subtypeG$.

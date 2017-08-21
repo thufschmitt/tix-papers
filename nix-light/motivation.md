@@ -18,13 +18,14 @@ the type `{ x = Int }`.
 Thanks to the use of overloaded functions, we can even give a useful typing to
 more complex applications. If `f` is of type
 `(Int -> Bool) AND (String -> String)` (i.e., `f` is an overloaded function
-which is a function of type `Int -> Bool` and as a function of type
+which is both a function of type `Int -> Bool` and a function of type
 `String -> String`), we can give the type `{ x = Bool; y = String }` to the
 expression `mapAttr f { x = 1; y = "foo"; }`.
 But these two expressions corresponds to two incompatibles types for `mapAttr`
 (namely `(Int -> Int) -> { x = Int } -> { x = Int }` and
-`(Int -> Bool AND String -> String) -> { x = Int; y = String } -> { x = Bool; y = String }`.
+`(Int -> Bool AND String -> String) -> { x = Int; y = String } -> { x = Bool; y = String }`).
 
 Because of this, it is quite hard to reason on Nix.
-Thus, we decided not to work on Nix itself, but on a simpler language, to which
-Nix (or at least a large enough subset of it) can be compiled.
+Thus, we decided not to work on Nix itself, but on a simpler language,
+Nix-light, to which Nix (or at least a large enough subset of it) can be
+compiled.

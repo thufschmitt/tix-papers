@@ -10,14 +10,14 @@ In Nix, there are two main uses of records
 - Static records: This is the classical use of records as they are used in
   statically typed languages: some predefined fields contain various
   informations about a structure.
-  In this setting, the labels are all statically defined as litteral
-  strings^[For some shameful reasons, it sometimes happens that those are
-  defined as a finite union of literal strings, so the rules should also support
-  this use-case] and the different fields are likely to contain values of
-  different types.
+  In this setting, the labels are all statically defined as expressions whose
+  type is type is a singleton string^[For some shameful reasons, it sometimes
+  happens that their type is a finite union of singleton strings, but the rules
+  are easy to extend to this use-case] and the different fields are likely to
+  contain values of different types.
 
-- Dynamic maps: In this case, the record is used to store arbitrary key-value associations
-  (where the key is a string).
+- Dynamic maps: In this case, the record is used to store arbitrary key-value
+  associations (where the key is a string).
   The labels here may be defined as arbitrary expressions, however most of the
   time the values will all be of the same type.
 
@@ -31,10 +31,15 @@ requirements of lazy evaluation and gradual typing).
 We assume the existence of a distinguished constant type `$\undefr$` which
 represents an absent field in a record type.
 
-We write `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; }` as a shorthand for
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = $τ$ }` is the type of a record
+whose fields `$x_1$`, $\cdots$, `$x_n$` are respectively of type `$τ_1$`,
+$\cdots$, `$τ_n$` and whose other fields are of type `$τ$` (all these fields
+being possibly equal to or containing the special `$\undefr$` field meaning
+that they are not defined in the record).
+We write `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$ }` as a shorthand for
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = $\undefr$ }` and
 `{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; .. }` for
-`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any }`.
+`{ $x_1$ = $τ_1$; $\cdots$; $x_n$ = $τ_n$; _ = Any $\vee$ $\undefr$ }`.
 The former corresponds to a *closed* record type (i.e., a record of this type
 will have *exactly* the listed fields with the given types) while the latter
 corresponds to an *open* record type (i.e., a record of this type will have *at
@@ -65,9 +70,8 @@ We have two rules for the literal records, corresponding to the two use-cases
 of records:
 
 - The *RFinite* rule handles the case of static records.
-  It applies when the labels have singleton types (or a finite union of
-  singleton types) and corresponds to the classical typing rule for records in
-  absence of dynamic labels.
+  It applies when the labels have singleton types  and corresponds to the
+  classical typing rule for records in absence of dynamic labels.
 
 - The *IRInfinite* and *CRInfinite* rules handle the case of dynamic maps. In
     this case, we do not try to track all the elements of the record, we just
@@ -114,14 +118,20 @@ There are in fact three possible cases in this formula:
   type $τ_x$. The type of the result may be $τ_x$ or $τ_2(x)$.
 
 This definition enjoys a natural extension to arbitrary record types (i.e.,
-subtypes of `{..}`), as shown by @Cas15 (a record type can be expressed as an
+subtypes of `{..}`), as shown by @Cas15: a record type can be expressed as an
 union of atomic record types, and we extends the $+$ operator by stating that
 \begin{displaymath}
   \left(\bigvee\limits_{i \in I} τ_i\right) + \left(\bigvee\limits_{j \in J} τ_j\right) =
     \bigvee\limits_{i \in I,j \in J} (τ_i + τ_j)
 \end{displaymath}
 
+This effectively allows us to type the union of expressions whose types are
+arbitrary record types.
+
 #### Field access
+
+We now define the typing of expressions of the form `e1.e2` or `e1.e2 or e3`
+(i.e., the access of a field of a record).
 
 \newcommand{\defr}{\operatorname{def}}
 For a record type $τ = \{ x_1 = τ_1; \cdots; x_n = τ_n; \_ = τ_0 \}$, we

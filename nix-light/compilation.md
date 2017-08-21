@@ -47,7 +47,7 @@ The compilation of records is slightly complex, for two reasons:
     For example, the record `{ DOLLAR{e1}.x = 1; DOLLAR{e2}.y = 2; }` may be
     either of the form `{ z = { x = 1; y = 2; }; }` or
     `{ z1 = { x = 1; }; z2 = { x = 2; }; }` depending on whether `e1` and `e2`
-    evaluate to the same value or not.
+    evaluate to the same value `z` or not.
     It is then impossible to compile this exactly.
 
     The solution we use here is to always assume that they are different.
@@ -90,4 +90,5 @@ be compiled to the Nix-light expression
 `(x = x tin Int) ? x : ((x = x tin Bool) ? x : false)`, on which we will be
 able to perform occurrence typing for `x`.
 This pre-processing can be done for any boolean combination of expressions in
-the `if` clause thanks to the rewriting rules of \Cref{nix-light::preprocessing}
+the `if` clause thanks to the rewriting rules of
+\Cref{nix-light::preprocessing}.

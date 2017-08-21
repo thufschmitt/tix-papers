@@ -48,12 +48,12 @@ aspects:
 - \texttt{nixpkgs}, the Nix package collection is today several hundreds of
   thousands of lines of code, with some really complex parts.
   The absence of typing makes every non-trivial modification particularly
-  complicated and dangerous.
+  complicated and dangerous;
 
 - Partly because of its very fast grow, the project suffers from a huge lack of
   documentation. In particular, a lot of complex internal abstractions are used
   but not documented at all.
-  A type-system would reduce the impact of this problem.
+  A type-system would reduce the impact of this problem;
 
 - Nix explores some really interesting ideas by applying to system management
   some principles coming from programing. Adding a type-system to it opens new
@@ -66,11 +66,11 @@ The language presents many characteristics that constrain a type-system for it:
 
 - It is possible to know at runtime the type of a value. This functionality is
   used a lot in practice and requires a notion of union types to be useful, as
-  we will see.
+  we will see;
 
 - The fields of the records may have dynamically defined labels (i.e., labels
   which are defined as the result of the evaluation of an arbitrary expression
-  − provided it evaluates to a string).
+  − provided it evaluates to a string);
 
 - The language has been existing for ten years without a type-system. This
   naturally led to the introduction of several programing patterns are hard to

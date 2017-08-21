@@ -90,7 +90,7 @@ We now extends our core calculus with the two builtins data structures of Nix
 \label{sec:implementation}
 \input{out/generated/implem/intro.tex}
 
-## CDuce and subtyping
+## \cduce{} and subtyping
 \input{out/generated/implem/cduce.tex}
 
 ## Adaptation of the type-system

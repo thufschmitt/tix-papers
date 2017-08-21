@@ -13,9 +13,9 @@ This language is a lazily-evaluated lambda calculus, with some additions,
 namely:
 
 - Constants, let-bindings (always recursive), some (hardcoded) infix operators
-  and `if` constructs.
+  and `if` constructs;
 
-- Lists, constructed by the `[<expr> $\cdots$ <expr>]` syntax.
+- Lists, constructed by the `[<expr> $\cdots$ <expr>]` syntax;
 
 - Records, defined by the `{ <record-field>; ... <record-field>; }` syntax.
   The labels of record fields may be dynamically defined as the result of
@@ -26,7 +26,7 @@ namely:
   Records may be recursively defined (using the `rec` keyword), in which case,
   fields may depend one from another.
   For example, the expression `rec { x = 1; y = x; }` is equivalent to
-  `{ x = 1; y = 1; }`.
+  `{ x = 1; y = 1; }`;
 
 - A syntax for accessing record fields, of the form `<expr>.<access-path>`.
     Like for the definition of record litterals, the field names may be arbitrary
@@ -37,22 +37,25 @@ namely:
 
     For example, `{ x = { y = 1; }; }.x.y` evaluates as `1`,
     `{ x = { y = 1; }; }.x.z or 2` evaluates as `2` and `{ x = { y = 2; }; }.y`
-    raises an error.
+    raises an error;
 
-- Lambda-abstractions can be defined with patterns.
+- Lambda-abstractions, that can be defined with patterns.
     Patterns only exists for records and are of the form
     `{ <pattern-field>, $\cdots$, <pattern-field> }`
     or
-    `{ <pattern-field>, $\cdots$, <pattern-field>, "..." }`, with the
+    `{ <pattern-field>, $\cdots$, <pattern-field>, .. }`, with the
     `<pattern-field>` construct of the form `<ident>` or `<ident> ? <expr>`
     (the latter specifying a default value in case the field is absent).
+    The `..` at the end of the pattern indicates that this pattern is *open*,
+    which means that it will accept a record with more fields than the ones that
+    are written.
 
     Contrary to most languages where the capture variable may be different
     from the name of the field (for example in OCaml, a pattern matching e
     record would be of the form `{ x = fieldname1; y = fieldname2; }` and the
     pattern `{ x; y }` is nothing but syntactic sugar for `{ x = x; y = y }`),
     Nix requires the name of the capture variable to be the same as the name of
-    the field.
+    the field;
 
 - Type annotations (absent in the actual language but added for this work).
     These annotations have been added as they are required by the typechecker.
@@ -60,7 +63,7 @@ namely:
     the gradual types (noted `<τ>`).
     The meaning of the types will be presented in \Cref{sec:typing}.
 
-    The constructions `<R>` and `<ρ>` represents type regular exepressions
+    The constructions `<R>` and `<ρ>` represents type regular expressions
     which will be presented in \Cref{typing::structures::listes}.
 
     The construction `<constant>` (for a type) represents singleton types: for
@@ -69,7 +72,7 @@ namely:
 In addition to these syntactic constructions, a lot of the expressiveness of
 the language resides in some predefined functions.
 For example, some functions perform some advanced operations on records, like
-the `attNames` function, which when applied to a record returns the list of the
+the `attrNames` function, which when applied to a record returns the list of the
 labels of this record (as strings).
 Another important class of functions is the set of functions that discriminate
 over a type, that is functions such as `isInt`, `isString`, `isBool`, and so on,

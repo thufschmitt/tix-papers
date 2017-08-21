@@ -5,8 +5,8 @@ apply concepts coming from the world of programing
 languages (functional ones in particular) to package management.
 This approach solves in a very elegant way many problems encountered by
 conventional package managers (Apt, Pacman, Yum, \ldots).
-The state of a machine is (apart from some irreducible mutable state)
-entirely described by the result of the evaluation of an expression in a
+The state of a machine managed by Nix is (apart from some irreducible mutable
+state) entirely described by the result of the evaluation of an expression in a
 (purely functional) specialized language also called Nix.
 
 ## Problem studied {-}
@@ -33,20 +33,20 @@ This works makes several technical contributions. In particular:
   occurrence typing,
 - an improved definition of bidirectional typing for set-theoretic type-systems.
   In particular, a technique to propagate type informations through the
-  syntactic tree (and in particular through lambdas)
+  syntactic tree (especially through lambdas),
 - an extension of the gradual type-system of @CL17 with records,
-- a new way of typing records with dynamic labels that extends the formalism of
-  @Fri04 with static records.
+- a new way of typing records with dynamic labels that extends the formalism
+  established by @Fri04 in the case of static records.
 
 But besides these technical aspects, the most important contribution of
 this work is, by far, that it brings together and integrates into a unique
 system five different typing techniques that hitherto lived in
 isolation one from the other, that is:
 
-1. gradual typing [@ST06][@CL17]
+1. gradual typing [@ST06; @CL17]
 2. occurrence typing [@FH08]
 3. set-theoretic types [@Fri04]
-4. bidirectional typing techniques [@HP98]
+4. bidirectional typing techniques [@HP98; @DN13]
 5. dynamic records
 
 The important distinctive aspect that characterizes our study is that this
@@ -67,9 +67,9 @@ flexibility to occurrence typing, which can typed by calculating the least
 upper bound of the different alternatives); *bidirectional typing* was adopted
 to allow the programmer to specify overloaded types for functions via a simple
 explicit annotation, without resorting to the heavy annotation that
-characterise functions in CDuce; *dynamic records* were forced on us by the
-insanely great flexibility that Nix designers have decided to give to their
-language.
+characterise functions in most similar type-systems; *dynamic records* were
+forced on us by the insanely great flexibility that Nix designers have decided
+to give to their language.
 
 Choosing an existing language also forced us to privilege practical
 aspects over theoretical ones − with the drawbacks and the advantages that this
@@ -117,3 +117,10 @@ An annoying lack that would deserve to be filled is the absence of polymorphism
 in the type system. This was essentially due to the fact that the gradual
 typing system of @CL17 was set in a monomorphic type-system. However, a recent
 extension by @Call18 adds polymorphism to this system, which may be used here.
+
+#### Note on the language {-}
+
+A large part of this document is intended to be presented in the conference
+\<Programming\> 2018^[http://2018.programming-conference.org/], which is
+why it is written in English.
+
